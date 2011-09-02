@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Numero serie:</b>
+  <%= @item.numero_serie %>
+</p>
+
+<p>
+  <b>Patrimonio:</b>
+  <%= @item.patrimonio %>
+</p>
+
+<p>
+  <b>Data aquisicao:</b>
+  <%= @item.data_aquisicao %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @item.status %>
+</p>
+
+<p>
+  <b>Valor aquisicao:</b>
+  <%= @item.valor_aquisicao %>
+</p>
+
+<p>
+  <b>Tipo recurso:</b>
+  <%= @item.tipo_recurso %>
+</p>
+
+<p>
+  <b>Vencimento garantia:</b>
+  <%= @item.vencimento_garantia %>
+</p>
+
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>

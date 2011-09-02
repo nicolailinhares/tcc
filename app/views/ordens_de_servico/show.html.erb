@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Data abertura:</b>
+  <%= @ordem_de_servico.data_abertura %>
+</p>
+
+<p>
+  <b>Data fechamento:</b>
+  <%= @ordem_de_servico.data_fechamento %>
+</p>
+
+<p>
+  <b>Custo peca:</b>
+  <%= @ordem_de_servico.custo_peca %>
+</p>
+
+<p>
+  <b>Custo mao de obra:</b>
+  <%= @ordem_de_servico.custo_mao_de_obra %>
+</p>
+
+<p>
+  <b>Custo frete:</b>
+  <%= @ordem_de_servico.custo_frete %>
+</p>
+
+<p>
+  <b>Tipo servico:</b>
+  <%= @ordem_de_servico.tipo_servico %>
+</p>
+
+<p>
+  <b>Manutencao interna:</b>
+  <%= @ordem_de_servico.manutencao_interna %>
+</p>
+
+<p>
+  <b>Tipo defeito:</b>
+  <%= @ordem_de_servico.tipo_defeito %>
+</p>
+
+<p>
+  <b>Descricao falha:</b>
+  <%= @ordem_de_servico.descricao_falha %>
+</p>
+
+<p>
+  <b>Descricao solucao:</b>
+  <%= @ordem_de_servico.descricao_solucao %>
+</p>
+
+
+<%= link_to 'Edit', edit_ordem_de_servico_path(@ordem_de_servico) %> |
+<%= link_to 'Back', ordens_de_servico_path %>

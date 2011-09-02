@@ -1,0 +1,23 @@
+<h1>Listing equipamentos</h1>
+
+<table>
+  <tr>
+    <th>Nome</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @equipamentos.each do |equipamento| %>
+  <tr>
+    <td><%= equipamento.nome %></td>
+    <td><%= link_to 'Show', equipamento %></td>
+    <td><%= link_to 'Edit', edit_equipamento_path(equipamento) %></td>
+    <td><%= link_to 'Destroy', equipamento, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Equipamento', new_equipamento_path %>

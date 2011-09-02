@@ -1,0 +1,45 @@
+<%= form_for(@item) do |f| %>
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+      <% @item.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :numero_serie %><br />
+    <%= f.text_field :numero_serie %>
+  </div>
+  <div class="field">
+    <%= f.label :patrimonio %><br />
+    <%= f.text_field :patrimonio %>
+  </div>
+  <div class="field">
+    <%= f.label :data_aquisicao %><br />
+    <%= f.date_select :data_aquisicao %>
+  </div>
+  <div class="field">
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </div>
+  <div class="field">
+    <%= f.label :valor_aquisicao %><br />
+    <%= f.text_field :valor_aquisicao %>
+  </div>
+  <div class="field">
+    <%= f.label :tipo_recurso %><br />
+    <%= f.text_field :tipo_recurso %>
+  </div>
+  <div class="field">
+    <%= f.label :vencimento_garantia %><br />
+    <%= f.date_select :vencimento_garantia %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

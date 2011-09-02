@@ -1,0 +1,29 @@
+<%= form_for(@sala) do |f| %>
+  <% if @sala.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sala.errors.count, "error") %> prohibited this sala from being saved:</h2>
+
+      <ul>
+      <% @sala.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nome %><br />
+    <%= f.text_field :nome %>
+  </div>
+  <div class="field">
+    <%= f.label :lista_itens %><br />
+    <%= f.text_field :lista_itens %>
+  </div>
+  <div class="field">
+    <%= f.label :localizacao %><br />
+    <%= f.text_field :localizacao %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

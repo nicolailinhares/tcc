@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nome:</b>
+  <%= @setor.nome %>
+</p>
+
+<p>
+  <b>Endereco:</b>
+  <%= @setor.endereco %>
+</p>
+
+<p>
+  <b>Bairro:</b>
+  <%= @setor.bairro %>
+</p>
+
+<p>
+  <b>Cidade:</b>
+  <%= @setor.cidade %>
+</p>
+
+<p>
+  <b>Estado:</b>
+  <%= @setor.estado %>
+</p>
+
+
+<%= link_to 'Edit', edit_setor_path(@setor) %> |
+<%= link_to 'Back', setores_path %>

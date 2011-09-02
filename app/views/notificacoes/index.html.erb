@@ -1,0 +1,23 @@
+<h1>Listing notificacoes</h1>
+
+<table>
+  <tr>
+    <th>Descricao falha</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @notificacoes.each do |notificacao| %>
+  <tr>
+    <td><%= notificacao.descricao_falha %></td>
+    <td><%= link_to 'Show', notificacao %></td>
+    <td><%= link_to 'Edit', edit_notificacao_path(notificacao) %></td>
+    <td><%= link_to 'Destroy', notificacao, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Notificacao', new_notificacao_path %>

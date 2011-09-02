@@ -1,0 +1,41 @@
+<h1>Listing ordens_de_servico</h1>
+
+<table>
+  <tr>
+    <th>Data abertura</th>
+    <th>Data fechamento</th>
+    <th>Custo peca</th>
+    <th>Custo mao de obra</th>
+    <th>Custo frete</th>
+    <th>Tipo servico</th>
+    <th>Manutencao interna</th>
+    <th>Tipo defeito</th>
+    <th>Descricao falha</th>
+    <th>Descricao solucao</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ordens_de_servico.each do |ordem_de_servico| %>
+  <tr>
+    <td><%= ordem_de_servico.data_abertura %></td>
+    <td><%= ordem_de_servico.data_fechamento %></td>
+    <td><%= ordem_de_servico.custo_peca %></td>
+    <td><%= ordem_de_servico.custo_mao_de_obra %></td>
+    <td><%= ordem_de_servico.custo_frete %></td>
+    <td><%= ordem_de_servico.tipo_servico %></td>
+    <td><%= ordem_de_servico.manutencao_interna %></td>
+    <td><%= ordem_de_servico.tipo_defeito %></td>
+    <td><%= ordem_de_servico.descricao_falha %></td>
+    <td><%= ordem_de_servico.descricao_solucao %></td>
+    <td><%= link_to 'Show', ordem_de_servico %></td>
+    <td><%= link_to 'Edit', edit_ordem_de_servico_path(ordem_de_servico) %></td>
+    <td><%= link_to 'Destroy', ordem_de_servico, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ordem de servico', new_ordem_de_servico_path %>

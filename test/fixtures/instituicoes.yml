@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  numero_leitos: 1
+  nome: MyString
+  endereco: MyString
+  bairro: MyString
+  cidade: MyString
+  complemento: MyString
+  estado: MyString
+
+two:
+  numero_leitos: 1
+  nome: MyString
+  endereco: MyString
+  bairro: MyString
+  cidade: MyString
+  complemento: MyString
+  estado: MyString

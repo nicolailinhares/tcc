@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Numero leitos:</b>
+  <%= @instituicao.numero_leitos %>
+</p>
+
+<p>
+  <b>Nome:</b>
+  <%= @instituicao.nome %>
+</p>
+
+<p>
+  <b>Endereco:</b>
+  <%= @instituicao.endereco %>
+</p>
+
+<p>
+  <b>Bairro:</b>
+  <%= @instituicao.bairro %>
+</p>
+
+<p>
+  <b>Cidade:</b>
+  <%= @instituicao.cidade %>
+</p>
+
+<p>
+  <b>Complemento:</b>
+  <%= @instituicao.complemento %>
+</p>
+
+<p>
+  <b>Estado:</b>
+  <%= @instituicao.estado %>
+</p>
+
+
+<%= link_to 'Edit', edit_instituicao_path(@instituicao) %> |
+<%= link_to 'Back', instituicoes_path %>

@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  data_abertura: 2011-09-02
+  data_fechamento: 2011-09-02
+  custo_peca: 1.5
+  custo_mao_de_obra: 1.5
+  custo_frete: 1.5
+  tipo_servico: 1
+  manutencao_interna: false
+  tipo_defeito: 1
+  descricao_falha: MyString
+  descricao_solucao: MyString
+
+two:
+  data_abertura: 2011-09-02
+  data_fechamento: 2011-09-02
+  custo_peca: 1.5
+  custo_mao_de_obra: 1.5
+  custo_frete: 1.5
+  tipo_servico: 1
+  manutencao_interna: false
+  tipo_defeito: 1
+  descricao_falha: MyString
+  descricao_solucao: MyString

@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  numero_serie: MyString
+  patrimonio: 
+  data_aquisicao: 2011-09-02
+  status: 1
+  valor_aquisicao: 1
+  tipo_recurso: 1
+  vencimento_garantia: 2011-09-02
+
+two:
+  numero_serie: MyString
+  patrimonio: 
+  data_aquisicao: 2011-09-02
+  status: 1
+  valor_aquisicao: 1
+  tipo_recurso: 1
+  vencimento_garantia: 2011-09-02
