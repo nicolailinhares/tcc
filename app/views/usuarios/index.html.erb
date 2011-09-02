@@ -15,13 +15,13 @@
     <td><%= usuario.nome %></td>
     <td><%= usuario.telefone %></td>
     <td><%= usuario.nivel %></td>
-    <td><%= link_to 'Show', usuario %></td>
-    <td><%= link_to 'Edit', edit_usuario_path(usuario) %></td>
-    <td><%= link_to 'Destroy', usuario, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Informações', instituicao_usuario_path(@instituicao,usuario) %></td>
+    <td><%= link_to 'Edit', edit_instituicao_usuario_path(@instituicao,usuario) %></td>
+    <td><%= link_to 'Destroy', instituicao_usuario_path(@instituicao,usuario), :confirm => 'Confirma exclusão de usuário?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Usuario', new_usuario_path %>
+<%= link_to 'Novo usuário', new_instituicao_usuario_path %>

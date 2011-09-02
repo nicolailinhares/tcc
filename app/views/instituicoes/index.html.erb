@@ -12,6 +12,8 @@
     <th></th>
     <th></th>
     <th></th>
+    <th></th>
+    <th></th>
   </tr>
 
 <% @instituicoes.each do |instituicao| %>
@@ -23,13 +25,15 @@
     <td><%= instituicao.cidade %></td>
     <td><%= instituicao.complemento %></td>
     <td><%= instituicao.estado %></td>
-    <td><%= link_to 'Show', instituicao %></td>
-    <td><%= link_to 'Edit', edit_instituicao_path(instituicao) %></td>
-    <td><%= link_to 'Destroy', instituicao, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Informações', instituicao %></td>
+    <td><%= link_to 'Editar', edit_instituicao_path(instituicao) %></td>
+    <td><%= link_to 'Excluir', instituicao, :confirm => 'Confirma a exclusão da instituição?', :method => :delete %></td>
+    <td><%= link_to 'Usuários', instituicao_usuarios_path(instituicao)%>
+    <td><%= link_to 'Setores', instituicao_setores_path(instituicao)%>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Instituicao', new_instituicao_path %>
+<%= link_to 'Nova Instituição', new_instituicao_path %>

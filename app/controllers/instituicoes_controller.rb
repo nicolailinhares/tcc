@@ -44,7 +44,7 @@ class InstituicoesController < ApplicationController
 
     respond_to do |format|
       if @instituicao.save
-        format.html { redirect_to(@instituicao, :notice => 'Instituicao was successfully created.') }
+        format.html { redirect_to instituicoes_path }
         format.xml  { render :xml => @instituicao, :status => :created, :location => @instituicao }
       else
         format.html { render :action => "new" }

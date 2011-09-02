@@ -1,6 +1,8 @@
 class Modelo
-  include MongoMapper::Document
+  include MongoMapper::EmbeddedDocument
 
   key :nome, String
-
+  key :marca_id, ObjectId
+  key :nome_marca, String
+  
 end

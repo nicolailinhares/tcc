@@ -1,8 +1,9 @@
 class Sala
-  include MongoMapper::Document
+  include MongoMapper::EmbeddedDocument
 
   key :nome, String
-  key :lista_itens, Array
   key :localizacao, String
-
+  key :ids_de_item, Array
+  
+  many :itens, :in => :ids_de_item
 end

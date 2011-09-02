@@ -2,7 +2,7 @@ class UsuariosController < ApplicationController
   # GET /usuarios
   # GET /usuarios.xml
   def index
-    @usuarios = Usuario.all
+    @usuarios = @instituicao.usuarios
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +24,7 @@ class UsuariosController < ApplicationController
   # GET /usuarios/new
   # GET /usuarios/new.xml
   def new
-    @usuario = Usuario.new
+    @usuario = @instituicao.usuarios.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +34,13 @@ class UsuariosController < ApplicationController
 
   # GET /usuarios/1/edit
   def edit
-    @usuario = Usuario.find(params[:id])
+    @usuario = @instituicao.usuarios.find(params[:id])
   end
 
   # POST /usuarios
   # POST /usuarios.xml
   def create
-    @usuario = Usuario.new(params[:usuario])
+    @usuario = @instituicao.usuarios.new(params[:usuario])
 
     respond_to do |format|
       if @usuario.save
@@ -56,7 +56,7 @@ class UsuariosController < ApplicationController
   # PUT /usuarios/1
   # PUT /usuarios/1.xml
   def update
-    @usuario = Usuario.find(params[:id])
+    @usuario = @instituicao.usuarios.find(params[:id])
 
     respond_to do |format|
       if @usuario.update_attributes(params[:usuario])
@@ -72,8 +72,8 @@ class UsuariosController < ApplicationController
   # DELETE /usuarios/1
   # DELETE /usuarios/1.xml
   def destroy
-    @usuario = Usuario.find(params[:id])
-    @usuario.destroy
+    @instituicao.usuarios.delete_if {|usuario| usuario.id.to_s == params[:id]}
+    @instituicao.save
 
     respond_to do |format|
       format.html { redirect_to(usuarios_url) }

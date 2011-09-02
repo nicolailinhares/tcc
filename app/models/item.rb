@@ -1,5 +1,5 @@
 class Item
-  include MongoMapper::Document
+  include MongoMapper::EmbeddedDocument
 
   key :numero_serie, String
   key :patrimonio, String
@@ -8,5 +8,50 @@ class Item
   key :valor_aquisicao, Integer
   key :tipo_recurso, Integer
   key :vencimento_garantia, Date
+  key :sala_id, ObjectId
+  key :equipamento_id, ObjectId
+  key :nome_equipamento, String
+  
+  many :ordens_de_servico, :as => :ordenado
+  one :modelo
 
+  def self.texto_tipo_de_recurso n
+    TIPOS_DE_RECURSO[n]
+  end
+  
+  def self.tipos_de_recurso
+    TIPOS_DE_RECURSO.to_a.sort
+  end
+  
+   def nome_tipo_de_recurso
+    TIPOS_DE_RECURSO[tipo_de_recurso]
+  end
+  
+  def self.texto_status n
+    LISTA_DE_STATUS[n]
+  end
+  
+  def self.lista_de_status
+    LISTA_DE_STATUS.to_a.sort
+  end
+  
+   def nome_status
+    LISTA_DE_STATUS[status]
+  end
+  
+  private
+  TIPOS_DE_RECURSO =
+  {
+    1 => 'Profissional de saúde',
+    2 => 'Técnico',
+    3 => 'Gerente'
+  } 
+  LISTA_DE_STATUS =
+  {
+    1 => 'Em funcionamento',
+    2 => 'Aguardando instalação',
+    3 => 'Em manutenção preventiva',
+    4 => 'Em manutenção corretiva',
+    5 => 'Aguardando manutenção corretiva'
+  }
 end

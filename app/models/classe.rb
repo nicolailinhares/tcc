@@ -3,5 +3,7 @@ class Classe
 
   key :titulo, String
   key :requer_registro, Boolean
+  
+  many :equipamentos
 
 end

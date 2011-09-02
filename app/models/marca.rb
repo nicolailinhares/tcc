@@ -3,5 +3,5 @@ class Marca
 
   key :nome, String
   key :e_nacional, Boolean
-
+  
 end

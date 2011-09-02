@@ -1,21 +1,29 @@
 Tcc::Application.routes.draw do
-  resources :instituicoes
-
-  resources :usuarios
-
+  resources :instituicoes do
+    resources :usuarios
+    resources :setores do
+      resources :salas
+      resources :itens
+    end
+  end
+  
+  resources :equipamentos do
+    resources :modelos
+  end
+  
   resources :ordens_de_servico
 
   resources :notificacoes
 
-  resources :modelos
+  
 
-  resources :setores
+  
 
-  resources :salas
+  
 
-  resources :equipamentos
+  
 
-  resources :itens
+  
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

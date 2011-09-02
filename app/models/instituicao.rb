@@ -8,5 +8,9 @@ class Instituicao
   key :cidade, String
   key :complemento, String
   key :estado, String
+  
+  many :usuarios
+  many :setores
+  many :equipes_internas
 
 end
