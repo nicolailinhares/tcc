@@ -1,6 +1,6 @@
-<h1>Editing setor</h1>
+<h1>Setor</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @setor %> |
-<%= link_to 'Back', setores_path %>
+<%= link_to 'Info', instituicao_setor_path(@instituicao.id,@setor.id) %> |
+<%= link_to 'Voltar', instituicao_setores_path(@instituicao.id) %>

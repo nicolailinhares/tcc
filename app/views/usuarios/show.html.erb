@@ -12,9 +12,9 @@
 
 <p>
   <b>Nivel:</b>
-  <%= @usuario.nivel %>
+  <%= @usuario.nome_nivel %>
 </p>
 
 
-<%= link_to 'Edit', edit_usuario_path(@usuario) %> |
-<%= link_to 'Back', usuarios_path %>
+<%= link_to 'Edit', edit_instituicao_usuario_path(@instituicao.id,@usuario.id) %> |
+<%= link_to 'Back', instituicao_usuarios_path(@instituicao.id) %>

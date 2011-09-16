@@ -2,7 +2,7 @@ class UsuariosController < ApplicationController
   # GET /usuarios
   # GET /usuarios.xml
   def index
-    @usuarios = @instituicao.usuarios
+    @usuarios, gerentes = @instituicao.usuarios.partition{|usuario| usuario.nivel != 3}
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class UsuariosController < ApplicationController
   # GET /usuarios/1
   # GET /usuarios/1.xml
   def show
-    @usuario = Usuario.find(params[:id])
+    @usuario = @instituicao.usuarios.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -40,11 +40,11 @@ class UsuariosController < ApplicationController
   # POST /usuarios
   # POST /usuarios.xml
   def create
-    @usuario = @instituicao.usuarios.new(params[:usuario])
+    @usuario = @instituicao.usuarios.build(params[:usuario])
 
     respond_to do |format|
-      if @usuario.save
-        format.html { redirect_to(@usuario, :notice => 'Usuario was successfully created.') }
+      if @instituicao.save
+        format.html { redirect_to(instituicao_usuario_path(@instituicao.id,@usuario.id), :notice => 'Usuario was successfully created.') }
         format.xml  { render :xml => @usuario, :status => :created, :location => @usuario }
       else
         format.html { render :action => "new" }
@@ -60,7 +60,7 @@ class UsuariosController < ApplicationController
 
     respond_to do |format|
       if @usuario.update_attributes(params[:usuario])
-        format.html { redirect_to(@usuario, :notice => 'Usuario was successfully updated.') }
+        format.html { redirect_to(instituicao_usuario_path(@instituicao.id,@usuario.id), :notice => 'Usuario was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -76,7 +76,7 @@ class UsuariosController < ApplicationController
     @instituicao.save
 
     respond_to do |format|
-      format.html { redirect_to(usuarios_url) }
+      format.html { redirect_to(instituicao_usuarios_url) }
       format.xml  { head :ok }
     end
   end

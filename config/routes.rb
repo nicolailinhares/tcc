@@ -15,7 +15,7 @@ Tcc::Application.routes.draw do
 
   resources :notificacoes
 
-  
+  root :to => 'instituicoes#redireciona'
 
   
 

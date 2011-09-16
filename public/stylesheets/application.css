@@ -1,0 +1,33 @@
+#containerMenu
+{
+	margin: 0 auto;
+	border-bottom: solid 3px black;
+}
+
+#menu{
+	padding: 0;
+}
+
+#menu li
+{
+	display: inline;
+	list-style: none;
+}
+
+#menu li a
+{
+	font-size: 1.5em;
+	color: black;
+	margin: 0.2em;
+}
+
+#menu li a:hover
+{
+	background-color: black;
+	color: #e1e1e1;
+}
+
+#menu li.selecionado{
+	font-size: 1.5em;
+	color: #515151;
+}

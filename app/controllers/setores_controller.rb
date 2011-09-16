@@ -2,7 +2,7 @@ class SetoresController < ApplicationController
   # GET /setores
   # GET /setores.xml
   def index
-    @setores = Setor.all
+    @setores = @instituicao.setores
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,7 @@ class SetoresController < ApplicationController
   # GET /setores/1
   # GET /setores/1.xml
   def show
-    @setor = Setor.find(params[:id])
+    @setor = @instituicao.setores.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +24,7 @@ class SetoresController < ApplicationController
   # GET /setores/new
   # GET /setores/new.xml
   def new
-    @setor = Setor.new
+    @setor = @instituicao.setores.build(:endereco => @instituicao.endereco, :bairro => @instituicao.bairro, :cidade => @instituicao.cidade, :estado => @instituicao.estado)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,17 +34,17 @@ class SetoresController < ApplicationController
 
   # GET /setores/1/edit
   def edit
-    @setor = Setor.find(params[:id])
+    @setor = @instituicao.setores.find(params[:id])
   end
 
   # POST /setores
   # POST /setores.xml
   def create
-    @setor = Setor.new(params[:setor])
+    @setor = @instituicao.setores.build(params[:setor])
 
     respond_to do |format|
-      if @setor.save
-        format.html { redirect_to(@setor, :notice => 'Setor was successfully created.') }
+      if @instituicao.save
+        format.html { redirect_to(instituicao_setor_path(@instituicao.id,@setor.id), :notice => 'Setor was successfully created.') }
         format.xml  { render :xml => @setor, :status => :created, :location => @setor }
       else
         format.html { render :action => "new" }
@@ -56,11 +56,11 @@ class SetoresController < ApplicationController
   # PUT /setores/1
   # PUT /setores/1.xml
   def update
-    @setor = Setor.find(params[:id])
+    @setor = @instituicao.setores.find(params[:id])
 
     respond_to do |format|
       if @setor.update_attributes(params[:setor])
-        format.html { redirect_to(@setor, :notice => 'Setor was successfully updated.') }
+        format.html { redirect_to(instituicao_setor_path(@instituica.id,@setor.id), :notice => 'Setor was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -72,11 +72,11 @@ class SetoresController < ApplicationController
   # DELETE /setores/1
   # DELETE /setores/1.xml
   def destroy
-    @setor = Setor.find(params[:id])
-    @setor.destroy
+    @instituicao.setores.delete_if{|setor| setor.id.to_s == params[:id]}
+    @instituicao.save
 
     respond_to do |format|
-      format.html { redirect_to(setores_url) }
+      format.html { redirect_to(instituicao_setores_url) }
       format.xml  { head :ok }
     end
   end

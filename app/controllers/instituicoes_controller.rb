@@ -80,4 +80,8 @@ class InstituicoesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def redireciona
+    redirect_to instituicao_usuarios_path(@instituicao.id)
+  end
 end

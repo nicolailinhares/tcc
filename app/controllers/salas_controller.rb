@@ -2,7 +2,8 @@ class SalasController < ApplicationController
   # GET /salas
   # GET /salas.xml
   def index
-    @salas = Sala.all
+    @setor = @instituicao.setores.find(params[:setor_id])
+    @salas = @setor.salas
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +14,8 @@ class SalasController < ApplicationController
   # GET /salas/1
   # GET /salas/1.xml
   def show
-    @sala = Sala.find(params[:id])
+    @setor = @instituicao.setores.find(params[:setor_id])
+    @sala = setor.salas.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,7 +26,8 @@ class SalasController < ApplicationController
   # GET /salas/new
   # GET /salas/new.xml
   def new
-    @sala = Sala.new
+    @setor = @instituicao.setores.find(params[:setor_id])
+    @sala = setor.salas.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,17 +37,19 @@ class SalasController < ApplicationController
 
   # GET /salas/1/edit
   def edit
-    @sala = Sala.find(params[:id])
+    @setor = @instituicao.setores.find(params[:setor_id])
+    @sala = setor.salas.find(params[:id])
   end
 
   # POST /salas
   # POST /salas.xml
   def create
-    @sala = Sala.new(params[:sala])
+    @setor = @instituicao.setores.find(params[:setor_id])
+    @sala = setor.salas.build(params[:sala])
 
     respond_to do |format|
-      if @sala.save
-        format.html { redirect_to(@sala, :notice => 'Sala was successfully created.') }
+      if @instituicao.save
+        format.html { redirect_to(instituicao_setor_sala_path(@instituicao.id,@setor.id,@sala.id), :notice => 'Sala was successfully created.') }
         format.xml  { render :xml => @sala, :status => :created, :location => @sala }
       else
         format.html { render :action => "new" }
@@ -60,7 +65,7 @@ class SalasController < ApplicationController
 
     respond_to do |format|
       if @sala.update_attributes(params[:sala])
-        format.html { redirect_to(@sala, :notice => 'Sala was successfully updated.') }
+        format.html { redirect_to(instituicao_setor_sala_path(@instituicao.id,@setor.id,@sala.id), :notice => 'Sala was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -72,11 +77,12 @@ class SalasController < ApplicationController
   # DELETE /salas/1
   # DELETE /salas/1.xml
   def destroy
-    @sala = Sala.find(params[:id])
-    @sala.destroy
+    @setor = @instituicao.setores.find(params[:setor_id])
+    setor.salas.delete_if{|sala| sala.id.to_s == params[:id]}
+    @instituicao.save
 
     respond_to do |format|
-      format.html { redirect_to(salas_url) }
+      format.html { redirect_to(instituicao_setor_salas_url) }
       format.xml  { head :ok }
     end
   end
