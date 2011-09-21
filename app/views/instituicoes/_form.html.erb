@@ -12,7 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :numero_leitos %><br />
+    <%= f.label :numero_leitos, 'Número de leitos' %><br />
     <%= f.text_field :numero_leitos %>
   </div>
   <div class="field">
@@ -20,7 +20,7 @@
     <%= f.text_field :nome %>
   </div>
   <div class="field">
-    <%= f.label :endereco %><br />
+    <%= f.label :endereco, 'Endereço' %><br />
     <%= f.text_field :endereco %>
   </div>
   <div class="field">
@@ -43,3 +43,7 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+	$j('#instituicao_numero_leitos').setMask('integer');
+</script>
