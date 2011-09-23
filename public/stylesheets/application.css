@@ -31,3 +31,9 @@
 	font-size: 1.5em;
 	color: #515151;
 }
+#containnerEquipes{
+	width:100%;
+	border-top: 1px solid;
+	margin: 10px 0;
+	padding-top: 5px;
+}

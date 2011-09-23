@@ -28,22 +28,39 @@
     <%= f.text_field :bairro %>
   </div>
   <div class="field">
-    <%= f.label :cidade %><br />
-    <%= f.text_field :cidade %>
-  </div>
-  <div class="field">
     <%= f.label :complemento %><br />
     <%= f.text_field :complemento %>
   </div>
   <div class="field">
     <%= f.label :estado %><br />
-    <%= f.text_field :estado %>
+    <%= f.collection_select :estado, Estado.all, :sigla, :sigla %>
+  </div>
+  <div class="field">
+    <%= f.label :cidade %><br />
+    <%= f.collection_select :cidade, @cidades, :nome, :nome%>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Salvar' %>
   </div>
 <% end %>
 
 <script type="text/javascript">
-	$j('#instituicao_numero_leitos').setMask('integer');
+	
+	$j(document).ready(function(){
+		function preencheCidades(sigla){
+			$j('#instituicao_cidade').attr('disabled','disabled');
+			$j('#instituicao_cidade').empty();
+			$j.post('/instituicoes/retorna_cidades',{estado:sigla},
+				function(data){
+					$j('#instituicao_cidade').append(data['data']);
+					$j('#instituicao_cidade').removeAttr('disabled');
+				}
+			);
+		}
+		<% if @cidades.empty? %>preencheCidades($j('#instituicao_estado').val()); <% end %>
+		$j('#instituicao_numero_leitos').setMask('integer');
+		$j('#instituicao_estado').change(function(){
+			preencheCidades($j(this).val());	
+		});
+	});
 </script>

@@ -9,11 +9,8 @@
     <th>Cidade</th>
     <th>Complemento</th>
     <th>Estado</th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan='2'>Filhos</th>
+    <th colspan='3'>Opções</th>
   </tr>
 
 <% @instituicoes.each do |instituicao| %>
@@ -25,11 +22,12 @@
     <td><%= instituicao.cidade %></td>
     <td><%= instituicao.complemento %></td>
     <td><%= instituicao.estado %></td>
+    <td><%= link_to 'Usuários', instituicao_usuarios_path(instituicao)%>
+    <td><%= link_to 'Setores', instituicao_setores_path(instituicao)%>
     <td><%= link_to 'Informações', instituicao %></td>
     <td><%= link_to 'Editar', edit_instituicao_path(instituicao) %></td>
     <td><%= link_to 'Excluir', instituicao, :confirm => 'Confirma a exclusão da instituição?', :method => :delete %></td>
-    <td><%= link_to 'Usuários', instituicao_usuarios_path(instituicao)%>
-    <td><%= link_to 'Setores', instituicao_setores_path(instituicao)%>
+    
   </tr>
 <% end %>
 </table>

@@ -1,6 +1,7 @@
 Tcc::Application.routes.draw do
   resources :instituicoes do
     resources :usuarios
+    resources :equipes_internas
     resources :setores do
       resources :salas
       resources :itens
@@ -17,8 +18,10 @@ Tcc::Application.routes.draw do
 
   root :to => 'instituicoes#redireciona'
 
-  
-
+  match 'instituicoes/retorna_cidades' => 'instituicoes#retorna_cidades'
+  match 'equipes_internas/criar' => 'equipes_internas#criar', :via => :post
+  match 'usuarios/adicionar_a_equipe' => 'usuarios#adicionar_a_equipe', :via => :post
+  match 'usuarios/remover_de_equipe' => 'usuarios#remover_de_equipe', :via => :post
   
 
   

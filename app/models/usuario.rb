@@ -4,7 +4,7 @@ class Usuario
   key :nome, String
   key :telefone, String
   key :nivel, Integer
-  
+  key :equipes_ids, Array
   many :ordens_de_servico, :as => :ordenado
   many :notificacoes
   

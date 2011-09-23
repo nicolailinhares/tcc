@@ -25,7 +25,7 @@ class InstituicoesController < ApplicationController
   # GET /instituicoes/new.xml
   def new
     @instituicao = Instituicao.new
-
+    @cidades = []
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @instituicao }
@@ -35,6 +35,7 @@ class InstituicoesController < ApplicationController
   # GET /instituicoes/1/edit
   def edit
     @instituicao = Instituicao.find(params[:id])
+    @cidades = Estado.where(:sigla => @instituicao.estado).first.cidades || []
   end
 
   # POST /instituicoes
@@ -84,4 +85,17 @@ class InstituicoesController < ApplicationController
   def redireciona
     redirect_to instituicao_usuarios_path(@instituicao.id)
   end
+  
+    
+  def retorna_cidades
+    cidades = Estado.where(:sigla => params[:estado]).first.cidades
+    select = {:data => ''};
+    cidades.each do |cidade|
+      select[:data] += "<option value='#{cidade.nome}'>#{cidade.nome}</option>"
+    end
+    respond_to do |format|
+      format.json {render :json => select}
+    end
+  end
+  
 end

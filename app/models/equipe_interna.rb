@@ -6,7 +6,7 @@ class EquipeInterna
   key :email_responsavel, String
   key :especialidade, String
   key :ids_de_usuario, Array
-  
+  key :nome, String
   many :usuarios, :in => :ids_de_usuario
   
   many :notificacoes
