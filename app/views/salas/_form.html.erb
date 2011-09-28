@@ -1,4 +1,4 @@
-<%= form_for(@sala) do |f| %>
+<%= form_for([@instituicao,@setor,@sala]) do |f| %>
   <% if @sala.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@sala.errors.count, "error") %> prohibited this sala from being saved:</h2>
@@ -14,10 +14,6 @@
   <div class="field">
     <%= f.label :nome %><br />
     <%= f.text_field :nome %>
-  </div>
-  <div class="field">
-    <%= f.label :lista_itens %><br />
-    <%= f.text_field :lista_itens %>
   </div>
   <div class="field">
     <%= f.label :localizacao %><br />

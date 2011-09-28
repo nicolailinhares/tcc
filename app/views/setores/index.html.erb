@@ -6,7 +6,6 @@
     <th>Cidade</th>
     <th>Estado</th>
     <th colspan='3'>Opções</th>
-    <th>Filhos</th>
   </tr>
 
 <% @setores.each do |setor| %>
@@ -17,7 +16,6 @@
     <td><%= link_to 'Informações', instituicao_setor_path(@instituicao.id,setor.id) %></td>
     <td><%= link_to 'Editar', edit_instituicao_setor_path(@instituicao.id,setor.id) %></td>
     <td><%= link_to 'Excluir', instituicao_setor_path(@instituicao.id,setor.id), :confirm => 'Confirma exlcusão do setor?', :method => :delete %></td>
-    <td><%= link_to 'Salas', instituicao_setor_salas_path(@instituicao.id,setor.id)%>
   </tr>
 <% end %>
 </table>

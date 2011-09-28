@@ -1,4 +1,4 @@
-<h1>Listing items</h1>
+<h2>Itens</h2>
 
 <table>
   <tr>
@@ -8,7 +8,7 @@
     <th colspan='3'>Opções</th>
   </tr>
 
-<% @items.each do |item| %>
+<% @itens.each do |item| %>
   <tr>
     <td><%= item.patrimonio %></td>
     <td><%= item.data_aquisicao %></td>
@@ -21,5 +21,3 @@
 </table>
 
 <br />
-
-<%= link_to 'Novo item', new_instituicao_setor_item_path %>

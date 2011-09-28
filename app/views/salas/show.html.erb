@@ -6,15 +6,10 @@
 </p>
 
 <p>
-  <b>Lista itens:</b>
-  <%= @sala.lista_itens %>
-</p>
-
-<p>
-  <b>Localizacao:</b>
+  <b>Localização:</b>
   <%= @sala.localizacao %>
 </p>
 
 
-<%= link_to 'Edit', edit_sala_path(@sala) %> |
-<%= link_to 'Back', salas_path %>
+<%= link_to 'Editar', edit_instituicao_setor_sala_path(@instituicao.id,@sala.id,@sala.id) %> |
+<%= link_to 'Voltar', instituicao_setor_salas_path %>

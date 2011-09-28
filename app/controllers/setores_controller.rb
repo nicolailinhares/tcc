@@ -14,7 +14,8 @@ class SetoresController < ApplicationController
   # GET /setores/1.xml
   def show
     @setor = @instituicao.setores.find(params[:id])
-
+    @salas = @setor.salas
+    @itens = @setor.itens
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @setor }

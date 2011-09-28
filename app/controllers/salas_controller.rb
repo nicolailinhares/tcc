@@ -15,7 +15,7 @@ class SalasController < ApplicationController
   # GET /salas/1.xml
   def show
     @setor = @instituicao.setores.find(params[:setor_id])
-    @sala = setor.salas.find(params[:id])
+    @sala = @setor.salas.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,7 +27,7 @@ class SalasController < ApplicationController
   # GET /salas/new.xml
   def new
     @setor = @instituicao.setores.find(params[:setor_id])
-    @sala = setor.salas.build
+    @sala = @setor.salas.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,14 +38,14 @@ class SalasController < ApplicationController
   # GET /salas/1/edit
   def edit
     @setor = @instituicao.setores.find(params[:setor_id])
-    @sala = setor.salas.find(params[:id])
+    @sala = @setor.salas.find(params[:id])
   end
 
   # POST /salas
   # POST /salas.xml
   def create
     @setor = @instituicao.setores.find(params[:setor_id])
-    @sala = setor.salas.build(params[:sala])
+    @sala = @setor.salas.build(params[:sala])
 
     respond_to do |format|
       if @instituicao.save
@@ -78,7 +78,7 @@ class SalasController < ApplicationController
   # DELETE /salas/1.xml
   def destroy
     @setor = @instituicao.setores.find(params[:setor_id])
-    setor.salas.delete_if{|sala| sala.id.to_s == params[:id]}
+    @setor.salas.delete_if{|sala| sala.id.to_s == params[:id]}
     @instituicao.save
 
     respond_to do |format|

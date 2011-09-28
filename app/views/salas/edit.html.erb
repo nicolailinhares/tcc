@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @sala %> |
-<%= link_to 'Back', salas_path %>
+<%= link_to 'Info', instituicao_setor_sala(@instituicao.id,@setor.id,@sala.id) %> |
+<%= link_to 'Voltar', instituicao_setor_salas_path %>
