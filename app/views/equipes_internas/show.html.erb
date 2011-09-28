@@ -1,0 +1,114 @@
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <b>Nome:</b>
+  <%= @equipe_interna.nome %>
+</p>
+
+<p>
+  <b>Especialidade:</b>
+  <%= @equipe_interna.especialidade %>
+</p>
+
+<p>
+  <b>Responsável:</b>
+  <%= @equipe_interna.nome_responsavel %>
+</p>
+<%= link_to 'Editar', edit_instituicao_equipe_interna_path(@instituicao.id,@equipe_interna.id)%>
+<div id='containnerEquipes'>
+<h2>Usuários</h2>
+	<table id='equipes'>
+		<tr>
+			<th>Nome</th>
+			<th>Email</td>
+			<th>Opção</td>
+		</tr>
+		<%@usuarios_da_equipe.each do |usuario|%>
+		<tr>
+			<td><%=usuario.nome%></td>
+			<td><%=usuario.nome_nivel %></td>
+			<%unless usuario.id == @equipe_interna.responsavel_id%>
+			<td><button class='desassociar' id='<%=usuario.id%>'>Desassociar</button>
+			<%else%>
+			<td style='text-align:center'> - </td>
+			<%end%>
+		</tr>
+		<%end%>
+	</table>
+<br />
+<div id="dialog-usuario" title="Adicionar à equipe">
+	<p class="validateTips">
+		Escolha o usuário
+	</p>
+	<%= form_tag 'usuarios/adicionar_a_equipe' do%>
+	<%= label_tag 'Equipe' %>
+	<%= select_tag 'usuario_id', options_for_select(@usuarios), :class => "text ui-widget-content" %>
+	<%= hidden_field_tag 'equipe_id', @equipe_interna.id%>
+	<%end%>
+</div>
+
+<button id='adicionar' <% if @usuarios.empty? %>disabled='disabled'<% end %>>
+	Adicionar usuário
+</button>
+</div>
+<%= link_to 'Voltar', instituicao_equipes_internas_path(@instituicao.id) %>
+<script type="text/javascript">
+$j(document).ready(function(){
+	var especialidade = $j('#equipe_interna_especialidade'),
+		responsavel = $j('#equipe_interna_responsavel_id'),
+		nome = $j('#equipe_interna_nome'),
+		equipe = $j('#equipe_id'),
+		usuario = $j('#usuario_id');
+	function toggleHeader()
+	{
+		if($j('#equipes tr td')[0] == undefined)
+			{
+				$j('#equipes tr th').toggle();
+			}
+	}
+	function configuraBotoes(){
+		$j(".desassociar").button().click(function(){
+			$j.post('/usuarios/remover_de_equipe',{usuario_id: $j(this).attr('id'), equipe_id:'<%=@equipe_interna.id%>'});
+			$j(this).parent().parent().remove();
+			toggleHeader();
+		});
+	}
+	configuraBotoes();
+	toggleHeader();
+	$j("#dialog:ui-dialog").dialog("destroy");
+	
+	$j("#dialog-usuario").dialog({
+		autoOpen : false,
+		height : 180,
+		width : 350,
+		modal : true,
+		buttons : {
+			"Salvar" : function() {
+				$j.post('/usuarios/adicionar_a_equipe',
+					{equipe_id: equipe.val(), usuario_id: usuario.val(), tipo:2},
+					function(data){
+						if(data['erro']){
+							
+						}else{
+							toggleHeader();
+							$j('#equipes tbody').append("<tr><td>"+data['nome']+"</td><td>"+data['email']+"</td><td><button class='desassociar' id='"+data['id']+"'>Desassociar</button></td></tr>");
+							configuraBotoes();
+						}
+					});
+				$j(this).dialog("close");
+			},
+			"Cancelar" : function() {
+				$j(this).dialog("close");
+			}
+		},
+		close : function() {
+			//updateTips(tips, 'Digite o nome e o email do responsável.');
+		}
+	});
+	$j("#adicionar").button().click(function() {
+		$j("#dialog-usuario").dialog("open");
+	});
+	
+});
+</script>

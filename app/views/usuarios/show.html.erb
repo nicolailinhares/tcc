@@ -134,7 +134,7 @@ $j(document).ready(function(){
 		buttons : {
 			"Salvar" : function() {
 				$j.post('/usuarios/adicionar_a_equipe',
-					{equipe_id: equipe.val(), usuario_id: usuario.val()},
+					{equipe_id: equipe.val(), usuario_id: usuario.val(), tipo:1},
 					function(data){
 						if(data['erro']){
 							

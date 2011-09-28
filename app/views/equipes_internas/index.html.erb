@@ -1,0 +1,27 @@
+<h1>Usuários</h1>
+<table>
+  <tr>
+    <th>Nome</th>
+    <th>Especialidade</th>
+    <th>Responsável</th>
+    <th colspan='3'>Opções</th>
+  </tr>
+
+<% @equipes_internas.each do |equipe| %>
+  <tr class="<%= cycle('', 'alt') %>">
+    <td><%= equipe.nome %></td>
+    <td><%= equipe.especialidade %></td>
+    <td><%= equipe.nome_responsavel %></td>
+    <td><%= link_to 'Informações', instituicao_equipe_interna_path(@instituicao.id,equipe.id) %></td>
+    <td><%= link_to 'Editar', edit_instituicao_equipe_interna_path(@instituicao.id,equipe.id) %></td>
+    <td><%= link_to 'Excluir', instituicao_equipe_interna_path(@instituicao.id,equipe.id), :confirm => 'Confirma exclusão da equipe?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Nova equipe', new_instituicao_equipe_interna_path %>
+<script type="text/javascript">
+	seleciona('equipes');
+</script>

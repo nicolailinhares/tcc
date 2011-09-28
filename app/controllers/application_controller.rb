@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
   
   def set_usuario
-    @usuario = @instituicao.usuarios.first.nil? ? @instituicao.usuarios.build(:nivel => 3) : @instituicao.usuarios.first
+    @usuario = @instituicao.usuarios.first
   end
   
 end

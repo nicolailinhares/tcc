@@ -29,6 +29,7 @@
 		<li id='usuarios'><%= link_to 'Usuários', instituicao_usuarios_path(@instituicao.id) %></li>
 		<li id='equipamentos'><%= link_to 'Equipamentos', equipamentos_path %></li>
 		<li id='setores'><%= link_to 'Setores', instituicao_setores_path(@instituicao.id) %></li>
+		<li id='equipes'><%= link_to 'Equipes', instituicao_equipes_internas_path(@instituicao.id) %></li>
 	</ul>
 </div>
 <%= yield %>

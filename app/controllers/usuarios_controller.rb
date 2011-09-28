@@ -90,7 +90,11 @@ class UsuariosController < ApplicationController
       equipe.ids_de_usuario << usuario.id
       usuario.equipes_ids << equipe.id
       if @instituicao.save
-        dados = {:erro => false, :nome => equipe.nome, :especialidade => equipe.especialidade, :id => equipe.id}
+        if(params[:tipo].to_i == 1)
+          dados = {:erro => false, :nome => equipe.nome, :especialidade => equipe.especialidade, :id => equipe.id}
+        else
+          dados = {:erro => false, :nome => usuario.nome, :especialidade => usuario.email, :id => usuario.id}
+        end
       else
         dados = {:erro => true}
       end
