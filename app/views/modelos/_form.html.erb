@@ -1,4 +1,4 @@
-<%= form_for(@modelo) do |f| %>
+<%= form_for([@instituicao,@equipamento,@modelo]) do |f| %>
   <% if @modelo.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@modelo.errors.count, "error") %> prohibited this modelo from being saved:</h2>
@@ -15,7 +15,13 @@
     <%= f.label :nome %><br />
     <%= f.text_field :nome %>
   </div>
+  <div class="field">
+    <%= f.label :marca_id %><br />
+    <%= f.collection_select :marca_id, @instituicao.marcas, :id, :nome %>
+  </div>
+  <%=hidden_field_tag 'modelo[equipamento_id]', @equipamento.id%>
+  
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Salvar" %>
   </div>
 <% end %>

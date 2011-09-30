@@ -1,15 +1,15 @@
 Tcc::Application.routes.draw do
   resources :instituicoes do
+    resources :marcas
     resources :usuarios
     resources :equipes_internas
     resources :setores do
       resources :salas
       resources :itens
     end
-  end
-  
-  resources :equipamentos do
-    resources :modelos
+    resources :equipamentos do
+      resources :modelos
+    end
   end
   
   resources :ordens_de_servico
@@ -23,6 +23,8 @@ Tcc::Application.routes.draw do
   match 'usuarios/adicionar_a_equipe' => 'usuarios#adicionar_a_equipe', :via => :post
   match 'usuarios/remover_de_equipe' => 'usuarios#remover_de_equipe', :via => :post
   
+  match 'salas/insercao_de_item' => 'salas#insercao_de_item'
+  match 'salas/inserir_item' => 'salas#inserir_item'
 
   
 

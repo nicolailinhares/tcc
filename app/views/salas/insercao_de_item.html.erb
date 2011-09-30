@@ -1,0 +1,6 @@
+<%=form_tag '/salas/inserir_item' do %>
+Item<%=select_tag 'item_id', options_for_select(@itens)%>
+<%=hidden_field_tag 'setor_id', @setor.id.to_s%>
+<%=hidden_field_tag 'sala_id', @sala.id.to_s%>
+<%=submit_tag 'Mover'%>
+<%end%>

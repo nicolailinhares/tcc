@@ -1,5 +1,5 @@
 class Equipamento
-  include MongoMapper::Document
+  include MongoMapper::EmbeddedDocument
 
   key :nome, String
   key :criticidade, Integer, :default => 1

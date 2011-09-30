@@ -56,7 +56,7 @@ class EquipesInternasController < ApplicationController
     @equipe_interna.insere_info_responsavel @instituicao
     respond_to do |format|
       if @instituicao.save
-        format.html { redirect_to(instituicao_equipe_interna_path(@instituicao.id,@equipe_interna.id), :notice => 'Usuario was successfully created.') }
+        format.html { redirect_to(instituicao_equipe_interna_path(@instituicao.id,@equipe_interna.id), :notice => 'Equipe criada com sucesso.') }
       else
         format.html { render :action => "new" }
       end
@@ -70,7 +70,7 @@ class EquipesInternasController < ApplicationController
     @equipe_interna.insere_info_responsavel @instituicao
     respond_to do |format|
       if @equipe_interna.update_attributes(params[:equipe_interna])
-        format.html { redirect_to(instituicao_equipes_internas_path(@instituicao.id,@equipe_interna.id), :notice => 'Usuario was successfully updated.') }
+        format.html { redirect_to(instituicao_equipes_internas_path(@instituicao.id,@equipe_interna.id), :notice => 'Equipe atualizada com sucesso.') }
       else
         format.html { render :action => "edit" }
       end

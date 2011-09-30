@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   
   protected
   def set_instituicao
-    @instituicao = Instituicao.first.nil? ? Instituicao.new : Instituicao.first
+    @instituicao = Instituicao.first
   end
   
   def set_usuario

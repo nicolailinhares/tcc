@@ -46,7 +46,7 @@ class UsuariosController < ApplicationController
 
     respond_to do |format|
       if @instituicao.save
-        format.html { redirect_to(instituicao_usuario_path(@instituicao.id,@usuario.id), :notice => 'Usuario was successfully created.') }
+        format.html { redirect_to(instituicao_usuario_path(@instituicao.id,@usuario.id), :notice => 'Usuario criado com sucesso.') }
         format.xml  { render :xml => @usuario, :status => :created, :location => @usuario }
       else
         format.html { render :action => "new" }
@@ -62,7 +62,7 @@ class UsuariosController < ApplicationController
 
     respond_to do |format|
       if @usuario.update_attributes(params[:usuario])
-        format.html { redirect_to(instituicao_usuario_path(@instituicao.id,@usuario.id), :notice => 'Usuario was successfully updated.') }
+        format.html { redirect_to(instituicao_usuario_path(@instituicao.id,@usuario.id), :notice => 'Usuario atualizado com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

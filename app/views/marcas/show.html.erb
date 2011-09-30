@@ -1,0 +1,16 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nome:</b>
+  <%= @marca.nome %>
+</p>
+
+<p>
+  <b>Nacionalidade:</b>
+  <%= @marca.nacionalidade %>
+</p>
+
+<%=render 'modelos'%>
+
+<%= link_to 'Editar', edit_instituicao_marca_path(@instituicao.id,@marca.id) %> |
+<%= link_to 'Voltar', instituicao_marcas_path(@instituicao.id) %>

@@ -2,7 +2,7 @@ class EquipamentosController < ApplicationController
   # GET /equipamentos
   # GET /equipamentos.xml
   def index
-    @equipamentos = Equipamento.all
+    @equipamentos = @instituicao.equipamentos
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,8 +13,8 @@ class EquipamentosController < ApplicationController
   # GET /equipamentos/1
   # GET /equipamentos/1.xml
   def show
-    @equipamento = Equipamento.find(params[:id])
-
+    @equipamento = @instituicao.equipamentos.find(params[:id])
+    @modelos = @equipamento.modelos
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @equipamento }
@@ -24,7 +24,7 @@ class EquipamentosController < ApplicationController
   # GET /equipamentos/new
   # GET /equipamentos/new.xml
   def new
-    @equipamento = Equipamento.new
+    @equipamento = @instituicao.equipamentos.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,17 +34,17 @@ class EquipamentosController < ApplicationController
 
   # GET /equipamentos/1/edit
   def edit
-    @equipamento = Equipamento.find(params[:id])
+    @equipamento = @instituicao.equipamentos.find(params[:id])
   end
 
   # POST /equipamentos
   # POST /equipamentos.xml
   def create
-    @equipamento = Equipamento.new(params[:equipamento])
+    @equipamento = @instituicao.equipamentos.build(params[:equipamento])
 
     respond_to do |format|
       if @equipamento.save
-        format.html { redirect_to(@equipamento, :notice => 'Equipamento was successfully created.') }
+        format.html { redirect_to(instituicao_equipamento_path(@instituicao.id,@equipamento.id), :notice => 'Equipamento criado com sucesso.') }
         format.xml  { render :xml => @equipamento, :status => :created, :location => @equipamento }
       else
         format.html { render :action => "new" }
@@ -56,11 +56,11 @@ class EquipamentosController < ApplicationController
   # PUT /equipamentos/1
   # PUT /equipamentos/1.xml
   def update
-    @equipamento = Equipamento.find(params[:id])
+    @equipamento = @instituicao.equipamentos.find(params[:id])
 
     respond_to do |format|
       if @equipamento.update_attributes(params[:equipamento])
-        format.html { redirect_to(@equipamento, :notice => 'Equipamento was successfully updated.') }
+        format.html { redirect_to(instituicao_equipamento_path(@instituicao.id,@equipamento.id), :notice => 'Equipamento atualizado com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -72,11 +72,11 @@ class EquipamentosController < ApplicationController
   # DELETE /equipamentos/1
   # DELETE /equipamentos/1.xml
   def destroy
-    @equipamento = Equipamento.find(params[:id])
-    @equipamento.destroy
+    @instituicao.equipamentos.delete_if{|equipamento| equipamento.id.to_s == params[:id]}
+    @instituicao.save
 
     respond_to do |format|
-      format.html { redirect_to(equipamentos_url) }
+      format.html { redirect_to(instituicao_equipamentos_url) }
       format.xml  { head :ok }
     end
   end

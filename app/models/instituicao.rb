@@ -12,5 +12,6 @@ class Instituicao
   many :usuarios
   many :setores
   many :equipes_internas
-
+  many :marcas
+  many :equipamentos
 end

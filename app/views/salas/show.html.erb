@@ -10,6 +10,9 @@
   <%= @sala.localizacao %>
 </p>
 
+<%= render '/setores/itens'%>
 
-<%= link_to 'Editar', edit_instituicao_setor_sala_path(@instituicao.id,@sala.id,@sala.id) %> |
-<%= link_to 'Voltar', instituicao_setor_salas_path %>
+<%= link_to 'Mover item para essa sala', "/salas/insercao_de_item?setor_id=#{@setor.id}&sala_id=#{@sala.id}"%><br /><br />
+
+<%= link_to 'Editar', edit_instituicao_setor_sala_path(@instituicao.id,@setor.id,@sala.id) %> |
+<%= link_to 'Voltar', instituicao_setor_path(@instituicao.id,@setor.id) %>

@@ -44,7 +44,7 @@ class OrdensDeServicoController < ApplicationController
 
     respond_to do |format|
       if @ordem_de_servico.save
-        format.html { redirect_to(@ordem_de_servico, :notice => 'Ordem de servico was successfully created.') }
+        format.html { redirect_to(@ordem_de_servico, :notice => 'Ordem de serviço criada com sucesso.') }
         format.xml  { render :xml => @ordem_de_servico, :status => :created, :location => @ordem_de_servico }
       else
         format.html { render :action => "new" }
@@ -60,7 +60,7 @@ class OrdensDeServicoController < ApplicationController
 
     respond_to do |format|
       if @ordem_de_servico.update_attributes(params[:ordem_de_servico])
-        format.html { redirect_to(@ordem_de_servico, :notice => 'Ordem de servico was successfully updated.') }
+        format.html { redirect_to(@ordem_de_servico, :notice => 'Ordem de serviço atualizada com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

@@ -1,10 +1,15 @@
+<h1>Modelo</h1>
 <p id="notice"><%= notice %></p>
 
 <p>
   <b>Nome:</b>
   <%= @modelo.nome %>
 </p>
+<p>
+  <b>Marca</b>
+  <%= @modelo.nome_marca %>
+</p>
 
 
-<%= link_to 'Edit', edit_modelo_path(@modelo) %> |
-<%= link_to 'Back', modelos_path %>
+<%= link_to 'Editar', edit_instituicao_equipamento_modelo_path(@instituicao.id,@equipamento.id,@modelo.id) %> |
+<%= link_to 'Voltar', instituicao_equipamento_path(@instituicao.id,@equipamento.id) %>

@@ -2,5 +2,5 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @equipamento %> |
-<%= link_to 'Back', equipamentos_path %>
+<%= link_to 'Info', instituicao_equipamento_path(@instituicao.id,@equipamento.id) %> |
+<%= link_to 'Voltar', instituicao_equipamentos_path(@instituicao.id) %>

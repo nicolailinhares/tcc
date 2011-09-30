@@ -1,3 +1,4 @@
+<h1>Item</h1>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -9,7 +10,14 @@
   <b>Patrimonio:</b>
   <%= @item.patrimonio %>
 </p>
-
+<p>
+  <b>Marca:</b>
+  <%= @item.modelo.nome_marca %>
+</p>
+<p>
+  <b>Modelo:</b>
+  <%= @item.modelo.nome %>
+</p>
 <p>
   <b>Data aquisicao:</b>
   <%= @item.data_aquisicao %>
@@ -36,5 +44,5 @@
 </p>
 
 
-<%= link_to 'Edit', edit_item_path(@item) %> |
-<%= link_to 'Back', items_path %>
+<%= link_to 'Editar', edit_instituicao_setor_item_path(@instituicao.id,@setor.id,@item.id) %> |
+<%= link_to 'Voltar', instituicao_setor_path(@instituicao.id,@setor.id) %>

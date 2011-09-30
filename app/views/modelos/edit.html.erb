@@ -1,6 +1,6 @@
-<h1>Editing modelo</h1>
+<h1>Modelo</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @modelo %> |
-<%= link_to 'Back', modelos_path %>
+<%= link_to 'Info', instituicao_equipamento_modelo_path(@instituicao.id,@equipamento.id,@modelo.id) %> |
+<%= link_to 'Voltar', instituicao_equipamento_path(@instituicao.id,@equipamento.id) %>

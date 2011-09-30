@@ -1,4 +1,4 @@
-<%= form_for(@item) do |f| %>
+<%= form_for([@instituicao,@setor,@item]) do |f| %>
   <% if @item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
@@ -10,36 +10,61 @@
       </ul>
     </div>
   <% end %>
-
+	
   <div class="field">
-    <%= f.label :numero_serie %><br />
+    <%= f.label :equipamento_id, "Equipamento" %><br />
+    <%= f.collection_select :equipamento_id, @instituicao.equipamentos, :id, :nome %>
+  </div>
+  <div class="field">
+    <%= label_tag 'marca_id', "Marca" %><br />
+    <%= select_tag 'marca_id', options_for_select(@marcas) %>
+  </div>
+  <div class="field">
+    <%= label_tag 'modelo_id', "Modelo" %><br />
+    <%= select_tag 'modelo_id', options_for_select(@modelos) %>
+  </div>
+  <div class="field">
+    <%= f.label :numero_serie, "Número de série" %><br />
     <%= f.text_field :numero_serie %>
   </div>
   <div class="field">
-    <%= f.label :patrimonio %><br />
+    <%= f.label :patrimonio, "Patrimônio" %><br />
     <%= f.text_field :patrimonio %>
   </div>
   <div class="field">
-    <%= f.label :data_aquisicao %><br />
-    <%= f.date_select :data_aquisicao %>
+    <%= f.label :data_aquisicao, "Data de aquisição" %><br />
+    <%= f.text_field :data_aquisicao %>
   </div>
   <div class="field">
     <%= f.label :status %><br />
-    <%= f.text_field :status %>
+    <%= f.collection_select :status, Item.lista_de_status, :first, :last %>
   </div>
   <div class="field">
-    <%= f.label :valor_aquisicao %><br />
+    <%= f.label :valor_aquisicao, "Valor de aquisição" %><br />
     <%= f.text_field :valor_aquisicao %>
   </div>
   <div class="field">
     <%= f.label :tipo_recurso %><br />
-    <%= f.text_field :tipo_recurso %>
+    <%= f.collection_select :tipo_recurso, Item.tipos_de_recurso, :first, :last %>
   </div>
   <div class="field">
-    <%= f.label :vencimento_garantia %><br />
-    <%= f.date_select :vencimento_garantia %>
+    <%= f.label :vencimento_garantia, "Data de vencimento da garantia" %><br />
+    <%= text_field_tag "item[vencimento_garantia]" %>
   </div>
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+	$j(document).ready(function(){
+		configuraCampoData('#item_data_aquisicao');
+		configuraCampoData('#item_vencimento_garantia');
+		$j("#item_patrimonio").focus(function(){
+			$j(this).val('');
+			$j(this).css('color','#000');
+		});
+		$j("#item_valor_aquisicao").setMask('preco');
+		
+	});
+</script>>

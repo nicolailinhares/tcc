@@ -5,7 +5,7 @@ class Item
   key :patrimonio, String
   key :data_aquisicao, Date
   key :status, Integer
-  key :valor_aquisicao, Integer
+  key :valor_aquisicao, Float
   key :tipo_recurso, Integer
   key :vencimento_garantia, Date
   key :sala_id, ObjectId
@@ -42,9 +42,9 @@ class Item
   private
   TIPOS_DE_RECURSO =
   {
-    1 => 'Profissional de saúde',
-    2 => 'Técnico',
-    3 => 'Gerente'
+    1 => 'Próprio',
+    2 => 'Comodato',
+    3 => 'Doação'
   } 
   LISTA_DE_STATUS =
   {

@@ -1,5 +1,5 @@
 <h2>Itens</h2>
-
+<%unless @itens.empty?%>
 <table>
   <tr>
     <th>Patrimonio</th>
@@ -12,12 +12,12 @@
   <tr>
     <td><%= item.patrimonio %></td>
     <td><%= item.data_aquisicao %></td>
-    <td><%= item.status %></td>
-    <td><%= link_to 'Informações', item %></td>
-    <td><%= link_to 'Editar', edit_item_path(item) %></td>
-    <td><%= link_to 'Excluir', item, :confirm => 'Confirma a exclusão do item?', :method => :delete %></td>
+    <td><%= item.nome_status %></td>
+    <td><%= link_to 'Informações', instituicao_setor_item_path(@instituicao.id,@setor.id,item.id) %></td>
+    <td><%= link_to 'Editar', edit_instituicao_setor_item_path(@instituicao.id,@setor.id,item.id) %></td>
+    <td><%= link_to 'Excluir', instituicao_setor_item_path(@instituicao.id,@setor.id,item.id), :confirm => 'Confirma a exclusão do item?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
-
+<%end%>
 <br />

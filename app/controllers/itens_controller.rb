@@ -2,7 +2,7 @@ class ItensController < ApplicationController
   # GET /items
   # GET /items.xml
   def index
-    @items = Item.all
+    @itens = Item.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -13,7 +13,8 @@ class ItensController < ApplicationController
   # GET /items/1
   # GET /items/1.xml
   def show
-    @item = Item.find(params[:id])
+    @setor = @instituicao.setores.find(params[:setor_id])
+    @item = @setor.itens.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -24,8 +25,16 @@ class ItensController < ApplicationController
   # GET /items/new
   # GET /items/new.xml
   def new
-    @item = Item.new
-
+    @setor = @instituicao.setores.find(params[:setor_id])
+    @item = @setor.itens.build(:patrimonio => "Não edite para ser gerado")
+    equipamento = @instituicao.equipamentos.first
+    marcas_disponiveis = []
+    equipamento.ids_de_marca.each do |id|
+      marcas_disponiveis << @instituicao.marcas.find(id)
+    end
+    @marcas = marcas_disponiveis.map{|marca| [marca.nome, marca.id]}
+    modelos_disponiveis = marcas_disponiveis.first.modelos.find_all{|modelo| modelo.equipamento_id == equipamento.id}
+    @modelos = modelos_disponiveis.map{|modelo| [modelo.nome, modelo.id]}
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @item }
@@ -34,17 +43,21 @@ class ItensController < ApplicationController
 
   # GET /items/1/edit
   def edit
-    @item = Item.find(params[:id])
+    @setor = @instituicao.setores.find(params[:setor_id])
+    @item = @setor.itens.find(params[:id])
   end
 
   # POST /items
   # POST /items.xml
   def create
-    @item = Item.new(params[:item])
-
+    @setor = @instituicao.setores.find(params[:setor_id])
+    params[:item][:data_aquisicao] = Date.parse(params[:item][:data_aquisicao].to_s.gsub('/','-'))
+    params[:item][:vencimento_garantia] = Date.parse(params[:item][:vencimento_garantia].to_s.gsub('/','-'))
+    @item = @setor.itens.build(params[:item])
+    @item.modelo = @instituicao.marcas.find(params[:marca_id]).modelos.find(params[:modelo_id])
     respond_to do |format|
       if @item.save
-        format.html { redirect_to(@item, :notice => 'Item was successfully created.') }
+        format.html { redirect_to(instituicao_setor_path(@instituicao.id,@setor.id), :notice => 'Item criado com sucesso.') }
         format.xml  { render :xml => @item, :status => :created, :location => @item }
       else
         format.html { render :action => "new" }
@@ -56,11 +69,13 @@ class ItensController < ApplicationController
   # PUT /items/1
   # PUT /items/1.xml
   def update
-    @item = Item.find(params[:id])
-
+    @setor = @instituicao.setores.find(params[:setor_id])
+    @item = @setor.itens.find(params[:id])
+    params[:item][:data_aquisicao] = Date.parse(params[:item][:data_aquisicao].to_s.gsub('/','-'))
+    params[:item][:vencimento_garantia] = Date.parse(params[:item][:vencimento_garantia].to_s.gsub('/','-'))
     respond_to do |format|
       if @item.update_attributes(params[:item])
-        format.html { redirect_to(@item, :notice => 'Item was successfully updated.') }
+        format.html { redirect_to(instituicao_setor_path(@instituicao.id,@setor.id), :notice => 'Item atualizado com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -72,11 +87,11 @@ class ItensController < ApplicationController
   # DELETE /items/1
   # DELETE /items/1.xml
   def destroy
-    @item = Item.find(params[:id])
-    @item.destroy
-
+    @setor = @instituicao.setores.find(params[:setor_id])
+    @setor.itens.delete_if{|item| item.id.to_s == params[:id]}
+    @instituicao.save
     respond_to do |format|
-      format.html { redirect_to(items_url) }
+      format.html { redirect_to(instituicao_setor_path(@instituicao.id,@setor.id)) }
       format.xml  { head :ok }
     end
   end

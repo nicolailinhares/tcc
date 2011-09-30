@@ -16,7 +16,7 @@ class SalasController < ApplicationController
   def show
     @setor = @instituicao.setores.find(params[:setor_id])
     @sala = @setor.salas.find(params[:id])
-
+    @itens = @sala.itens
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @sala }
@@ -49,7 +49,7 @@ class SalasController < ApplicationController
 
     respond_to do |format|
       if @instituicao.save
-        format.html { redirect_to(instituicao_setor_sala_path(@instituicao.id,@setor.id,@sala.id), :notice => 'Sala was successfully created.') }
+        format.html { redirect_to(instituicao_setor_sala_path(@instituicao.id,@setor.id,@sala.id), :notice => 'Sala criada com sucesso.') }
         format.xml  { render :xml => @sala, :status => :created, :location => @sala }
       else
         format.html { render :action => "new" }
@@ -61,11 +61,12 @@ class SalasController < ApplicationController
   # PUT /salas/1
   # PUT /salas/1.xml
   def update
-    @sala = Sala.find(params[:id])
+    @setor = @instituicao.setores.find(params[:setor_id])
+    @sala = @setor.salas.find(params[:id])
 
     respond_to do |format|
       if @sala.update_attributes(params[:sala])
-        format.html { redirect_to(instituicao_setor_sala_path(@instituicao.id,@setor.id,@sala.id), :notice => 'Sala was successfully updated.') }
+        format.html { redirect_to(instituicao_setor_sala_path(@instituicao.id,@setor.id,@sala.id), :notice => 'Sala atualizada com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -86,4 +87,22 @@ class SalasController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def insercao_de_item
+    @setor = @instituicao.setores.find(params[:setor_id])
+    @sala = @setor.salas.find(params[:sala_id])
+    itens_disponiveis = @setor.itens.find_all{|item| item.sala_id.nil?}
+    @itens = itens_disponiveis.map {|item| [item.patrimonio, item.id]}
+  end
+  
+  def inserir_item
+    @setor = @instituicao.setores.find(params[:setor_id])
+    @sala = @setor.salas.find(params[:sala_id])
+    @item = @setor.itens.find(params[:item_id])
+    @sala.itens << @item
+    @item.sala_id = @sala.id
+    @instituicao.save
+    redirect_to instituicao_setor_sala_path(@instituicao.id,@setor.id,@sala.id)
+  end
+  
 end

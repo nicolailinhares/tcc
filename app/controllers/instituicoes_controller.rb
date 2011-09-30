@@ -61,7 +61,7 @@ class InstituicoesController < ApplicationController
 
     respond_to do |format|
       if @instituicao.update_attributes(params[:instituicao])
-        format.html { redirect_to(@instituicao, :notice => 'Instituicao was successfully updated.') }
+        format.html { redirect_to(@instituicao, :notice => 'Instituição criada com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

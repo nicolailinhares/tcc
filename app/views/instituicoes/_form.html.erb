@@ -47,16 +47,6 @@
 <script type="text/javascript">
 	
 	$j(document).ready(function(){
-		function preencheCidades(sigla){
-			$j('#instituicao_cidade').attr('disabled','disabled');
-			$j('#instituicao_cidade').empty();
-			$j.post('/instituicoes/retorna_cidades',{estado:sigla},
-				function(data){
-					$j('#instituicao_cidade').append(data['data']);
-					$j('#instituicao_cidade').removeAttr('disabled');
-				}
-			);
-		}
 		<% if @cidades.empty? %>preencheCidades($j('#instituicao_estado').val()); <% end %>
 		$j('#instituicao_numero_leitos').setMask('integer');
 		$j('#instituicao_estado').change(function(){

@@ -1,0 +1,24 @@
+<%= form_for [@instituicao,@marca] do |f| %>
+  <% if @marca.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@marca.errors.count, "error") %> prohibited this setor from being saved:</h2>
+
+      <ul>
+      <% @marca.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nome %><br />
+    <%= f.text_field :nome %>
+  </div>
+  <div class="field">
+    <%= f.check_box :e_nacional %><%= f.label :e_nacional, 'Marca nacional' %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Salvar" %>
+  </div>
+<% end %>

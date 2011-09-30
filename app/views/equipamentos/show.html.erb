@@ -5,6 +5,9 @@
   <%= @equipamento.nome %>
 </p>
 
+<%= render '/marcas/modelos'%>
+<%= link_to 'Novo Modelo', new_instituicao_equipamento_modelo_path(@instituicao.id,@equipamento.id) %>
+<br /><br />
 
-<%= link_to 'Edit', edit_equipamento_path(@equipamento) %> |
-<%= link_to 'Back', equipamentos_path %>
+<%= link_to 'Editar', edit_instituicao_equipamento_path(@instituicao.id,@equipamento.id) %> |
+<%= link_to 'Voltar', instituicao_equipamentos_path(@instituicao.id) %>

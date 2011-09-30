@@ -3,7 +3,6 @@ class Sala
 
   key :nome, String
   key :localizacao, String
-  key :ids_de_item, Array
   
-  many :itens, :in => :ids_de_item
+  many :itens
 end
