@@ -72,7 +72,7 @@ class MarcasController < ApplicationController
   def destroy
     @instituicao.marcas.delete_if{|marca| marca.id.to_s == params[:id]}
     @instituicao.equipamentos.each do |equipamento|
-      equipamento.ids_de_marca.delete_if {|id| id == marca.id}
+      equipamento.ids_de_marca.delete_if {|id| id == params[:id]}
     end
     @instituicao.save
 

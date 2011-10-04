@@ -25,6 +25,10 @@ Tcc::Application.routes.draw do
   
   match 'salas/insercao_de_item' => 'salas#insercao_de_item'
   match 'salas/inserir_item' => 'salas#inserir_item'
+  
+  match 'ajax/criar_equipamento' => 'ajax#criar_equipamento', :via => :post
+  match 'ajax/criar_marca' => 'ajax#criar_marca', :via => :post
+  match 'ajax/criar_modelo' => 'ajax#criar_modelo', :via => :post
 
   
 

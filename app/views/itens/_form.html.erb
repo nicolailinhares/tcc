@@ -13,15 +13,42 @@
 	
   <div class="field">
     <%= f.label :equipamento_id, "Equipamento" %><br />
-    <%= f.collection_select :equipamento_id, @instituicao.equipamentos, :id, :nome %>
+    <%= f.collection_select :equipamento_id, @instituicao.equipamentos, :id, :nome %> <button id='novoEquipo'>Novo Equipamento</button>
+    <div id="dialog-equipo" title="Cadastrar responsável">
+		<p class="validateTips">
+			Digite o nome do equipamento.
+		</p>
+		<%= form_tag do %>
+		<%= label_tag 'equipamento_nome', 'Nome' %>
+		<%= text_field_tag 'equipamento[nome]' %>
+		<%end%>
+	</div>
   </div>
   <div class="field">
     <%= label_tag 'marca_id', "Marca" %><br />
-    <%= select_tag 'marca_id', options_for_select(@marcas) %>
+    <%= select_tag 'marca_id', options_for_select(@marcas) %> <button id='novaMarca'>Nova Marca</button>
+    <div id="dialog-marca" title="Cadastrar responsável">
+		<p class="validateTips">
+			Digite o nome da marca.
+		</p>
+		<%= form_tag do %>
+		<%= label_tag 'marca_nome', 'Nome' %>
+		<%= text_field_tag 'marca[nome]' %>
+		<%end%>
+	</div>
   </div>
   <div class="field">
     <%= label_tag 'modelo_id', "Modelo" %><br />
-    <%= select_tag 'modelo_id', options_for_select(@modelos) %>
+    <%= select_tag 'modelo_id', options_for_select(@modelos) %> <button id='novoModelo'>Novo Modelo para o Equipamento</button>
+    <div id="dialog-modelo" title="Cadastrar responsável">
+		<p class="validateTips">
+			Digite o nome da marca.
+		</p>
+		<%= form_tag do %>
+		<%= label_tag 'modelo_nome', 'Nome' %>
+		<%= text_field_tag 'modelo[nome]'%>
+		<%end%>
+	</div>
   </div>
   <div class="field">
     <%= f.label :numero_serie, "Número de série" %><br />
@@ -58,6 +85,51 @@
 
 <script type="text/javascript">
 	$j(document).ready(function(){
+		
+		formDialog = function(id,endereco,funcao){
+			$j(id).dialog({
+			autoOpen : false,
+			height : 230,
+			width : 350,
+			modal : true,
+			buttons : {
+				"Salvar" : function() {
+					dados = funcao();
+					$j.post(endereco,
+						dados,
+						function(data){
+							if(data['erro']){
+								
+							}else{
+								location.reload(true);
+							}
+						});
+					$j(this).dialog("close");
+				},
+				"Cancelar" : function() {
+					$j(this).dialog("close");
+				}
+			},
+			close : function() {
+				//allFields.val("").removeClass("ui-state-error");
+				//updateTips(tips, 'Digite o nome e o email do responsável.');
+			}
+		});
+		
+	}
+	
+	dadosEquipo = function(){
+		return {equipamento:{nome:$j('#equipamento_nome').val()}};
+	}
+	
+	dadosMarca = function(){
+		return {marca:{nome:$j('#marca_nome').val()}};
+	}
+	
+	dadosModelo = function(){
+		return {modelo:{nome:$j('#modelo_nome').val(), equipamento_id:$j('#item_equipamento_id').val(), marca_id:$j('#marca_id').val()}};
+	}
+		
 		configuraCampoData('#item_data_aquisicao');
 		configuraCampoData('#item_vencimento_garantia');
 		$j("#item_patrimonio").focus(function(){
@@ -65,6 +137,12 @@
 			$j(this).css('color','#000');
 		});
 		$j("#item_valor_aquisicao").setMask('preco');
-		
+		$j('button').button().click(function(event){event.preventDefault();});
+		$j('#novoEquipo').click(function(){$j('#dialog-equipo').dialog('open');});
+		$j('#novaMarca').click(function(){$j('#dialog-marca').dialog('open');});
+		$j('#novoModelo').click(function(){$j('#dialog-modelo').dialog('open');});
+		formDialog('#dialog-equipo','/ajax/criar_equipamento',dadosEquipo);
+		formDialog('#dialog-marca','/ajax/criar_marca',dadosMarca);
+		formDialog('#dialog-modelo','/ajax/criar_modelo',dadosModelo);
 	});
 </script>>
