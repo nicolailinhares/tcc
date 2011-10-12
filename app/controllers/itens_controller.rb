@@ -33,7 +33,7 @@ class ItensController < ApplicationController
       #marcas_disponiveis << @instituicao.marcas.find(id)
     #end
     #@marcas = marcas_disponiveis.map{|marca| [marca.nome, marca.id]}
-    @marcas = @instituicao.marcas
+    @marcas = @instituicao.marcas.map{|marca| [marca.nome, marca.id]}
     modelos_disponiveis = marcas_disponiveis.first.modelos.find_all{|modelo| modelo.equipamento_id == equipamento.id}
     @modelos = modelos_disponiveis.map{|modelo| [modelo.nome, modelo.id]}
     respond_to do |format|

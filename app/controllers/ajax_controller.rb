@@ -42,4 +42,18 @@ class AjaxController < ApplicationController
     end
   end
   
+  def busca_modelos
+    equipamento_id = params[:equipamento_id]
+    marca_id = params[:marca_id]
+    marca = @insittuicao.marcas.find(marca_id)
+    modelos_disponiveis = marca.modelos.find_all{|modelo| modelo.equipamento_id == equipamento.id}
+    select = {:data => ''}
+    modelos_disponiveis.each do |modelo|
+      select[:data] += "<option value='#{modelo.id}>#{modelo.nome}</option>"
+    end
+    respond_to do |format|
+      format.json {render :json => select}
+    end
+  end
+  
 end
