@@ -28,11 +28,12 @@ class ItensController < ApplicationController
     @setor = @instituicao.setores.find(params[:setor_id])
     @item = @setor.itens.build(:patrimonio => "Não edite para ser gerado")
     equipamento = @instituicao.equipamentos.first
-    marcas_disponiveis = []
-    equipamento.ids_de_marca.each do |id|
-      marcas_disponiveis << @instituicao.marcas.find(id)
-    end
-    @marcas = marcas_disponiveis.map{|marca| [marca.nome, marca.id]}
+    #marcas_disponiveis = []
+    #equipamento.ids_de_marca.each do |id|
+      #marcas_disponiveis << @instituicao.marcas.find(id)
+    #end
+    #@marcas = marcas_disponiveis.map{|marca| [marca.nome, marca.id]}
+    @marcas = @instituicao.marcas
     modelos_disponiveis = marcas_disponiveis.first.modelos.find_all{|modelo| modelo.equipamento_id == equipamento.id}
     @modelos = modelos_disponiveis.map{|modelo| [modelo.nome, modelo.id]}
     respond_to do |format|
