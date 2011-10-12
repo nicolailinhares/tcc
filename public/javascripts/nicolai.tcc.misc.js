@@ -11,32 +11,24 @@
 		$(alvoStr).setMask('39/19/9999');
 	}
 	preencheCidades = function(sigla){
-			$j('#instituicao_cidade').attr('disabled','disabled');
-			$j('#instituicao_cidade').empty();
-			$j.post('/instituicoes/retorna_cidades',{estado:sigla},
+			$('#instituicao_cidade').attr('disabled','disabled');
+			$('#instituicao_cidade').empty();
+			$.post('/instituicoes/retorna_cidades',{estado:sigla},
 				function(data){
-					$j('#instituicao_cidade').append(data['data']);
-					$j('#instituicao_cidade').removeAttr('disabled');
+					$('#instituicao_cidade').append(data['data']);
+					$('#instituicao_cidade').removeAttr('disabled');
 				}
 			);
 	}
-	preencheMarcas = function(equipamento_id){
-			$j('#instituicao_cidade').attr('disabled','disabled');
-			$j('#instituicao_cidade').empty();
-			$j.post('/instituicoes/retorna_cidades',{estado:sigla},
+	preencheModelos = function(equipamento,marca){
+			$('#modelo_id').attr('disabled','disabled');
+			$('#modelo_id').empty();
+			$.post('/ajax/busca_modelos',{equipamento_id:equipamento, marca_id: marca},
 				function(data){
-					$j('#instituicao_cidade').append(data['data']);
-					$j('#instituicao_cidade').removeAttr('disabled');
-				}
-			);
-	}
-	preencheModelos = function(sigla){
-			$j('#instituicao_cidade').attr('disabled','disabled');
-			$j('#instituicao_cidade').empty();
-			$j.post('/instituicoes/retorna_cidades',{estado:sigla},
-				function(data){
-					$j('#instituicao_cidade').append(data['data']);
-					$j('#instituicao_cidade').removeAttr('disabled');
+					if(!data['erro']){
+						$('#modelo_id').append(data['data']);
+						$('#modelo_id').removeAttr('disabled');
+					}
 				}
 			);
 	}

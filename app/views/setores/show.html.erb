@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<h1>Setor</h1>
 <p>
   <b>Nome:</b>
   <%= @setor.nome %>
@@ -24,13 +24,11 @@
   <b>Estado:</b>
   <%= @setor.estado %>
 </p>
-
+<%= link_to 'Editar', edit_instituicao_setor_path(@instituicao.id,@setor.id) %>
 <%=render 'salas'%>
 
 <div class='containnerEquipes'>
 	<%=render 'itens'%>
 	<%= link_to 'Novo item', new_instituicao_setor_item_path(@instituicao.id,@setor.id) %>
 </div>
-
-<%= link_to 'Editar', edit_instituicao_setor_path(@instituicao.id,@setor.id) %> |
 <%= link_to 'Voltar', instituicao_setores_path(@instituicao.id) %>

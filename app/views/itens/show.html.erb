@@ -2,12 +2,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Numero serie:</b>
+  <b>Número de série:</b>
   <%= @item.numero_serie %>
 </p>
 
 <p>
-  <b>Patrimonio:</b>
+  <b>Patrimônio:</b>
   <%= @item.patrimonio %>
 </p>
 <p>
@@ -19,28 +19,28 @@
   <%= @item.modelo.nome %>
 </p>
 <p>
-  <b>Data aquisicao:</b>
-  <%= @item.data_aquisicao %>
+  <b>Data de aquisção:</b>
+  <%= @item.data_aquisicao.strftime('%d/%m/%Y') %>
 </p>
 
 <p>
   <b>Status:</b>
-  <%= @item.status %>
+  <%= @item.nome_status %>
 </p>
 
 <p>
-  <b>Valor aquisicao:</b>
+  <b>Valor de aquisição:</b>
   <%= @item.valor_aquisicao %>
 </p>
 
 <p>
   <b>Tipo recurso:</b>
-  <%= @item.tipo_recurso %>
+  <%= @item.nome_tipo_recurso %>
 </p>
 
 <p>
-  <b>Vencimento garantia:</b>
-  <%= @item.vencimento_garantia %>
+  <b>Vencimento da garantia:</b>
+  <%= @item.vencimento_garantia.strftime('%d/%m/%Y') %>
 </p>
 
 

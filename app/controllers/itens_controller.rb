@@ -34,7 +34,7 @@ class ItensController < ApplicationController
     #end
     #@marcas = marcas_disponiveis.map{|marca| [marca.nome, marca.id]}
     @marcas = @instituicao.marcas.map{|marca| [marca.nome, marca.id]}
-    modelos_disponiveis = marcas_disponiveis.first.modelos.find_all{|modelo| modelo.equipamento_id == equipamento.id}
+    modelos_disponiveis = @instituicao.marcas.first.modelos.find_all{|modelo| modelo.equipamento_id == equipamento.id}
     @modelos = modelos_disponiveis.map{|modelo| [modelo.nome, modelo.id]}
     respond_to do |format|
       format.html # new.html.erb
@@ -46,6 +46,12 @@ class ItensController < ApplicationController
   def edit
     @setor = @instituicao.setores.find(params[:setor_id])
     @item = @setor.itens.find(params[:id])
+    @marcas = @instituicao.marcas.map{|marca| [marca.nome, marca.id]}
+    modelos_disponiveis = @instituicao.marcas.find(@item.modelo.marca_id).modelos.find_all{|modelo| modelo.equipamento_id == @item.equipamento_id}
+    @modelos = modelos_disponiveis.map{|modelo| [modelo.nome, modelo.id]}
+    @editando = true
+    @item.data_aquisicao = @item.data_aquisicao.strftime('%d/%m/%Y')
+    @item.vencimento_garantia = @item.vencimento_garantia.strftime('%d/%m/%Y')
   end
 
   # POST /items
@@ -56,6 +62,9 @@ class ItensController < ApplicationController
     params[:item][:vencimento_garantia] = Date.parse(params[:item][:vencimento_garantia].to_s.gsub('/','-'))
     @item = @setor.itens.build(params[:item])
     @item.modelo = @instituicao.marcas.find(params[:marca_id]).modelos.find(params[:modelo_id])
+    if @item.patrimonio == 'Não edite para ser gerado'
+      @item.patrimonio = Item.gera_patrimonio(@instituicao,@setor,@item)
+    end
     respond_to do |format|
       if @item.save
         format.html { redirect_to(instituicao_setor_path(@instituicao.id,@setor.id), :notice => 'Item criado com sucesso.') }

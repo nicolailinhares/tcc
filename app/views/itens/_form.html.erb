@@ -1,3 +1,30 @@
+<div id="dialog-equipo" title="Cadastrar equipamento">
+	<p class="validateTips">
+		Digite o nome do equipamento.
+	</p>
+	<%= form_tag do %>
+	<%= label_tag 'equipamento_nome', 'Nome' %>
+	<%= text_field_tag 'equipamento[nome]' %>
+	<%end%>
+</div>
+<div id="dialog-marca" title="Cadastrar marca">
+	<p class="validateTips">
+		Digite o nome da marca.
+	</p>
+	<%= form_tag do %>
+	<%= label_tag 'marca_nome', 'Nome' %>
+	<%= text_field_tag 'marca[nome]' %>
+	<%end%>
+</div>
+<div id="dialog-modelo" title="Cadastrar modelo para o equipamento">
+	<p class="validateTips">
+		Digite o nome do modelo.
+	</p>
+	<%= form_tag do %>
+	<%= label_tag 'modelo_nome', 'Nome' %>
+	<%= text_field_tag 'modelo[nome]'%>
+	<%end%>
+</div>
 <%= form_for([@instituicao,@setor,@item]) do |f| %>
   <% if @item.errors.any? %>
     <div id="error_explanation">
@@ -10,53 +37,44 @@
       </ul>
     </div>
   <% end %>
-	
   <div class="field">
+  <%unless @editando%>
+    <%= f.label :patrimonio, "Patrimônio" %><br />
+    <%= f.text_field :patrimonio %>
+  
+  <%else%>
+  	Patrimônio<br /><%= @item.patrimonio%>
+  <%end%>
+  </div>
+  <div class="field">
+  <%unless @editando%>
     <%= f.label :equipamento_id, "Equipamento" %><br />
-    <%= f.collection_select :equipamento_id, @instituicao.equipamentos, :id, :nome %> <button id='novoEquipo'>Novo Equipamento</button>
-    <div id="dialog-equipo" title="Cadastrar responsável">
-		<p class="validateTips">
-			Digite o nome do equipamento.
-		</p>
-		<%= form_tag do %>
-		<%= label_tag 'equipamento_nome', 'Nome' %>
-		<%= text_field_tag 'equipamento[nome]' %>
-		<%end%>
-	</div>
+    <%= f.collection_select :equipamento_id, @instituicao.equipamentos, :id, :nome %> <button class='cadastro' id='novoEquipo'>Novo Equipamento</button>
+  </div>
+  <%else%>
+  	Equipamento<br /><%= @instituicao.equipamentos.find(@item.equipamento_id).nome%>
+  	<%=hidden_field_tag 'item_equipamento_id', @item.equipamento_id%>
+  <%end%>
   </div>
   <div class="field">
     <%= label_tag 'marca_id', "Marca" %><br />
-    <%= select_tag 'marca_id', options_for_select(@marcas) %> <button id='novaMarca'>Nova Marca</button>
-    <div id="dialog-marca" title="Cadastrar responsável">
-		<p class="validateTips">
-			Digite o nome da marca.
-		</p>
-		<%= form_tag do %>
-		<%= label_tag 'marca_nome', 'Nome' %>
-		<%= text_field_tag 'marca[nome]' %>
-		<%end%>
-	</div>
+    <%unless @editando%>
+    <%= select_tag 'marca_id', options_for_select(@marcas) %>
+    <%else%>
+    <%= select_tag 'marca_id', options_for_select(@marcas, @item.modelo.marca_id)  %>
+    <%end%> <button class='cadastro' id='novaMarca'>Nova Marca</button>
   </div>
   <div class="field">
     <%= label_tag 'modelo_id', "Modelo" %><br />
-    <%= select_tag 'modelo_id', options_for_select(@modelos) %> <button id='novoModelo'>Novo Modelo para o Equipamento</button>
-    <div id="dialog-modelo" title="Cadastrar responsável">
-		<p class="validateTips">
-			Digite o nome da marca.
-		</p>
-		<%= form_tag do %>
-		<%= label_tag 'modelo_nome', 'Nome' %>
-		<%= text_field_tag 'modelo[nome]'%>
-		<%end%>
-	</div>
+    <%unless @editando%>
+    <%= select_tag 'modelo_id', options_for_select(@modelos) %> 
+    <%else%>
+    <%= select_tag 'modelo_id', options_for_select(@modelos, @item.modelo.id) %>
+    <%end%> <button class='cadastro' id='novoModelo'>Novo Modelo para o Equipamento</button>
   </div>
   <div class="field">
     <%= f.label :numero_serie, "Número de série" %><br />
     <%= f.text_field :numero_serie %>
-  </div>
-  <div class="field">
-    <%= f.label :patrimonio, "Patrimônio" %><br />
-    <%= f.text_field :patrimonio %>
   </div>
   <div class="field">
     <%= f.label :data_aquisicao, "Data de aquisição" %><br />
@@ -79,14 +97,14 @@
     <%= text_field_tag "item[vencimento_garantia]" %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Salvar' %>
   </div>
 <% end %>
 
 <script type="text/javascript">
 	$j(document).ready(function(){
 		
-		formDialog = function(id,endereco,funcao){
+		formDialog = function(id,alvo,endereco,funcao){
 			$j(id).dialog({
 			autoOpen : false,
 			height : 230,
@@ -101,7 +119,10 @@
 							if(data['erro']){
 								
 							}else{
-								location.reload(true);
+								$j(alvo).children().removeAttr('selected');
+								$j(alvo).append("<option selected='selected' value='"+data['id']+"'>"+data['nome']+"</option>");
+								preencheModelos($j('#item_equipamento_id').val(), $j('#marca_id').val());
+								//location.reload(true);
 							}
 						});
 					$j(this).dialog("close");
@@ -137,12 +158,19 @@
 			$j(this).css('color','#000');
 		});
 		$j("#item_valor_aquisicao").setMask('preco');
-		$j('button').button().click(function(event){event.preventDefault();});
+		$j('.cadastro').button().click(function(event){event.preventDefault();});
 		$j('#novoEquipo').click(function(){$j('#dialog-equipo').dialog('open');});
 		$j('#novaMarca').click(function(){$j('#dialog-marca').dialog('open');});
 		$j('#novoModelo').click(function(){$j('#dialog-modelo').dialog('open');});
-		formDialog('#dialog-equipo','/ajax/criar_equipamento',dadosEquipo);
-		formDialog('#dialog-marca','/ajax/criar_marca',dadosMarca);
-		formDialog('#dialog-modelo','/ajax/criar_modelo',dadosModelo);
+		formDialog('#dialog-equipo','#item_equipamento_id','/ajax/criar_equipamento',dadosEquipo);
+		formDialog('#dialog-marca','#marca_id','/ajax/criar_marca',dadosMarca);
+		formDialog('#dialog-modelo','#modelo_id','/ajax/criar_modelo',dadosModelo);
+		$j('#item_equipamento_id').change(function(){
+			preencheModelos($j(this).val(), $j('#marca_id').val());
+		});
+		$j('#marca_id').change(function(){
+			preencheModelos($j('#item_equipamento_id').val(),$j(this).val());
+		});
+		preencheModelos($j('#item_equipamento_id').val(), $j('#marca_id').val());
 	});
-</script>>
+</script>

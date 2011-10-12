@@ -1,5 +1,5 @@
 class Usuario
-  include MongoMapper::EmbeddedDocument
+  include MongoMapper::Document
 
   key :nome, String
   key :telefone, String

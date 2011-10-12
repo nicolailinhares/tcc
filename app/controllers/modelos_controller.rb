@@ -47,6 +47,7 @@ class ModelosController < ApplicationController
     @modelo = @equipamento.modelos.build(params[:modelo])
     marca = @instituicao.marcas.find(@modelo.marca_id)
     @modelo.nome_marca = marca.nome
+    @modelo.nome_equipamento = @equipamento.nome
     marca.modelos << @modelo
     @equipamento.ids_de_marca << marca.id unless @equipamento.ids_de_marca.include? marca.id
     respond_to do |format|
@@ -65,10 +66,12 @@ class ModelosController < ApplicationController
   def update
     @equipamento = @instituicao.equipamentos.find(params[:equipamento_id])
     @modelo = @equipamento.modelos.find(params[:id])
-    
+    marca = @instituicao.marcas.find(@modelo.marca_id)
+    @modelo.nome_marca = marca.nome
+    @modelo.nome_equipamento = @equipamento.nome
     respond_to do |format|
       if @modelo.update_attributes(params[:modelo])
-        marca = @instituicao.marcas.find(@modelo.marca_id)
+        
         begin
           modelo_marca = marca.modelos.find(@modelo.id)
           modelo_marca.update_attributes(params[:modelo])

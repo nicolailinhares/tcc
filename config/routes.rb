@@ -29,7 +29,7 @@ Tcc::Application.routes.draw do
   match 'ajax/criar_equipamento' => 'ajax#criar_equipamento', :via => :post
   match 'ajax/criar_marca' => 'ajax#criar_marca', :via => :post
   match 'ajax/criar_modelo' => 'ajax#criar_modelo', :via => :post
-
+  match 'ajax/busca_modelos' => 'ajax#busca_modelos', :via => :post
   
 
   

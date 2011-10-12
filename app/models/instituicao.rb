@@ -9,7 +9,6 @@ class Instituicao
   key :complemento, String
   key :estado, String
   
-  many :usuarios
   many :setores
   many :equipes_internas
   many :marcas
