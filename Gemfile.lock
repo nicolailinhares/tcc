@@ -94,5 +94,6 @@ DEPENDENCIES
   devise
   jnunemaker-validatable
   mm-devise
+  mongo
   mongo_mapper
   rails (= 3.0.7)
