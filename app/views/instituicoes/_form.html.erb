@@ -39,6 +39,7 @@
     <%= f.label :cidade %><br />
     <%= f.collection_select :cidade, @cidades, :nome, :nome%>
   </div>
+  <%=hidden_field_tag 'instituicao[criador_id]', @usuario.id %>
   <div class="actions">
     <%= f.submit 'Salvar' %>
   </div>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tcc</title>
+  <%= stylesheet_link_tag :all %>
+  <%= javascript_include_tag :all %>
+  <%= csrf_meta_tag %>
+  <script type="text/javascript">
+	var $j = jQuery.noConflict();
+	
+	$j(document).ajaxSend(function(e, xhr, options) {
+		var token = $j("meta[name='csrf-token']").attr("content");
+		xhr.setRequestHeader("X-CSRF-Token", token);
+	});
+	</script>
+</head>
+<body>
+<%= yield %>
+
+</body>
+</html>

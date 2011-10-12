@@ -26,13 +26,14 @@
 <body>
 <div id='containerMenu'>
 	<ul id='menu'>
-		<li id='usuarios'><%= link_to 'Usuários', instituicao_usuarios_path(@instituicao.id) %></li>
-		<li id='equipes'><%= link_to 'Equipes', instituicao_equipes_internas_path(@instituicao.id) %></li>
+		<li id='usuarios'><%= link_to 'Usuários', permissoes_path %></li>
 		<li id='marcas'><%= link_to 'Marcas', instituicao_marcas_path(@instituicao.id)%>
 		<li id='equipamentos'><%= link_to 'Equipamentos', instituicao_equipamentos_path(@instituicao.id) %></li>
 		<li id='setores'><%= link_to 'Setores', instituicao_setores_path(@instituicao.id) %></li>
+		<li id='sair'><%= link_to 'Sair', destroy_usuario_session_path, :method => :delete %></li>
 	</ul>
 </div>
+<h1 id='nomeInstituicao'>Instituição <%=@instituicao.nome%></h1>
 <%= yield %>
 
 </body>

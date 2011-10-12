@@ -1,0 +1,23 @@
+<h1>Usuários</h1>
+
+<table>
+  <tr>
+    <th>Nome</th>
+    <th>Nível</th>
+    <th>Email</th>
+    <th>Opções</th>
+  </tr>
+
+<% @permissoes.each do |permissao| %>
+  <tr>
+    <td><%= permissao.nome_usuario %></td>
+    <td><%= permissao.nome_nivel %></td>
+    <td><%= permissao.email %></td>
+    <td><%= link_to 'Retirar', permissao, :confirm => 'Confirma a retirada do usuário?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Novo usuário', new_permissao_path %>

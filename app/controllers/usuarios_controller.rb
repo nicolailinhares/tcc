@@ -121,4 +121,27 @@ class UsuariosController < ApplicationController
     end
   end
   
+  def opcoes_instituicao
+    permissoes = Permissao.find_all_by_email(@usuario.email)
+    if permissoes.empty?
+      redirect_to new_instituicao_path
+    elsif permissoes.length == 1
+      session[:instituicao_id] = permissoes.first.instituicao_id
+      redirect_to :action => 'show', :controller => 'usuario'
+    else
+      @instituicoes = permissoes.map do |permissao| 
+        instituicao = Instituicao.find(permissao.instituicao_id)
+        [instituicao.nome,instituicao.id]
+      end
+      render :layout => 'login'
+      #@instituicoes = instituicoes.map{|instituicao| [instituicao.nome, instituicao.id]}
+    end
+    
+  end
+  
+  def escolhe_instituicao
+    session[:instituicao_id] = params[:instituicao_id]
+    redirect_to instituicao_setores_path(params[:instituicao_id])
+  end
+  
 end

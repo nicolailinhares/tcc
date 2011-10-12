@@ -42,10 +42,11 @@ class InstituicoesController < ApplicationController
   # POST /instituicoes.xml
   def create
     @instituicao = Instituicao.new(params[:instituicao])
-
+    
     respond_to do |format|
       if @instituicao.save
-        format.html { redirect_to instituicoes_path }
+        session[:instituicao_id] = @instituicao.id
+        format.html { redirect_to instituicao_setores_path(@instituicao.id) }
         format.xml  { render :xml => @instituicao, :status => :created, :location => @instituicao }
       else
         format.html { render :action => "new" }
@@ -83,7 +84,7 @@ class InstituicoesController < ApplicationController
   end
   
   def redireciona
-    redirect_to instituicao_usuarios_path(@instituicao.id)
+    redirect_to '/instituicoes'
   end
   
     

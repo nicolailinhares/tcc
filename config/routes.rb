@@ -1,7 +1,6 @@
 Tcc::Application.routes.draw do
   resources :instituicoes do
     resources :marcas
-    resources :usuarios
     resources :equipes_internas
     resources :setores do
       resources :salas
@@ -12,16 +11,21 @@ Tcc::Application.routes.draw do
     end
   end
   
+  resources :permissoes
+  
   resources :ordens_de_servico
 
   resources :notificacoes
 
-  root :to => 'instituicoes#redireciona'
+  root :to => 'usuarios#opcoes_instituicao'
 
   match 'instituicoes/retorna_cidades' => 'instituicoes#retorna_cidades'
   match 'equipes_internas/criar' => 'equipes_internas#criar', :via => :post
+  
   match 'usuarios/adicionar_a_equipe' => 'usuarios#adicionar_a_equipe', :via => :post
   match 'usuarios/remover_de_equipe' => 'usuarios#remover_de_equipe', :via => :post
+  match 'usuarios/opcoes_instituicao' => 'usuarios#opcoes_instituicao'
+  match 'usuarios/escolhe_instituicao' => 'usuarios#escolhe_instituicao', :via => :post
   
   match 'salas/insercao_de_item' => 'salas#insercao_de_item'
   match 'salas/inserir_item' => 'salas#inserir_item'
@@ -32,8 +36,14 @@ Tcc::Application.routes.draw do
   match 'ajax/busca_modelos' => 'ajax#busca_modelos', :via => :post
   
 
-  
-
+  devise_for :usuarios, :controllers => {:sessions=>"sessions", :registrations => 'registrations' },
+              :path_names => {
+                :sign_up => "registrar",
+                :sign_out => "sair",
+                :sign_in => "entrar",
+                :edit => "editar",
+                :password => "senha"
+  }
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

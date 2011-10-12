@@ -1,0 +1,12 @@
+<h1>Escolha a instituição</h1>
+<%form_tag '/usuarios/escolhe_instituicao' do%>
+<%= label_tag :instituicao_id, 'Instituição'%>
+<%= select_tag :instituicao_id, options_for_select(@instituicoes)%>
+<button id='escolher'>Escolher</button>
+<%end%>
+
+<script type="text/javascript">
+	$j(document).ready(function(){
+		$j('#escolher').button();
+	});
+</script>

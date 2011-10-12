@@ -1,15 +1,20 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :set_instituicao, :set_usuario
-  
+  before_filter :set_instituicao, :set_usuario, :authenticate_usuario!
+  layout :escolhe_layout
   protected
   def set_instituicao
-    @instituicao = Instituicao.first
+    @instituicao = Instituicao.find(session[:instituicao_id])
   end
   
   def set_usuario
-    @usuario = @instituicao.usuarios.first
+    @usuario = current_usuario
+  end
+  
+  def escolhe_layout
+   #Escolhe verificando se o usuário está logado, utilizando o método usuario_signed_in? do devise
+   usuario_signed_in? ? 'application' : 'login'
   end
   
 end

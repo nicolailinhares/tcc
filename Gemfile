@@ -4,7 +4,9 @@ source 'http://gemcutter.org'
 
 gem "rails", "3.0.7"
 gem "mongo_mapper"
-
+gem 'jnunemaker-validatable'
+gem 'devise'
+gem 'mm-devise'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

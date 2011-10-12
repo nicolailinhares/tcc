@@ -41,3 +41,9 @@
 #item_patrimonio{
 	color:#616161;
 }
+
+#nomeInstituicao{
+	width:100%;
+	border-bottom: 3px solid black;
+	padding-bottom: 15px;
+}

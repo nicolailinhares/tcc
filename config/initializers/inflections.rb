@@ -15,4 +15,5 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'notificacao', 'notificacoes'
   inflect.irregular 'equipe_interna', 'equipes_internas'
   inflect.irregular 'instituicao', 'instituicoes'
+  inflect.irregular 'permissao', 'permissoes'
 end
