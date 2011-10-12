@@ -31,6 +31,10 @@
     <%= f.label :estado %><br />
     <%= f.text_field :estado %>
   </div>
+  <div class="field">
+    <%= f.label :responsavel_id %><br />
+    <%= f.collection_select :responsavel_id, @usuarios, :id, :nome %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

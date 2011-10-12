@@ -22,8 +22,8 @@ Tcc::Application.routes.draw do
   match 'instituicoes/retorna_cidades' => 'instituicoes#retorna_cidades'
   match 'equipes_internas/criar' => 'equipes_internas#criar', :via => :post
   
-  match 'usuarios/adicionar_a_equipe' => 'usuarios#adicionar_a_equipe', :via => :post
-  match 'usuarios/remover_de_equipe' => 'usuarios#remover_de_equipe', :via => :post
+  match 'usuarios/adicionar_ao_setor' => 'usuarios#adicionar_ao_setor', :via => :post
+  match 'usuarios/remover_de_setor' => 'usuarios#remover_de_setor', :via => :post
   match 'usuarios/opcoes_instituicao' => 'usuarios#opcoes_instituicao'
   match 'usuarios/escolhe_instituicao' => 'usuarios#escolhe_instituicao', :via => :post
   

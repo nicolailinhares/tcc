@@ -16,6 +16,10 @@ class SetoresController < ApplicationController
     @setor = @instituicao.setores.find(params[:id])
     @salas = @setor.salas
     @itens = @setor.itens
+    @usuarios_do_setor = @setor.ids_de_usuario.map{|id| Usuario.find(id)}
+    usuarios_total = Permissao.find_all_by_instituicao_id(@instituicao.id).map{|permissao| Usuario.find_by_email(permissao.email)}
+    usuarios_disponiveis = usuarios_total - @usuarios_do_setor
+    @usuarios = usuarios_disponiveis.map{|usuario| [usuario.nome, usuario.id]}
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @setor }
@@ -26,7 +30,7 @@ class SetoresController < ApplicationController
   # GET /setores/new.xml
   def new
     @setor = @instituicao.setores.build(:endereco => @instituicao.endereco, :bairro => @instituicao.bairro, :cidade => @instituicao.cidade, :estado => @instituicao.estado)
-
+    @usuairos = Permissao.find_all_by_instituicao_id(@instituicao.id).map{|permissao| Usuario.find_by_email(permissao.email)}
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @setor }
@@ -36,6 +40,7 @@ class SetoresController < ApplicationController
   # GET /setores/1/edit
   def edit
     @setor = @instituicao.setores.find(params[:id])
+    @usuarios = Permissao.find_all_by_instituicao_id(@instituicao.id).map{|permissao| Usuario.find_by_email(permissao.email)}
   end
 
   # POST /setores

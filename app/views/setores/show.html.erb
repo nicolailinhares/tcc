@@ -25,10 +25,16 @@
   <%= @setor.estado %>
 </p>
 <%= link_to 'Editar', edit_instituicao_setor_path(@instituicao.id,@setor.id) %>
-<%=render 'salas'%>
 
 <div class='containnerEquipes'>
 	<%=render 'itens'%>
 	<%= link_to 'Novo item', new_instituicao_setor_item_path(@instituicao.id,@setor.id) %>
 </div>
+
+<%=render 'salas'%>
+
+<%=render 'usuarios'%>
+<br /><br />
 <%= link_to 'Voltar', instituicao_setores_path(@instituicao.id) %>
+
+

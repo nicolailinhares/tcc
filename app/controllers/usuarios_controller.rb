@@ -83,17 +83,17 @@ class UsuariosController < ApplicationController
     end
   end
   
-  def adicionar_a_equipe
-    equipe = @instituicao.equipes_internas.find(params[:equipe_id])
-    usuario = @instituicao.usuarios.find(params[:usuario_id])
-    unless equipe.ids_de_usuario.include? usuario.id
-      equipe.ids_de_usuario << usuario.id
-      usuario.equipes_ids << equipe.id
+  def adicionar_ao_setor
+    setor = @instituicao.setores.find(params[:setor_id])
+    usuario = Usuario.find(params[:usuario_id])
+    unless setor.ids_de_usuario.include? usuario.id
+      setor.ids_de_usuario << usuario.id
+      usuario.setores_ids << setor.id
       if @instituicao.save
         if(params[:tipo].to_i == 1)
-          dados = {:erro => false, :nome => equipe.nome, :especialidade => equipe.especialidade, :id => equipe.id}
+          dados = {:erro => false, :nome => setor.nome, :id => equipe.id}
         else
-          dados = {:erro => false, :nome => usuario.nome, :especialidade => usuario.email, :id => usuario.id}
+          dados = {:erro => false, :nome => usuario.nome, :id => usuario.id, :email => usuario.email}
         end
       else
         dados = {:erro => true}
@@ -106,11 +106,11 @@ class UsuariosController < ApplicationController
     end
   end
   
-  def remover_de_equipe
-    equipe = @instituicao.equipes_internas.find(params[:equipe_id])
-    usuario = @instituicao.usuarios.find(params[:usuario_id])
-    equipe.ids_de_usuario.delete_if{|id| id == usuario.id}
-    usuario.equipes_ids.delete_if{|id| id == equipe.id}
+  def remover_de_setor
+    setor = @instituicao.setores.find(params[:setor_id])
+    usuario = Usuario.find(params[:usuario_id])
+    setor.ids_de_usuario.delete_if{|id| id == usuario.id}
+    usuario.setores_ids.delete_if{|id| id == setor.id}
     if @instituicao.save
       dados = {:erro => false}
     else

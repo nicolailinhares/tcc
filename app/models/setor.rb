@@ -6,7 +6,10 @@ class Setor
   key :bairro, String
   key :cidade, String
   key :estado, String
-  key :ids_de_equipe, Array
+  key :ids_de_usuario, Array
+  key :responsavel_id, ObjectId
+
+  many :usuarios, :in => :ids_de_usuario
   many :itens
   
   many :salas
