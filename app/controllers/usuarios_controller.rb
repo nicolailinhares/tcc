@@ -127,7 +127,7 @@ class UsuariosController < ApplicationController
       redirect_to new_instituicao_path
     elsif permissoes.length == 1
       session[:instituicao_id] = permissoes.first.instituicao_id
-      redirect_to :action => 'show', :controller => 'usuario'
+      redirect_to instituicao_setores_path(session[:instituicao_id])
     else
       @instituicoes = permissoes.map do |permissao| 
         instituicao = Instituicao.find(permissao.instituicao_id)

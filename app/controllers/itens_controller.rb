@@ -34,7 +34,11 @@ class ItensController < ApplicationController
     #end
     #@marcas = marcas_disponiveis.map{|marca| [marca.nome, marca.id]}
     @marcas = @instituicao.marcas.map{|marca| [marca.nome, marca.id]}
-    modelos_disponiveis = @instituicao.marcas.first.modelos.find_all{|modelo| modelo.equipamento_id == equipamento.id}
+    if @marcas.empty?
+      modelos_disponiveis = @instituicao.marcas.first.modelos.find_all{|modelo| modelo.equipamento_id == equipamento.id}
+    else
+      modelos_disponiveis = []
+    end
     @modelos = modelos_disponiveis.map{|modelo| [modelo.nome, modelo.id]}
     respond_to do |format|
       format.html # new.html.erb

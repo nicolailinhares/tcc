@@ -16,7 +16,7 @@ class Instituicao
   many :marcas
   many :equipamentos
   
-  after_save :cria_permissao_gerente
+  after_create :cria_permissao_gerente
   
   private
   def cria_permissao_gerente
