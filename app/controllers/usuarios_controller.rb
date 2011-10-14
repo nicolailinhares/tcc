@@ -88,17 +88,13 @@ class UsuariosController < ApplicationController
   def adicionar_ao_setor
     setor = @instituicao.setores.find(params[:setor_id])
     usuario = Usuario.find(params[:usuario_id])
-    unless setor.ids_de_usuario.include? usuario.id
-      setor.ids_de_usuario << usuario.id
-      usuario.setores_ids << setor.id
-      if @instituicao.save
-        if(params[:tipo].to_i == 1)
-          dados = {:erro => false, :nome => setor.nome, :id => equipe.id}
-        else
-          dados = {:erro => false, :nome => usuario.nome, :id => usuario.id, :email => usuario.email}
-        end
+    setor.ids_de_usuario << usuario.id
+    usuario.setores_ids << setor.id
+    if @instituicao.save
+      if(params[:tipo].to_i == 1)
+        dados = {:erro => false, :nome => setor.nome, :id => equipe.id}
       else
-        dados = {:erro => true}
+        dados = {:erro => false, :nome => usuario.nome, :id => usuario.id, :email => usuario.email}
       end
     else
       dados = {:erro => true}
