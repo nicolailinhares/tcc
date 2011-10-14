@@ -19,7 +19,7 @@ class Permissao
     NIVEIS.to_a.sort
   end
   
-   def nome_nivel
+  def nome_nivel
     NIVEIS[nivel]
   end
   

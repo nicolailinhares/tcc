@@ -30,7 +30,7 @@ class SetoresController < ApplicationController
   # GET /setores/new.xml
   def new
     @setor = @instituicao.setores.build(:endereco => @instituicao.endereco, :bairro => @instituicao.bairro, :cidade => @instituicao.cidade, :estado => @instituicao.estado)
-    @usuairos = Permissao.find_all_by_instituicao_id(@instituicao.id).map{|permissao| Usuario.find_by_email(permissao.email)}
+    @usuarios = Permissao.find_all_by_instituicao_id(@instituicao.id).map{|permissao| Usuario.find_by_email(permissao.email)}
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @setor }

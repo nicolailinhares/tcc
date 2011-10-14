@@ -37,12 +37,12 @@
 <td class='colunaEntrada'><%= f.password_field :password_confirmation %></td>
 </tr>
 </table>
-<button id="botaoCadastrar">Cadastrar</button>
+<%= f.submit "Cadastrar" %>
 <% end %>
 </div> 
 <script type="text/javascript">
 	$j(document).ready(function(){
 		$j('input[id=usuario_telefone]').setMask('phone');
 	});
-	$j('#botaoCadastrar').button();
+	$j('input[type=submit]').button();
 </script>

@@ -1,0 +1,10 @@
+<ul id='menuLateral'>
+	<%if @nivel == 3%>
+	<li id='usuarios'><%= link_to 'Usuários', permissoes_path %></li>
+	<%end%>
+	<%if (2..3).include? @nivel%>
+	<li id='marcas'><%= link_to 'Marcas', instituicao_marcas_path(@instituicao.id)%>
+	<li id='equipamentos'><%= link_to 'Equipamentos', instituicao_equipamentos_path(@instituicao.id) %></li>
+	<%end%>
+	<li id='setores'><%= link_to 'Setores', instituicao_setores_path(@instituicao.id) %></li>
+</ul>

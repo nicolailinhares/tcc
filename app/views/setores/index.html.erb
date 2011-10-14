@@ -1,3 +1,5 @@
+<%=render '/instituicoes/menu'%>
+<div id='colunaPrincipal'>
 <h1>Setores</h1>
 
 <table>
@@ -23,6 +25,7 @@
 <br />
 
 <%= link_to 'Novo Setor', new_instituicao_setor_path(@instituicao.id) %>
+</div>
 <script type="text/javascript">
 	seleciona('setores');
 </script>

@@ -1,4 +1,14 @@
 Tcc::Application.routes.draw do
+  
+  devise_for :usuarios, :controllers => {:sessions=>"sessions", :registrations => 'registrations' },
+              :path_names => {
+                :sign_up => "registrar",
+                :sign_out => "sair",
+                :sign_in => "entrar",
+                :edit => "editar",
+                :password => "senha"
+  }
+  
   resources :instituicoes do
     resources :marcas
     resources :equipes_internas
@@ -17,7 +27,7 @@ Tcc::Application.routes.draw do
 
   resources :notificacoes
 
-  root :to => 'usuarios#opcoes_instituicao'
+  root :to => 'usuarios#show'
 
   match 'instituicoes/retorna_cidades' => 'instituicoes#retorna_cidades'
   match 'equipes_internas/criar' => 'equipes_internas#criar', :via => :post
@@ -25,7 +35,8 @@ Tcc::Application.routes.draw do
   match 'usuarios/adicionar_ao_setor' => 'usuarios#adicionar_ao_setor', :via => :post
   match 'usuarios/remover_de_setor' => 'usuarios#remover_de_setor', :via => :post
   match 'usuarios/opcoes_instituicao' => 'usuarios#opcoes_instituicao'
-  match 'usuarios/escolhe_instituicao' => 'usuarios#escolhe_instituicao', :via => :post
+  match 'usuarios/escolhe_instituicao/:instituicao_id' => 'usuarios#escolhe_instituicao', :via => :post
+  match ':usuario_id' => 'usuarios#show'
   
   match 'salas/insercao_de_item' => 'salas#insercao_de_item'
   match 'salas/inserir_item' => 'salas#inserir_item'
@@ -36,14 +47,7 @@ Tcc::Application.routes.draw do
   match 'ajax/busca_modelos' => 'ajax#busca_modelos', :via => :post
   
 
-  devise_for :usuarios, :controllers => {:sessions=>"sessions", :registrations => 'registrations' },
-              :path_names => {
-                :sign_up => "registrar",
-                :sign_out => "sair",
-                :sign_in => "entrar",
-                :edit => "editar",
-                :password => "senha"
-  }
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

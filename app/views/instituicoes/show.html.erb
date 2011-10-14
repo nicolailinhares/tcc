@@ -1,3 +1,5 @@
+<%=render 'menu'%>
+<div id='colunaPrincipal'>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -31,7 +33,41 @@
   <b>Estado:</b>
   <%= @instituicao.estado %>
 </p>
-
-
-<%= link_to 'Editar', edit_instituicao_path(@instituicao) %> |
-<%= link_to 'Voltar', instituicoes_path %>
+<%if @nivel == 3%><%= link_to 'Editar', edit_instituicao_path(@instituicao) %><%end%>
+<div class='containnerEquipes'>
+<h2>Seus setores nessa instituição</h2>
+	<table id='equipes'>
+		<tr>
+			<th>Nome</th>
+			<th>Opção</td>
+		</tr>
+		<%@setores_do_usuario.each do |setor|%>
+		<tr>
+			<td><%=setor.nome%></td>
+			<td><button class='desassociar' id='<%=setor.id%>'>Desassociar</button>
+		</tr>
+		<%end%>
+	</table>
+</div>
+<%= link_to 'Voltar', "/{@usuario.id}" %>
+</div>
+<script type="text/javascript">
+$j(document).ready(function(){
+	function toggleHeader()
+	{
+		if($j('#equipes tr td')[0] == undefined)
+			{
+				$j('#equipes tr th').toggle();
+			}
+	}
+	function configuraBotoes(){
+		$j(".desassociar").button().click(function(){
+			$j.post('/usuarios/remover_de_setor',{setor_id: $j(this).attr('id'), usuario_id:'<%=@usuario.id%>'});
+			$j(this).parent().parent().remove();
+			toggleHeader();
+		});
+	}
+	configuraBotoes();
+	toggleHeader();	
+});
+</script>

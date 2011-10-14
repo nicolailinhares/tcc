@@ -13,11 +13,13 @@ class UsuariosController < ApplicationController
   # GET /usuarios/1
   # GET /usuarios/1.xml
   def show
-    @usuario = @instituicao.usuarios.find(params[:id])
-    @usuarios = @instituicao.usuarios
-    @equipes = @instituicao.equipes_internas.map{|equipe| [equipe.nome,equipe.id]}
-    @equipe_interna = @instituicao.equipes_internas.build
-    @equipes_do_usuario = @usuario.equipes_ids.map{|id| @instituicao.equipes_internas.find(id)}
+    @usuario = Usuario.find(params[:usuario_id]) || @usuario
+    permissoes = Permissao.where(:email => @usuario.email)
+    @permissoes = permissoes.map do |permissao| 
+      instituicao = Instituicao.find(permissao.instituicao_id) 
+      {:nome => instituicao.nome, :cidade => instituicao.cidade, :estado => instituicao.estado,
+        :instituicao => permissao.instituicao_id, :nivel => permissao.nome_nivel}
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @usuario }
@@ -124,10 +126,11 @@ class UsuariosController < ApplicationController
   def opcoes_instituicao
     permissoes = Permissao.find_all_by_email(@usuario.email)
     if permissoes.empty?
-      redirect_to new_instituicao_path
+      redirect_to "/#{@usuario.id}"
     elsif permissoes.length == 1
       session[:instituicao_id] = permissoes.first.instituicao_id
-      redirect_to instituicao_setores_path(session[:instituicao_id])
+      session[:nivel] = permissoes.first.nivel
+      redirect_to "/#{@usuario.id}"
     else
       @instituicoes = permissoes.map do |permissao| 
         instituicao = Instituicao.find(permissao.instituicao_id)
@@ -141,7 +144,9 @@ class UsuariosController < ApplicationController
   
   def escolhe_instituicao
     session[:instituicao_id] = params[:instituicao_id]
-    redirect_to instituicao_setores_path(params[:instituicao_id])
+    permissao = Permissao.find_all_by_email(@usuario.email).detect{|p| p.instituicao_id.to_s == params[:instituicao_id]}
+    session[:nivel] = permissao.nivel
+    redirect_to instituicao_path(params[:instituicao_id])
   end
   
 end

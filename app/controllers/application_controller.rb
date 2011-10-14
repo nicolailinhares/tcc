@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
   protected
   def set_instituicao
     @instituicao = Instituicao.find(session[:instituicao_id])
+    @nivel = session[:nivel]
+    @controlador = controller_name
   end
   
   def set_usuario

@@ -14,7 +14,7 @@ class InstituicoesController < ApplicationController
   # GET /instituicoes/1.xml
   def show
     @instituicao = Instituicao.find(params[:id])
-
+    @setores_do_usuario = @usuario.setores_ids.map{|id| @instituicao.setores.find(id)}
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @instituicao }
@@ -46,7 +46,7 @@ class InstituicoesController < ApplicationController
     respond_to do |format|
       if @instituicao.save
         session[:instituicao_id] = @instituicao.id
-        format.html { redirect_to instituicao_setores_path(@instituicao.id) }
+        format.html { redirect_to "/#{@usuario.id}" }
         format.xml  { render :xml => @instituicao, :status => :created, :location => @instituicao }
       else
         format.html { render :action => "new" }

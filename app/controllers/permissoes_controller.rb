@@ -1,5 +1,5 @@
 class PermissoesController < ApplicationController
-  
+
   def index
     @permissoes = Permissao.where(:instituicao_id => @instituicao.id)
   end

@@ -26,11 +26,17 @@
 <body>
 <div id='containerMenu'>
 	<ul id='menu'>
-		<li id='home'><%= link_to @usuario.nome, "/#{@usuario.id}" %></li>
+		<li id='home'><%= link_to 'Home', "/#{@usuario.id}" %></li>
+		<%if @nivel == 3%>
+		<li id='usuarios'><%= link_to 'Usuários', permissoes_path %></li>
+		<%end%>
+		<li id='marcas'><%= link_to 'Marcas', instituicao_marcas_path(@instituicao.id)%>
+		<li id='equipamentos'><%= link_to 'Equipamentos', instituicao_equipamentos_path(@instituicao.id) %></li>
+		<li id='setores'><%= link_to 'Setores', instituicao_setores_path(@instituicao.id) %></li>
 		<li id='sair'><%= link_to 'Sair', destroy_usuario_session_path, :method => :delete %></li>
 	</ul>
 </div>
-<%unless @controlador == 'usuarios'%><a href='<%=instituicao_path(@instituicao.id)%>'><h1 id='nomeInstituicao'>Instituição <%=@instituicao.nome%></h1></a><%end%>
+<h1 id='nomeInstituicao'>Instituição <%=@instituicao.nome%></h1>
 <%= yield %>
 
 </body>

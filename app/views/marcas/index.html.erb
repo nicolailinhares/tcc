@@ -1,3 +1,5 @@
+<%=render '/instituicoes/menu'%>
+<div id='colunaPrincipal'>
 <h1>Marcas</h1>
 
 <table>
@@ -21,6 +23,7 @@
 <br />
 
 <%= link_to 'Nova Marca', new_instituicao_marca_path(@instituicao.id) %>
+</div>
 <script type="text/javascript">
 	seleciona('marcas');
 </script>

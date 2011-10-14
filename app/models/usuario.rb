@@ -23,24 +23,4 @@ class Usuario
   validates_confirmation_of :password, :message => 'não confere com a confirmação.'
 
   validates_length_of :password, :within => 6..30, :allow_blank => true, :message => 'deve possuir entre 6 e 30 caracteres.'
-  
-  def self.texto_nivel n
-    NIVEIS[n]
-  end
-  
-  def self.niveis
-    NIVEIS.to_a.sort
-  end
-  
-   def nome_nivel
-    NIVEIS[nivel]
-  end
-  
-  private
-  NIVEIS =
-  {
-    1 => 'Profissional de saúde',
-    2 => 'Técnico',
-    3 => 'Gerente'
-  } 
 end

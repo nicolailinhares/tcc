@@ -1,3 +1,13 @@
+<% flash.each do |name, msg| %>
+	<% if msg.class == Array %>
+		<% msg.each do |message| %>
+			<%= message%>
+		<% end %>
+	<% else %>
+		<%= msg %>
+	<% end %>
+<% end %>
+
 <%= form_for(resource, :as => 'login', :url => session_path(resource_name)) do |f| %>
 <p class="campos"><label for="usuario_email">Email</label>
 <input id="usuario_email" name="usuario[email]" size="30" type="email" /></p>
@@ -15,3 +25,5 @@
 <%- if devise_mapping.recoverable? %>
 <%= link_to "Esqueceu sua senha?", 'javascript:;',{:id => "linkSenha"} %>
 <% end -%>
+
+<%= link_to 'Criar conta', '/usuarios/registrar'%>
