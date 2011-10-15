@@ -47,12 +47,13 @@ class SetoresController < ApplicationController
   # POST /setores.xml
   def create
     @setor = @instituicao.setores.build(params[:setor])
-
+    
     respond_to do |format|
       if @instituicao.save
         format.html { redirect_to(instituicao_setor_path(@instituicao.id,@setor.id), :notice => 'Setor criado com sucesso.') }
         format.xml  { render :xml => @setor, :status => :created, :location => @setor }
       else
+        @usuarios = Permissao.find_all_by_instituicao_id(@instituicao.id).map{|permissao| Usuario.find_by_email(permissao.email)}
         format.html { render :action => "new" }
         format.xml  { render :xml => @setor.errors, :status => :unprocessable_entity }
       end
@@ -69,6 +70,7 @@ class SetoresController < ApplicationController
         format.html { redirect_to(instituicao_setor_path(@instituicao.id,@setor.id), :notice => 'Setor atualizado com sucesso.') }
         format.xml  { head :ok }
       else
+        @usuarios = Permissao.find_all_by_instituicao_id(@instituicao.id).map{|permissao| Usuario.find_by_email(permissao.email)}
         format.html { render :action => "edit" }
         format.xml  { render :xml => @setor.errors, :status => :unprocessable_entity }
       end
@@ -80,7 +82,10 @@ class SetoresController < ApplicationController
   def destroy
     @instituicao.setores.delete_if{|setor| setor.id.to_s == params[:id]}
     @instituicao.save
-
+    Usuario.all.each do |usuario|
+      usuario.setores_ids.delete_if{|id| id.to_s == params[:id]}
+      usuario.save
+    end
     respond_to do |format|
       format.html { redirect_to(instituicao_setores_url) }
       format.xml  { head :ok }

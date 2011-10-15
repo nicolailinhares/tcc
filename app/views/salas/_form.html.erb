@@ -1,10 +1,10 @@
 <%= form_for([@instituicao,@setor,@sala]) do |f| %>
-  <% if @sala.errors.any? %>
+  <% if @instituicao.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@sala.errors.count, "error") %> prohibited this sala from being saved:</h2>
+      <h2><%= pluralize(@instituicao.errors.count, "erro impediu", "erros impediram") %> a sala de ser salva:</h2>
 
       <ul>
-      <% @sala.errors.full_messages.each do |msg| %>
+      <% @instituicao.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -20,6 +20,6 @@
     <%= f.text_field :localizacao %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Salvar'%>
   </div>
 <% end %>

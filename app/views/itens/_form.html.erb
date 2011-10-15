@@ -26,12 +26,12 @@
 	<%end%>
 </div>
 <%= form_for([@instituicao,@setor,@item]) do |f| %>
-  <% if @item.errors.any? %>
+  <% if @instituicao.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+      <h2><%= pluralize(@instituicao.errors.count, "erro impediu", "erros impediram") %> o item de ser salvo:</h2>
 
       <ul>
-      <% @item.errors.full_messages.each do |msg| %>
+      <% @instituicao.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>

@@ -1,7 +1,7 @@
 class Usuario
   include MongoMapper::Document
   
-  devise :database_authenticatable, :registerable, :rememberable, :trackable
+  devise :database_authenticatable, :registerable, :rememberable, :trackable, :validatable
   
   key :nome, String
   key :telefone, String
@@ -19,8 +19,8 @@ class Usuario
   validates_uniqueness_of :email, :case_sensitive => false, :allow_blank => false, :message => 'já está em uso'
   validates_format_of :email, :with => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\z/i, :allow_blank => false, :message => 'formato inválido'
 
-  validates_presence_of :password, :message => 'não pode estar em branco'
-  validates_confirmation_of :password, :message => 'não confere com a confirmação.'
+  validates_presence_of :password, :if => :password_required?, :message => 'não pode estar em branco'
+  validates_confirmation_of :password, :if => :password_required?, :message => 'não confere com a confirmação.'
 
   validates_length_of :password, :within => 6..30, :allow_blank => true, :message => 'deve possuir entre 6 e 30 caracteres.'
 end

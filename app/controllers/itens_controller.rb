@@ -57,18 +57,21 @@ class ItensController < ApplicationController
   # POST /items.xml
   def create
     @setor = @instituicao.setores.find(params[:setor_id])
-    params[:item][:data_aquisicao] = Date.parse(params[:item][:data_aquisicao].to_s.gsub('/','-'))
-    params[:item][:vencimento_garantia] = Date.parse(params[:item][:vencimento_garantia].to_s.gsub('/','-'))
+    params[:item][:data_aquisicao] = Date.parse(params[:item][:data_aquisicao].to_s.gsub('/','-')) unless params[:item][:data_aquisicao].empty?
+    params[:item][:vencimento_garantia] = Date.parse(params[:item][:vencimento_garantia].to_s.gsub('/','-'))  unless params[:item][:data_aquisicao].empty?
     @item = @setor.itens.build(params[:item])
-    @item.modelo = @instituicao.marcas.find(params[:marca_id]).modelos.find(params[:modelo_id])
-    if @item.patrimonio == 'Não edite para ser gerado'
+    unless (params[:marca_id].nil? or params[:modelo_id].nil?)
+      @item.modelo = @instituicao.marcas.find(params[:marca_id]).modelos.find(params[:modelo_id])
+    end 
+    if @item.patrimonio == 'Não edite para ser gerado' and !params[:item][:equipamento_id].nil?
       @item.patrimonio = Item.gera_patrimonio(@instituicao,@setor,@item)
     end
     respond_to do |format|
-      if @item.save
+      if @instituicao.save
         format.html { redirect_to(instituicao_setor_path(@instituicao.id,@setor.id), :notice => 'Item criado com sucesso.') }
         format.xml  { render :xml => @item, :status => :created, :location => @item }
       else
+        prepara_item
         format.html { render :action => "new" }
         format.xml  { render :xml => @item.errors, :status => :unprocessable_entity }
       end
@@ -103,6 +106,18 @@ class ItensController < ApplicationController
       format.html { redirect_to(instituicao_setor_path(@instituicao.id,@setor.id)) }
       format.xml  { head :ok }
     end
+  end
+  
+  def prepara_item
+    @item = @setor.itens.build(:patrimonio => "Não edite para ser gerado")
+    equipamento = @instituicao.equipamentos.first
+    @marcas = @instituicao.marcas.map{|marca| [marca.nome, marca.id]}
+    unless @instituicao.marcas.empty?
+      modelos_disponiveis = @instituicao.marcas.first.modelos.find_all{|modelo| modelo.equipamento_id == equipamento.id}
+    else
+      modelos_disponiveis = []
+    end
+    @modelos = modelos_disponiveis.map{|modelo| [modelo.nome, modelo.id]}
   end
 
   

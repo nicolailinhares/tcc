@@ -2,7 +2,7 @@ class AjaxController < ApplicationController
   
   def criar_equipamento
     equipamento = @instituicao.equipamentos.build(params[:equipamento])
-    if equipamento.save
+    if @instituicao.save
       resposta = {:erro => false, :nome => equipamento.nome, :id => equipamento.id}
     else
       resposta = {:erro => true}
@@ -12,7 +12,7 @@ class AjaxController < ApplicationController
   
   def criar_marca
     marca = @instituicao.marcas.build(params[:marca])
-    if marca.save
+    if @instituicao.save
       resposta = {:erro => false, :nome => marca.nome, :id => marca.id}
     else
       resposta = {:erro => true}

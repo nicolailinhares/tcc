@@ -1,4 +1,4 @@
-class Item
+class Item < Validacao
   include MongoMapper::EmbeddedDocument
 
   key :numero_serie, String
@@ -11,10 +11,16 @@ class Item
   key :sala_id, ObjectId
   key :equipamento_id, ObjectId
   key :nome_equipamento, String
-  
+  attr_accessor :pai
   #ensure_index :patrimonio, :unique => true
   many :ordens_de_servico, :as => :ordenado
   one :modelo
+  
+  def valida pai
+    self.superpai = pai.superpai
+    valida_presenca_de [:numero_serie,:patrimonio, :equipamento_id]
+    valida_unicidade_de :patrimonio, pai.itens
+  end
   
   def nome_status
     LISTA_DE_STATUS[status]

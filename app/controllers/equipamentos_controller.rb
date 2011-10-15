@@ -43,7 +43,7 @@ class EquipamentosController < ApplicationController
     @equipamento = @instituicao.equipamentos.build(params[:equipamento])
 
     respond_to do |format|
-      if @equipamento.save
+      if @instituicao.save
         format.html { redirect_to(instituicao_equipamento_path(@instituicao.id,@equipamento.id), :notice => 'Equipamento criado com sucesso.') }
         format.xml  { render :xml => @equipamento, :status => :created, :location => @equipamento }
       else
