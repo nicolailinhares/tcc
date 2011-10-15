@@ -1,3 +1,7 @@
+<ul id='menuLateral'>
+	<li><%=link_to 'Pedidos de serviço', "/notificacoes?instituicao_id=#{@instituicao.id}&setor_id=#{@setor.id}&item_id=#{@item.id}"%></li>
+</ul>
+<div id='colunaPrincipal'>
 <h1>Item</h1>
 <p id="notice"><%= notice %></p>
 
@@ -46,3 +50,4 @@
 
 <%= link_to 'Editar', edit_instituicao_setor_item_path(@instituicao.id,@setor.id,@item.id) %> |
 <%= link_to 'Voltar', instituicao_setor_path(@instituicao.id,@setor.id) %>
+</div>

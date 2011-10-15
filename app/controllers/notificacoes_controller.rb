@@ -2,7 +2,10 @@ class NotificacoesController < ApplicationController
   # GET /notificacoes
   # GET /notificacoes.xml
   def index
-    @notificacoes = Notificacao.all
+    @instituicao_id = params[:instituicao_id]
+    @setor_id = params[:setor_id]
+    @item_id = params[:item_id]
+    @notificacoes = Notificacao.where(:instituicao_id => @instituicao_id, :setor_id => @setor_id, :item_id => @item_id)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,7 +28,12 @@ class NotificacoesController < ApplicationController
   # GET /notificacoes/new.xml
   def new
     @notificacao = Notificacao.new
-
+    @notificacao.instituicao_id = params[:instituicao_id]
+    @notificacao.setor_id = params[:setor_id]
+    @notificacao.item_id = params[:item_id]
+    @notificacao.usuario_id = @usuario.id
+    @notificacao.data_abertura = Date.today
+    @opcoes_status = [ ['Em funcionamento',1], ['Aguardando instalação',2], ['Aguardando manutenção corretiva',5] ]
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @notificacao }
@@ -44,6 +52,10 @@ class NotificacoesController < ApplicationController
 
     respond_to do |format|
       if @notificacao.save
+        setor = @instituicao.setores.find(@notificacao.setor_id)
+        item = setor.itens.find(@notificacao.item_id)
+        item.status = params[:status]
+        item.save
         format.html { redirect_to(@notificacao, :notice => 'Notificacao was successfully created.') }
         format.xml  { render :xml => @notificacao, :status => :created, :location => @notificacao }
       else
@@ -73,7 +85,9 @@ class NotificacoesController < ApplicationController
   # DELETE /notificacoes/1.xml
   def destroy
     @notificacao = Notificacao.find(params[:id])
-    @notificacao.destroy
+    @notificacao.tipo_despacho = 2
+    @notificacao.despachada = true
+    @notificacao.save
 
     respond_to do |format|
       format.html { redirect_to(notificacoes_url) }

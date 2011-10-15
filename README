@@ -5,7 +5,7 @@ Sequência para cadastro de itens
 2. Estar vinculado a uma instituição, ou criar uma instituição
 3. Entrar na página de uma instituição
 4. Criar um setor para instituição
-5. Dentro do setor criar novo item
+5. Dentro do setor criar novo item, dentro do cadastro do item criar um novos: equipamento, marca e modelo, se necessário.
 6. Criar salas dentro dos setores (opcional)
 7. Mover os itens de um setor para dentro das salas desse setor.
 

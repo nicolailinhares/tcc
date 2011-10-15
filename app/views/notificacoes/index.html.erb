@@ -1,23 +1,29 @@
-<h1>Listing notificacoes</h1>
+<h1>Pedidos de serviço</h1>
 
 <table>
   <tr>
-    <th>Descricao falha</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Número</th>
+    <th>Data de abertura</th>
+    <th>Estado</th>
+    <th colspan='3'>Opções</th>
   </tr>
 
 <% @notificacoes.each do |notificacao| %>
   <tr>
-    <td><%= notificacao.descricao_falha %></td>
-    <td><%= link_to 'Show', notificacao %></td>
-    <td><%= link_to 'Edit', edit_notificacao_path(notificacao) %></td>
-    <td><%= link_to 'Destroy', notificacao, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td>STUB</td>
+    <td><%=notificacao.data_abertura%></td>
+    <td><%=notificacao.estado%></td>
+    <%unless notificacao.tipo_despacho == 2%>
+    <td><%= link_to 'Informações', notificacao %></td>
+    <td><%= link_to 'Editar', edit_notificacao_path(notificacao) %></td>
+    <td><%= link_to 'Cancelar', notificacao, :confirm => 'Are you sure?', :method => :delete %></td>
+    <%else%>
+    <td colspan='3'><%= link_to 'Informações', notificacao %></td>
+    <%end%>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Notificacao', new_notificacao_path %>
+<%= link_to 'Novo pedido de serviço',"/notificacoes/new?instituicao_id=#{@instituicao_id}&setor_id=#{@setor_id}&item_id=#{@item_id}"%>
