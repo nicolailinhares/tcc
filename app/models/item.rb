@@ -66,7 +66,7 @@ class Item < Validacao
   end
   
   def self.gera_patrimonio(instituicao,setor,item)
-    gera_codigo(setor.nome)+ '.' + gera_codigo(instituicao.equipamentos.find(item.equipamento_id).nome) + '/' + gera_numero(instituicao) + '-' + item.data_aquisicao.to_s[2,2]
+    gera_codigo(setor.nome)+ '.' + gera_codigo(instituicao.equipamentos.find(item.equipamento_id).nome) + '/' + gera_numero(instituicao) + '-' + (item.data_aquisicao.to_s[2,2] || 'XX')
   end
   
   private

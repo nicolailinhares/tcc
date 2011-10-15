@@ -57,8 +57,12 @@ class ItensController < ApplicationController
   # POST /items.xml
   def create
     @setor = @instituicao.setores.find(params[:setor_id])
-    params[:item][:data_aquisicao] = Date.parse(params[:item][:data_aquisicao].to_s.gsub('/','-')) unless params[:item][:data_aquisicao].nil?
-    params[:item][:vencimento_garantia] = Date.parse(params[:item][:vencimento_garantia].to_s.gsub('/','-'))  unless params[:item][:data_aquisicao].nil?
+    unless params[:item][:data_aquisicao].empty?
+      params[:item][:data_aquisicao] = Date.parse(params[:item][:data_aquisicao].to_s.gsub('/','-'))
+    end
+    unless params[:item][:vencimento_garantia].empty? 
+      params[:item][:vencimento_garantia] = Date.parse(params[:item][:vencimento_garantia].to_s.gsub('/','-'))
+    end 
     @item = @setor.itens.build(params[:item])
     unless (params[:marca_id].nil? or params[:modelo_id].nil?)
       @item.modelo = @instituicao.marcas.find(params[:marca_id]).modelos.find(params[:modelo_id])
