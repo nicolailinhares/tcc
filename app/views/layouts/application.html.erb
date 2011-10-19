@@ -15,22 +15,28 @@
 
 	function seleciona(valor)
 	{
-		elemento = document.getElementById(valor);
-		filho = elemento.firstChild;
-		texto = filho.innerHTML;
-		elemento.innerHTML = texto;
-		elemento.className = 'selecionado';
+		$j('#'+valor).addClass('selecionado');
+		texto = $j('#'+valor+' a').text();
+		$j('#'+valor+' a').remove();
+		$j('#'+valor).append(texto);
 	}
 	</script>
 </head>
 <body>
-<div id='containerMenu'>
+<div id='topo'>
+	<%=image_tag 'logo.png', :id => 'logo'%><span id='sgm'>SGM</span><span id="web">web</span>
 	<ul id='menu'>
-		<li id='home'><%= link_to @usuario.nome, "/#{@usuario.id}" %></li>
-		<li id='sair'><%= link_to 'Sair', destroy_usuario_session_path, :method => :delete %></li>
+		<li id='home'><%=image_tag 'usuario.png', :size=>'24x24'%><%= link_to @usuario.nome, "/#{@usuario.id}" %></li>
+		<li id='sair'><%=image_tag 'sair.png', :size=>'24x24'%><%= link_to 'Sair', destroy_usuario_session_path, :method => :delete %></li>
 	</ul>
+	<br style="clear:both;">
 </div>
-<%unless @controlador == 'usuarios'%><a href='<%=instituicao_path(@instituicao.id)%>'><h1 id='nomeInstituicao'>Instituição <%=@instituicao.nome%></h1></a><%end%>
+<%unless @controlador == 'usuarios'%>
+	<div id='instituicao'>
+		<a href='<%=instituicao_path(@instituicao.id)%>'><%=image_tag 'instituicao.png'%><h1 id='nomeInstituicao'>Instituição <%=@instituicao.nome%></h1></a>
+		<br style="clear:both;" />
+	</div>
+<%end%>
 <%= yield %>
 
 </body>

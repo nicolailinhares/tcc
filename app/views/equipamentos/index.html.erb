@@ -1,6 +1,6 @@
 <%=render '/instituicoes/menu'%>
 <div id='colunaPrincipal'>
-<h1>Equipamentos</h1>
+<h1><%=image_tag 'equipamentos.png'%>Equipamentos</h1>
 
 <table>
   <tr>
@@ -23,5 +23,5 @@
 <%= link_to 'Novo Equipamento', new_instituicao_equipamento_path(@instituicao.id) %>
 </div>
 <script type="text/javascript">
-	seleciona('equipamentos');
+	selecionaMenu('equipamentos');
 </script>

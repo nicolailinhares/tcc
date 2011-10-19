@@ -1,10 +1,10 @@
 <ul id='menuLateral'>
 	<%if @nivel == 3%>
-	<li id='usuarios'><%= link_to 'Usuários', permissoes_path %></li>
+	<li id='usuarios'><%= link_to image_tag('usuarios.png')+raw('<span>Usuários</span>'), permissoes_path %></li>
 	<%end%>
 	<%if (2..3).include? @nivel%>
-	<li id='marcas'><%= link_to 'Marcas', instituicao_marcas_path(@instituicao.id)%>
-	<li id='equipamentos'><%= link_to 'Equipamentos', instituicao_equipamentos_path(@instituicao.id) %></li>
+	<li id='marcas'><%= link_to image_tag('marcas.png')+raw('<span>Marcas</span>'), instituicao_marcas_path(@instituicao.id)%>
+	<li id='equipamentos'><%= link_to image_tag('equipamentos.png')+raw('<span>Equipamentos</span>'), instituicao_equipamentos_path(@instituicao.id) %></li>
 	<%end%>
-	<li id='setores'><%= link_to 'Setores', instituicao_setores_path(@instituicao.id) %></li>
+	<li id='setores'><%= link_to image_tag('setores.png')+raw('<span>Setores</span>'), instituicao_setores_path(@instituicao.id) %></li>
 </ul>

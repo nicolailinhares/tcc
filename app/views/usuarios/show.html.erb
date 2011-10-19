@@ -1,6 +1,10 @@
+<ul id='menuLateral'>
+	<li id='criar'><%= link_to image_tag('criar.png')+raw('<span>Criar Instituição</span>'), '#' %></li>
+	<li id='pedir'><%= link_to image_tag('pedir.png')+raw('<span>Requisições</span>'), '#' %></li>
+	<li id='convite'><%= link_to image_tag('convidar.png')+raw('<span>Enviar convite</span>'), '#' %></li>
+</ul>
+<div id='colunaPrincipal'>
 <p id="notice"><%= notice %></p>
-
-
 <p>
   <b>Nome:</b>
   <%= @usuario.nome %>
@@ -37,6 +41,7 @@
 		<%end%>
 	</table>
 	<%= link_to 'Criar instituição', new_instituicao_path%>
+</div>
 </div>
 <script type="text/javascript">
 	seleciona('home');

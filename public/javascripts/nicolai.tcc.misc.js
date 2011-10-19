@@ -32,4 +32,10 @@
 				}
 			);
 	}
+	selecionaMenu = function(id){
+		$j('#menuLateral').children().each(function(){
+			$j(this).removeClass('selecionado');
+		});
+		$j('#menuLateral #'+id).addClass('selecionado');
+	}
 })(jQuery);

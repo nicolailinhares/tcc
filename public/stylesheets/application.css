@@ -1,35 +1,40 @@
-#containerMenu
+#topo
 {
-	margin: 0 auto;
-	border-bottom: solid 3px black;
+	background-color: #e1f1e1;
+	width: auto;
+	padding: 16px;
+	border-bottom: 3px solid #515151;
 }
 
-#menu{
+#topo #menu{
 	padding: 0;
+	float: right;
 }
 
-#menu li
+#topo #menu li
 {
 	display: inline;
 	list-style: none;
+	margin:10px;
 }
 
-#menu li a
+#topo #menu li a
 {
 	font-size: 1.5em;
 	color: black;
-	margin: 0.2em;
+	margin: 5px;
 }
 
-#menu li a:hover
+#topo #menu li a:hover
 {
 	background-color: black;
 	color: #e1e1e1;
 }
 
-#menu li.selecionado{
-	font-size: 1.5em;
+#topo #menu li.selecionado{
+	font-size: 20px;
 	color: #515151;
+	text-decoration: none;
 }
 .containnerEquipes{
 	width:100%;
@@ -42,24 +47,94 @@
 	color:#616161;
 }
 
-#nomeInstituicao{
-	border-bottom: 3px solid black;
-    margin: 0;
-    padding: 15px 0;
-    width: 100%;
+#instituicao{
+	border-bottom: 3px solid #515151;
+	padding: 8px;
+}
+#instituicao a:hover{
+	background-color: #E1E1E1;
+}
+#instituicao img{
+	float: left;
+}
+#instituicao #nomeInstituicao{
+    float: left;
+    color: #333;
+    margin-left: 5px;
 }
 
 #colunaPrincipal{
-	border-left: 1px solid black;
+	border-left: 2px solid #515151;
     float: left;
     min-height: 400px;
     padding: 10px;
     width:800px;
+    background-color: #E1F1E1;
 }
 
 #menuLateral{
 	float:left;
 	list-style: none;
 	padding: 10px;
-	width: 130px;
+	width: 200px;
+}
+
+#menuLateral li{
+	width: 188px;
+	padding: 10px;
+	border: 2px solid white;
+	margin-top: 5px;
+}
+
+#menuLateral li:hover{
+	background-color: #E1E1E1;
+	border: 2px solid #515151;
+}
+
+#menuLateral li a{
+	color: black;
+	text-decoration: none;
+	display: block;
+}
+
+#menuLateral li.selecionado{
+	background-color: #a5db82;
+	border: 2px solid #515151;;
+}
+
+#menuLateral a span{
+	display: block;
+    float: right;
+    font-size: 16px;
+    height: 16px;
+    margin: 16px 0;
+    width: 128px;
+    text-align: center;
+}
+
+#colunaPrincipal h1 img{
+	height: 20px;
+    margin: 0 5px;
+    width: 20px;
+}
+
+#topo #sgm{
+	color: #222;
+	display: block;
+    float: left;
+    font-size: 30px;
+    margin: 15px 0 0 5px;
+}
+
+#topo #web{
+	font-size: 12px;
+	margin-top: 2px;
+	color: #000;
+	display: block;
+    float: left;
+}
+
+#topo #logo{
+	display: block;
+    float: left;
 }
