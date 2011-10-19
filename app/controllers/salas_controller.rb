@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class SalasController < ApplicationController
   # GET /salas
   # GET /salas.xml

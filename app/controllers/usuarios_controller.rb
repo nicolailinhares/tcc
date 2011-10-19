@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class UsuariosController < ApplicationController
   # GET /usuarios
   # GET /usuarios.xml

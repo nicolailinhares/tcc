@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class MarcasController < ApplicationController
   # GET /setores
   # GET /setores.xml

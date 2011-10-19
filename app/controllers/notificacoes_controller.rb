@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class NotificacoesController < ApplicationController
   # GET /notificacoes
   # GET /notificacoes.xml

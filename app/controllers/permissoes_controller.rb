@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class PermissoesController < ApplicationController
 
   def index

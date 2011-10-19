@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class ModelosController < ApplicationController
   # GET /modelos
   # GET /modelos.xml

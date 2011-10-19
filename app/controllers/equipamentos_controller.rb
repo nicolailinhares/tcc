@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class EquipamentosController < ApplicationController
   # GET /equipamentos
   # GET /equipamentos.xml

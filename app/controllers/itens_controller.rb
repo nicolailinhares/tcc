@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class ItensController < ApplicationController
   # GET /items
   # GET /items.xml

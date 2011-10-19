@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class AjaxController < ApplicationController
   
   def criar_equipamento

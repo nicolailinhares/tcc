@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class OrdensDeServicoController < ApplicationController
   # GET /ordens_de_servico
   # GET /ordens_de_servico.xml

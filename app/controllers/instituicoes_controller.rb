@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class InstituicoesController < ApplicationController
   # GET /instituicoes
   # GET /instituicoes.xml

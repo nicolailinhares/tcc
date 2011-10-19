@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class OrdemDeServico
   include MongoMapper::Document
 

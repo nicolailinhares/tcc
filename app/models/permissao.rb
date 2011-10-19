@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Permissao
   include MongoMapper::Document
   
