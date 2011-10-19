@@ -12,7 +12,6 @@
 		var token = $j("meta[name='csrf-token']").attr("content");
 		xhr.setRequestHeader("X-CSRF-Token", token);
 	});
-	alert(<%=@acao%>);
 	</script>
 </head>
 <body>
