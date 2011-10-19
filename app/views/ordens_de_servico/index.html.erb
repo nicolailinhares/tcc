@@ -3,39 +3,83 @@
 <table>
   <tr>
     <th>Data abertura</th>
-    <th>Data fechamento</th>
-    <th>Custo peca</th>
-    <th>Custo mao de obra</th>
-    <th>Custo frete</th>
     <th>Tipo servico</th>
     <th>Manutencao interna</th>
     <th>Tipo defeito</th>
-    <th>Descricao falha</th>
-    <th>Descricao solucao</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan='3'>Opções</th>
   </tr>
-
+<div id="dialog-conclusao" title="Conclusão de serviço">
+	<p class="validateTips">
+		Forneça os dados a seguir.
+	</p>
+	<%= form_tag do %>
+	<%= label_tag 'custo_peca', 'Custo com peças' %><br />
+	<%= text_field_tag 'custo_peca','', :class => 'custos'%><br />
+	<%= label_tag 'custo_frete', 'Custo com frete' %><br />
+	<%= text_field_tag 'custo_frete','', :class => 'custos'%><br />
+	<%= label_tag 'custo_mao', 'Custo com mão-de-obra' %><br />
+	<%= text_field_tag 'custo_mao','', :class => 'custos'%><br />
+	<%= label_tag 'descricao_solucao', 'Descrição da solução' %><br />
+	<%= text_area_tag 'descricao_solucao','' ,:size => '45x4' %><br />
+	<%= label_tag 'status', "Estado do equipamento" %><br />
+    <%= select_tag 'status', options_for_select(@opcoes_status,1) %>
+	<%end%>
+</div>
 <% @ordens_de_servico.each do |ordem_de_servico| %>
   <tr>
     <td><%= ordem_de_servico.data_abertura %></td>
-    <td><%= ordem_de_servico.data_fechamento %></td>
-    <td><%= ordem_de_servico.custo_peca %></td>
-    <td><%= ordem_de_servico.custo_mao_de_obra %></td>
-    <td><%= ordem_de_servico.custo_frete %></td>
-    <td><%= ordem_de_servico.tipo_servico %></td>
+    <td><%= ordem_de_servico.nome_tipo_servico %></td>
     <td><%= ordem_de_servico.manutencao_interna %></td>
-    <td><%= ordem_de_servico.tipo_defeito %></td>
-    <td><%= ordem_de_servico.descricao_falha %></td>
-    <td><%= ordem_de_servico.descricao_solucao %></td>
+    <td><%= ordem_de_servico.nome_tipo_defeito %></td>
     <td><%= link_to 'Show', ordem_de_servico %></td>
     <td><%= link_to 'Edit', edit_ordem_de_servico_path(ordem_de_servico) %></td>
+    <%if ordem_de_servico.data_fechamento.nil?%>
+    <td><%= link_to 'Concluir', 'javascript:void(0)', :id => ordem_de_servico.id, :class => 'conclusao' %>
+    <%end%>
     <td><%= link_to 'Destroy', ordem_de_servico, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
+<%if @nivel == 2%>
+<%= link_to 'Nova Ordem de serviço', new_ordem_de_servico_path+"?setor_id=#{@setor_id}&item_id=#{@item_id}" %>
+<%end%>
 
-<%= link_to 'New Ordem de servico', new_ordem_de_servico_path %>
+<script type="text/javascript">
+	$j(document).ready(function() {
+		var id;
+		$j("#dialog-conclusao").dialog({
+			autoOpen : false,
+			height : 430,
+			width : 350,
+			modal : true,
+			buttons : {
+				"Fechar OS" : function() {
+					$j.post('/ajax/conclui_os', {id:id, custo_peca:$j('#custo_peca').val(),custo_frete:$j('#custo_frete').val(),custo_mao:$j('#custo_mao').val(),descricao_solucao:$j('#descricao_solucao').val()}, 
+					function(data) {
+						if(data['erro']) {
+
+						} else {
+							location.reload(true);
+						}
+					});
+					$j(this).dialog("close");
+				}
+			},
+			close : function() {
+				$j('#custo_peca').val("");
+				$j('#custo_frete').val("");
+				$j('#custo_mao').val("");
+				$j('#descricao_solucao').val("");
+				//updateTips(tips, 'Digite o nome e o email do responsável.');
+			}
+		});
+		$j('.conclusao').click(function(){
+			id = $j(this).attr('id');
+			$j("#dialog-conclusao").dialog('open');
+		});
+		$j(".custos").setMask('preco');
+	});
+
+</script>

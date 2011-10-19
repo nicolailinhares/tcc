@@ -45,9 +45,10 @@ Tcc::Application.routes.draw do
   match 'ajax/criar_marca' => 'ajax#criar_marca', :via => :post
   match 'ajax/criar_modelo' => 'ajax#criar_modelo', :via => :post
   match 'ajax/busca_modelos' => 'ajax#busca_modelos', :via => :post
-  
+  match 'ajax/cancela_pedido' => 'ajax#cancela_pedido', :via => :post
+  match 'ajax/conclui_os' => 'ajax#conclui_os', :via => :post
 
-  
+  match 'itens/busca' => 'itens#busca', :via => :post 
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

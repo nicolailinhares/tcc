@@ -2,4 +2,4 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Voltar', notificacoes_path, :instituicao_id => @notificacao.instituicao_id, :setor_id => @notificacao.setor_id, :item_id => @notificacao.item_id %>
+<%= link_to 'Voltar', "/notificacoes?instituicao_id=#{@instituicao.id}&setor_id=#{@notificacao.setor_id}&item_id=#{@notificacao.item_id}" %>

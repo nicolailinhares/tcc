@@ -1,6 +1,6 @@
-<h1>Editing notificacao</h1>
+<h1>Editando notificação</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @notificacao %> |
-<%= link_to 'Back', notificacoes_path %>
+<%= link_to 'Informações', @notificacao %> |
+<%= link_to 'Voltar', "/notificacoes?instituicao_id=#{@instituicao.id}&setor_id=#{@notificacao.setor_id}&item_id=#{@notificacao.item_id}" %>

@@ -1,5 +1,8 @@
 <ul id='menuLateral'>
 	<li><%=link_to 'Pedidos de serviço', "/notificacoes?instituicao_id=#{@instituicao.id}&setor_id=#{@setor.id}&item_id=#{@item.id}"%></li>
+	<%if (2..3).include? @nivel%>
+	<li><%=link_to 'Ordens de serviço', "/ordens_de_servico?setor_id=#{@setor.id}&item_id=#{@item.id}"%></li>
+	<%end%>
 </ul>
 <div id='colunaPrincipal'>
 <h1>Item</h1>

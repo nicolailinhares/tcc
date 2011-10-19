@@ -6,15 +6,16 @@ class Notificacao
   key :despachada, Boolean, :default => false
   key :data_abertura, Date
   key :data_despacho, Date
-  key :tipo_despacho, Integer
+  key :tipo_despacho, Integer, :default => 0
   key :motivo_cancelamento, String
   key :instituicao_id, ObjectId
   key :setor_id, ObjectId
   key :item_id, ObjectId
   key :usuario_id, ObjectId
+  key :status_anterior, Integer
   
   def estado
-    if despachada
+    if tipo_despacho == 1
       "Acatada"
     elsif tipo_despacho == 2
       "Cancelada"

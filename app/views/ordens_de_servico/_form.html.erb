@@ -12,46 +12,42 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :data_abertura %><br />
-    <%= f.date_select :data_abertura %>
+    <%= f.label :tipo_de_servico, 'Tipo de serviço' %><br />
+    <%= f.collection_select :tipo_de_servico, OrdemDeServico.tipos_de_servico, :first, :last %>
+  </div>
+  
+  <div id='tipoDefeito' class="field" style='display:none;'>
+    <%= f.label :tipo_de_defeito, 'Tipo de defeito' %><br />
+    <%= f.collection_select :tipo_de_defeito, OrdemDeServico.tipos_de_defeito, :first, :last %>
   </div>
   <div class="field">
-    <%= f.label :data_fechamento %><br />
-    <%= f.date_select :data_fechamento %>
+    <%= f.label :descricao_falha, 'Descrição' %><br />
+    <%= f.text_area :descricao_falha, :size => '45x10' %>
   </div>
   <div class="field">
-    <%= f.label :custo_peca %><br />
-    <%= f.text_field :custo_peca %>
+    <%= f.check_box :manutencao_interna %><%= f.label :manutencao_interna, 'Serviço interno' %>
   </div>
-  <div class="field">
-    <%= f.label :custo_mao_de_obra %><br />
-    <%= f.text_field :custo_mao_de_obra %>
-  </div>
-  <div class="field">
-    <%= f.label :custo_frete %><br />
-    <%= f.text_field :custo_frete %>
-  </div>
-  <div class="field">
-    <%= f.label :tipo_servico %><br />
-    <%= f.text_field :tipo_servico %>
-  </div>
-  <div class="field">
-    <%= f.label :manutencao_interna %><br />
-    <%= f.check_box :manutencao_interna %>
-  </div>
-  <div class="field">
-    <%= f.label :tipo_defeito %><br />
-    <%= f.text_field :tipo_defeito %>
-  </div>
-  <div class="field">
-    <%= f.label :descricao_falha %><br />
-    <%= f.text_field :descricao_falha %>
-  </div>
-  <div class="field">
-    <%= f.label :descricao_solucao %><br />
-    <%= f.text_field :descricao_solucao %>
-  </div>
+  <%=f.hidden_field :instituicao_id %>
+  <%=f.hidden_field :setor_id %>
+  <%=f.hidden_field :item_id %>
+  <%=f.hidden_field :usuario_id %>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Salvar" %>
   </div>
 <% end %>
+<script type="text/javascript">
+	$j(document).ready(function(){
+		$j('#ordem_de_servico_tipo_de_servico').change(function(){
+			if($j(this).val() == 4)
+			{
+				$j('#ordem_de_servico_tipo_de_defeito').val(1);
+				$j('#tipoDefeito').show();
+			}
+			else
+			{
+				$j('#ordem_de_servico_tipo_de_defeito').val(null);
+				$j('#tipoDefeito').hide();
+			}
+		});
+	});
+</script>

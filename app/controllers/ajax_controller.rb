@@ -54,6 +54,40 @@ class AjaxController < ApplicationController
     end
   end
   
+  def cancela_pedido
+    pedido = Notificacao.find(params[:id])
+    pedido.motivo_cancelamento = params[:motivo]
+    pedido.tipo_despacho = 2
+    pedido.despachada = true
+    pedido.data_despacho = Date.today
+    item = @instituicao.setores.find(pedido.setor_id).itens.find(pedido.item_id)
+    item.status = pedido.status_anterior
+    if pedido.save
+      item.save
+      responde({:erro => false})
+    else
+      responde({:erro => true})
+    end
+  end
+  
+  def conclui_os
+    os = OrdemDeServico.find(params[:id])
+    os.custo_peca = params[:custo_peca]
+    os.custo_frete = params[:custo_frete]
+    os.custo_mao_de_obra = params[:custo_mao]
+    os.descricao_solucao = params[:descricao_solucao]
+    os.data_fechamento = Date.today
+    item = @instituicao.setores.find(os.setor_id).itens.find(os.item_id)
+    item.status = params[:status]
+    if os.save
+      item.save
+      responde({:erro => false})
+    else
+      responde({:erro => true})
+    end
+  end
+  
+  
   private
   def responde resposta
     respond_to do |format|

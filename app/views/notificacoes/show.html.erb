@@ -1,10 +1,26 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Descricao falha:</b>
+  <b>Descrição falha:</b>
   <%= @notificacao.descricao_falha %>
 </p>
 
+<%if @notificacao.despachada %>
+<p>
+  <b>Tipo de resolução:</b>
+  <%= @notificacao.nome_despacho %>
+</p>
+<p>
+  <b>Data da resolução:</b>
+  <%= @notificacao.data_despacho.strftime('%d/%m/%Y') %>
+</p>
+<%if @notificacao.tipo_despacho == 2%>
+<p>
+  <b>Motivo do cancelamento:</b>
+  <%= @notificacao.motivo_cancelamento %>
+</p>
+<%end%>
+<%end%>
 
-<%= link_to 'Edit', edit_notificacao_path(@notificacao) %> |
-<%= link_to 'Back', notificacoes_path %>
+<%= link_to 'Editar', edit_notificacao_path(@notificacao) %> |
+<%= link_to 'Voltar', "/notificacoes?instituicao_id=#{@instituicao.id}&setor_id=#{@notificacao.setor_id}&item_id=#{@notificacao.item_id}" %>

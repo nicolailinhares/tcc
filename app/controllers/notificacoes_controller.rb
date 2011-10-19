@@ -34,6 +34,7 @@ class NotificacoesController < ApplicationController
     @notificacao.usuario_id = @usuario.id
     @notificacao.data_abertura = Date.today
     @opcoes_status = [ ['Em funcionamento',1], ['Aguardando instalação',2], ['Aguardando manutenção corretiva',5] ]
+    @selecionado = @instituicao.setores.find(params[:setor_id]).itens.find(params[:item_id]).status
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @notificacao }
@@ -43,18 +44,20 @@ class NotificacoesController < ApplicationController
   # GET /notificacoes/1/edit
   def edit
     @notificacao = Notificacao.find(params[:id])
+    @opcoes_status = [ ['Em funcionamento',1], ['Aguardando instalação',2], ['Aguardando manutenção corretiva',5] ]
+    @selecionado = @instituicao.setores.find(@notificacao.setor_id).itens.find(@notificacao.item_id).status
   end
 
   # POST /notificacoes
   # POST /notificacoes.xml
   def create
     @notificacao = Notificacao.new(params[:notificacao])
-
+    setor = @instituicao.setores.find(@notificacao.setor_id)
+    item = setor.itens.find(@notificacao.item_id)
+    @notificacao.status_anterior = item.status
+    item.status = params[:status]
     respond_to do |format|
       if @notificacao.save
-        setor = @instituicao.setores.find(@notificacao.setor_id)
-        item = setor.itens.find(@notificacao.item_id)
-        item.status = params[:status]
         item.save
         format.html { redirect_to(@notificacao, :notice => 'Notificacao was successfully created.') }
         format.xml  { render :xml => @notificacao, :status => :created, :location => @notificacao }
@@ -85,12 +88,12 @@ class NotificacoesController < ApplicationController
   # DELETE /notificacoes/1.xml
   def destroy
     @notificacao = Notificacao.find(params[:id])
-    @notificacao.tipo_despacho = 2
-    @notificacao.despachada = true
-    @notificacao.save
+    setor_id = @notificacao.setor_id
+    item_id = @notificacao.item_id
+    @notificacao.destroy
 
     respond_to do |format|
-      format.html { redirect_to(notificacoes_url) }
+      format.html { redirect_to("/notificacoes?instituicao_id=#{@instituicao.id}&setor_id=#{setor_id}&item_id=#{item_id}") }
       format.xml  { head :ok }
     end
   end

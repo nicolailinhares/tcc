@@ -5,9 +5,17 @@
     <th>Número</th>
     <th>Data de abertura</th>
     <th>Estado</th>
-    <th colspan='3'>Opções</th>
+    <th colspan='4'>Opções</th>
   </tr>
-
+<div id="dialog-cancel" title="Cancelamento">
+	<p class="validateTips">
+		Digite o motivo do cancelamento.
+	</p>
+	<%= form_tag do %>
+	<%= label_tag 'motivo', 'Motivo' %><br />
+	<%= text_area_tag 'motivo','' ,:size => '45x4' %>
+	<%end%>
+</div>
 <% @notificacoes.each do |notificacao| %>
   <tr>
     <td>STUB</td>
@@ -16,9 +24,14 @@
     <%unless notificacao.tipo_despacho == 2%>
     <td><%= link_to 'Informações', notificacao %></td>
     <td><%= link_to 'Editar', edit_notificacao_path(notificacao) %></td>
-    <td><%= link_to 'Cancelar', notificacao, :confirm => 'Are you sure?', :method => :delete %></td>
+    <%unless @nivel == 1 and @usuario.id != notificacao.usuario_id%>
+    <td><%= link_to 'Cancelar', 'javascript:void(0)', :id => notificacao.id, :class => 'cancelamento' %></td>
+    <%end%>
     <%else%>
     <td colspan='3'><%= link_to 'Informações', notificacao %></td>
+    <%end%>
+    <%if @usuario.id == notificacao.usuario_id%>
+    <td><%= link_to 'Excluir', notificacao, :confirm => "Confirma a exclusão do pedido?", :method => :delete%>
     <%end%>
   </tr>
 <% end %>
@@ -27,3 +40,36 @@
 <br />
 
 <%= link_to 'Novo pedido de serviço',"/notificacoes/new?instituicao_id=#{@instituicao_id}&setor_id=#{@setor_id}&item_id=#{@item_id}"%>
+
+<script type="text/javascript">
+	$j(document).ready(function() {
+		var id;
+		$j("#dialog-cancel").dialog({
+			autoOpen : false,
+			height : 280,
+			width : 350,
+			modal : true,
+			buttons : {
+				"Realizar cancelamento" : function() {
+					$j.post('/ajax/cancela_pedido', {id:id, motivo:$j('#motivo').val()}, function(data) {
+						if(data['erro']) {
+
+						} else {
+							location.reload(true);
+						}
+					});
+					$j(this).dialog("close");
+				}
+			},
+			close : function() {
+				$j('#motivo').val("");
+				//updateTips(tips, 'Digite o nome e o email do responsável.');
+			}
+		});
+		$j('.cancelamento').click(function(){
+			id = $j(this).attr('id');
+			$j("#dialog-cancel").dialog('open');
+		});
+	});
+
+</script>

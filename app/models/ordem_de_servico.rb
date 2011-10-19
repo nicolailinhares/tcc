@@ -1,5 +1,5 @@
 class OrdemDeServico
-  include MongoMapper::EmbeddedDocument
+  include MongoMapper::Document
 
   key :data_abertura, Date
   key :data_fechamento, Date
@@ -11,10 +11,17 @@ class OrdemDeServico
   key :tipo_de_defeito, Integer
   key :descricao_falha, String
   key :descricao_solucao, String
+  key :instituicao_id, ObjectId
+  key :setor_id, ObjectId
+  key :item_id, ObjectId
+  key :usuario_id, ObjectId
   
   belongs_to :ordenado, :polymorphic => true
   
-    def self.texto_tipo_de_recurso n
+  before_create :atribui_data
+  
+  
+    def self.texto_tipo_de_defeito n
     TIPOS_DE_DEFEITO[n]
   end
   
@@ -22,8 +29,8 @@ class OrdemDeServico
     TIPOS_DE_DEFEITO.to_a.sort
   end
   
-   def nome_tipo_de_recurso
-    TIPOS_DE_DEFEITO[tipo_de_recurso]
+   def nome_tipo_defeito
+    TIPOS_DE_DEFEITO[tipo_de_defeito]
   end
   
   def self.texto_tipo_de_servico n
@@ -34,7 +41,7 @@ class OrdemDeServico
     TIPOS_DE_SERVICO.to_a.sort
   end
   
-   def nome_tipo_de_servico
+   def nome_tipo_servico
     TIPOS_DE_SERVICO[tipo_de_servico]
   end
   
@@ -53,4 +60,8 @@ class OrdemDeServico
     3 => 'Manutenção preventiva',
     4 => 'Manutenção corretiva'
   }
+  
+  def atribui_data
+    self.data_abertura = Date.today
+  end
 end

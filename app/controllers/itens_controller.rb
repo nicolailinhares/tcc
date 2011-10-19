@@ -99,6 +99,26 @@ class ItensController < ApplicationController
       end
     end
   end
+  
+  def busca
+    termo = params[:patrimonio]
+    encontrado = nil
+    setor_id = nil
+    @instituicao.setores.each do |setor|
+      setor_id = setor.id
+      setor.itens.each do |item|
+        if item.patrimonio == termo
+          encontrado = item
+          break
+        end
+      end
+    end
+    if encontrado.nil?
+      redirect_to instituicao_path(@instituicao.id), :notice => "Item não encontrado"
+    else
+      redirect_to instituicao_setor_item_path(@instituicao.id,setor_id,encontrado.id)
+    end
+  end
 
   # DELETE /items/1
   # DELETE /items/1.xml

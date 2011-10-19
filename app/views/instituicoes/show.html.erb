@@ -1,7 +1,10 @@
 <%=render 'menu'%>
 <div id='colunaPrincipal'>
 <p id="notice"><%= notice %></p>
-
+<%=form_tag '/itens/busca' do%>
+<%=text_field_tag 'patrimonio'%>
+<%=submit_tag 'Buscar item'%>
+<%end%>
 <p>
   <b>Número leitos:</b>
   <%= @instituicao.numero_leitos %>
