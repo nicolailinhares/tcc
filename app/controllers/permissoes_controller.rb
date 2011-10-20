@@ -24,6 +24,7 @@ class PermissoesController < ApplicationController
 
     respond_to do |format|
       if @permissao.save
+        @usuario.registra_acao "Adicionou o usuário #{@permissao.nome_usuario} à instituicao #{Instituicao.find(@permissao.instituicao_id).nome}"
         format.html { redirect_to permissoes_path }
         format.xml  { render :xml => @permissao, :status => :created, :location => @permissao }
       else
@@ -38,7 +39,7 @@ class PermissoesController < ApplicationController
   def destroy
     @permissao = Permissao.find(params[:id])
     @permissao.destroy
-
+    @usuario.registra_acao "Desassociou o usuário #{@permissao.nome_usuario} da instituicao #{Instituicao.find(@permissao.instituicao_id).nome}"
     respond_to do |format|
       format.html { redirect_to(permissoes_url) }
       format.xml  { head :ok }

@@ -8,7 +8,7 @@ Tcc::Application.routes.draw do
                 :edit => "editar",
                 :password => "senha"
   }
-  
+  match 'instituicoes/base_dados' => 'instituicoes#base_dados'
   resources :instituicoes do
     resources :marcas
     resources :equipes_internas
@@ -30,6 +30,7 @@ Tcc::Application.routes.draw do
   root :to => 'usuarios#show'
 
   match 'instituicoes/retorna_cidades' => 'instituicoes#retorna_cidades'
+  
   match 'equipes_internas/criar' => 'equipes_internas#criar', :via => :post
   
   match 'usuarios/adicionar_ao_setor' => 'usuarios#adicionar_ao_setor', :via => :post

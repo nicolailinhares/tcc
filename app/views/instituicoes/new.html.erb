@@ -1,5 +1,14 @@
+<%= render '/usuarios/menu'%>
+<div id='colunaPrincipal'>
 <h1>Dados da instituição</h1>
 
 <%= render 'form' %>
 
 <%= link_to 'Voltar', "/#{@usuario.id}" %>
+</div>
+
+<script type="text/javascript">
+	$j(document).ready(function(){
+		selecionaMenu('criar');
+	});
+</script>

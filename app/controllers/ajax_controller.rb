@@ -5,6 +5,7 @@ class AjaxController < ApplicationController
   def criar_equipamento
     equipamento = @instituicao.equipamentos.build(params[:equipamento])
     if @instituicao.save
+      @usuario.registra_acao "Criou o equipamento #{equipamento.nome}"
       resposta = {:erro => false, :nome => equipamento.nome, :id => equipamento.id}
     else
       resposta = {:erro => true}
@@ -15,6 +16,7 @@ class AjaxController < ApplicationController
   def criar_marca
     marca = @instituicao.marcas.build(params[:marca])
     if @instituicao.save
+      @usuario.registra_acao "Criou a marca #{marca.nome}"
       resposta = {:erro => false, :nome => marca.nome, :id => marca.id}
     else
       resposta = {:erro => true}
@@ -30,6 +32,7 @@ class AjaxController < ApplicationController
     marca.modelos << modelo
     equipamento.ids_de_marca << marca.id unless equipamento.ids_de_marca.include? marca.id
     if @instituicao.save
+      @usuario.registra_acao "Criou o modelo #{modelo.nome} na marca #{marca.nome} para o equipamento #{equipamento.nome}"
       resposta = {:erro => false, :nome => modelo.nome, :id => modelo.id}
     else
       resposta = {:erro => true}
@@ -66,6 +69,7 @@ class AjaxController < ApplicationController
     item.status = pedido.status_anterior
     if pedido.save
       item.save
+      @usuario.registra_acao "Cancelou o pedido de serviço #{pedido.numero} do item #{item.patrimonio}"
       responde({:erro => false})
     else
       responde({:erro => true})

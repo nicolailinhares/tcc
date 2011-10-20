@@ -46,6 +46,7 @@ class EquipamentosController < ApplicationController
 
     respond_to do |format|
       if @instituicao.save
+        @usuario.registra_acao "Criou o equipamento #{@equipamento.nome}"
         format.html { redirect_to(instituicao_equipamento_path(@instituicao.id,@equipamento.id), :notice => 'Equipamento criado com sucesso.') }
         format.xml  { render :xml => @equipamento, :status => :created, :location => @equipamento }
       else
@@ -75,8 +76,9 @@ class EquipamentosController < ApplicationController
   # DELETE /equipamentos/1.xml
   def destroy
     @instituicao.equipamentos.delete_if{|equipamento| equipamento.id.to_s == params[:id]}
+    @equipamento = @instituicao.equipamentos.find(params[:id])
     @instituicao.save
-
+    @usuario.registra_acao "Destruiu o equipamento #{@equipamento.nome}"
     respond_to do |format|
       format.html { redirect_to(instituicao_equipamentos_url) }
       format.xml  { head :ok }

@@ -47,6 +47,7 @@ class InstituicoesController < ApplicationController
     
     respond_to do |format|
       if @instituicao.save
+        @usuario.registra_acao "Criou a instituição #{@instituicao.nome}"
         session[:instituicao_id] = @instituicao.id
         format.html { redirect_to "/#{@usuario.id}" }
         format.xml  { render :xml => @instituicao, :status => :created, :location => @instituicao }
@@ -78,7 +79,7 @@ class InstituicoesController < ApplicationController
   def destroy
     @instituicao = Instituicao.find(params[:id])
     @instituicao.destroy
-
+    @usuario.registra_acao "Destruiu a instituição #{@instituicao.nome}"
     respond_to do |format|
       format.html { redirect_to(instituicoes_url) }
       format.xml  { head :ok }
@@ -98,6 +99,14 @@ class InstituicoesController < ApplicationController
     end
     respond_to do |format|
       format.json {render :json => select}
+    end
+  end
+  
+  def base_dados
+    @equipamentos = @instituicao.equipamentos
+    @marcas = @instituicao.marcas
+    respond_to do |format|
+      format.html # show.html.erb
     end
   end
   

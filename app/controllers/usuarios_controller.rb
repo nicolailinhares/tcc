@@ -22,6 +22,10 @@ class UsuariosController < ApplicationController
       {:nome => instituicao.nome, :cidade => instituicao.cidade, :estado => instituicao.estado,
         :instituicao => permissao.instituicao_id, :nivel => permissao.nome_nivel}
     end
+    if session[:registrou].nil?
+      @usuario.registra_acao 'Logou com sucesso'
+      session[:registrou] = true
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @usuario }

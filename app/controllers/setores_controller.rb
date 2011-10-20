@@ -52,6 +52,7 @@ class SetoresController < ApplicationController
     
     respond_to do |format|
       if @instituicao.save
+        @usuario.registra_acao "Criou o setor #{@setor.nome}"
         format.html { redirect_to(instituicao_setor_path(@instituicao.id,@setor.id), :notice => 'Setor criado com sucesso.') }
         format.xml  { render :xml => @setor, :status => :created, :location => @setor }
       else
@@ -88,6 +89,7 @@ class SetoresController < ApplicationController
       usuario.setores_ids.delete_if{|id| id.to_s == params[:id]}
       usuario.save
     end
+    @usuario.registra_acao "Destruiu o setor #{@setor.nome}"
     respond_to do |format|
       format.html { redirect_to(instituicao_setores_url) }
       format.xml  { head :ok }

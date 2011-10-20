@@ -2,7 +2,8 @@
 
 class OrdemDeServico
   include MongoMapper::Document
-
+  
+  key :numero, Integer
   key :data_abertura, Date
   key :data_fechamento, Date
   key :custo_peca, Float

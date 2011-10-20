@@ -1,0 +1,24 @@
+<div class='containnerBasico'>
+	<h2><%=image_tag 'marcas.png'%>Marcas</h2>
+	
+	<table>
+	  <tr>
+	    <th>Nome</th>
+	    <th>Nacionalidade</th>
+	  </tr>
+	
+	<% @marcas.each do |marca| %>
+	  <tr class='corpoTabela' id="<%=instituicao_marca_path(@instituicao.id,marca.id)%>">
+	    <td><%= marca.nome %></td>
+	    <td><%= marca.nacionalidade %></td>
+	    <td><%= link_to 'Informações', instituicao_marca_path(@instituicao.id,marca.id) %></td>
+	    <td><%= link_to 'Editar', edit_instituicao_marca_path(@instituicao.id,marca.id) %></td>
+	    <td><%= link_to 'Excluir', instituicao_marca_path(@instituicao.id,marca.id), :confirm => 'Confirma exlcusão da marca?', :method => :delete %></td>
+	  </tr>
+	<% end %>
+	</table>
+	
+	<br />
+	
+<div class="opcaoDireita"><%= link_to 'Nova Marca', new_instituicao_marca_path(@instituicao.id) %></div>
+</div>

@@ -54,6 +54,7 @@ class ModelosController < ApplicationController
     @equipamento.ids_de_marca << marca.id unless @equipamento.ids_de_marca.include? marca.id
     respond_to do |format|
       if @instituicao.save
+        @usuario.registra_acao "Criou o modelo #{@modelo.nome} da marca #{@modelo.nome_marca} no equipamento #{@equipamento.nome} com sucesso"
         format.html { redirect_to(instituicao_equipamento_modelo_path(@instituicao.id,@equipamento.id,@modelo.id), :notice => 'Modelo criado com sucesso.') }
         format.xml  { render :xml => @modelo, :status => :created, :location => @modelo }
       else
@@ -102,7 +103,7 @@ class ModelosController < ApplicationController
       @equipamento.ids_de_marca.delete_if {|id| id == marca.id}
     end
     @instituicao.save
-    
+    @usuario.registra_acao "Destruiu o modelo #{@modelo.nome} da marca #{@modelo.nome_marca} no equipamento #{@equipamento.nome} com sucesso"
     respond_to do |format|
       format.html { redirect_to(instituicao_equipamento_modelos_url) }
       format.xml  { head :ok }

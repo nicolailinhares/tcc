@@ -12,6 +12,12 @@
 		var token = $j("meta[name='csrf-token']").attr("content");
 		xhr.setRequestHeader("X-CSRF-Token", token);
 	});
+	
+	$j(document).ready(function(){
+		$j('.containnerBasico table tr.corpoTabela').click(function(){
+			window.location = $j(this).attr('id');
+		});
+	});
 
 	function seleciona(valor)
 	{
@@ -31,7 +37,7 @@
 	</ul>
 	<br style="clear:both;">
 </div>
-<%unless @controlador == 'usuarios'%>
+<%unless @instituicao.nome.nil? or @controlador == 'usuarios' %>
 	<div id='instituicao'>
 		<a href='<%=instituicao_path(@instituicao.id)%>'><%=image_tag 'instituicao.png'%><h1 id='nomeInstituicao'>Instituição <%=@instituicao.nome%></h1></a>
 		<br style="clear:both;" />

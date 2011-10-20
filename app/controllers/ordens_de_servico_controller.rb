@@ -59,6 +59,7 @@ class OrdensDeServicoController < ApplicationController
     respond_to do |format|
       if @ordem_de_servico.save
         item.save
+        @usuario.registra_acao "Criou a ordem de serviço #{@notificao.numero} para o item #{item.patrimonio}"
         format.html { redirect_to(@ordem_de_servico, :notice => 'Ordem de serviço criada com sucesso.') }
         format.xml  { render :xml => @ordem_de_servico, :status => :created, :location => @ordem_de_servico }
       else
@@ -89,7 +90,7 @@ class OrdensDeServicoController < ApplicationController
   def destroy
     @ordem_de_servico = OrdemDeServico.find(params[:id])
     @ordem_de_servico.destroy
-
+    @usuario.registra_acao "Destruiu a ordem de serviço #{@notificao.numero}  do item #{item.patrimonio}"
     respond_to do |format|
       format.html { redirect_to(ordens_de_servico_url) }
       format.xml  { head :ok }

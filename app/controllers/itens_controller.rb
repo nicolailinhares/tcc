@@ -74,6 +74,7 @@ class ItensController < ApplicationController
     end
     respond_to do |format|
       if @instituicao.save
+        @usuario.registra_acao "Criou o item #{@item.patrimonio} no setor #{@setor.nome}"
         format.html { redirect_to(instituicao_setor_path(@instituicao.id,@setor.id), :notice => 'Item criado com sucesso.') }
         format.xml  { render :xml => @item, :status => :created, :location => @item }
       else
@@ -126,8 +127,10 @@ class ItensController < ApplicationController
   # DELETE /items/1.xml
   def destroy
     @setor = @instituicao.setores.find(params[:setor_id])
+    @item = @setor.find(params[:id])
     @setor.itens.delete_if{|item| item.id.to_s == params[:id]}
     @instituicao.save
+    @usuario.registra_acao "Destruiu o item #{@item.patrimonio} do setor #{@setor.nome}"
     respond_to do |format|
       format.html { redirect_to(instituicao_setor_path(@instituicao.id,@setor.id)) }
       format.xml  { head :ok }

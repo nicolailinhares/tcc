@@ -47,6 +47,7 @@ class MarcasController < ApplicationController
 
     respond_to do |format|
       if @instituicao.save
+        @usuario.registra_acao "Criou a marca #{@marca.nome}"
         format.html { redirect_to(instituicao_marca_path(@instituicao.id,@marca.id), :notice => 'Marca criada com sucesso.') }
       else
         format.html { render :action => "new" }
@@ -73,11 +74,12 @@ class MarcasController < ApplicationController
   # DELETE /setores/1.xml
   def destroy
     @instituicao.marcas.delete_if{|marca| marca.id.to_s == params[:id]}
+    @marca = @instituicao.marcas.find(params[:id])
     @instituicao.equipamentos.each do |equipamento|
       equipamento.ids_de_marca.delete_if {|id| id == params[:id]}
     end
     @instituicao.save
-
+    @usuario.registra_acao "Destruiu a marca #{@marca.nome}"
     respond_to do |format|
       format.html { redirect_to(instituicao_marcas_url) }
       format.xml  { head :ok }

@@ -51,6 +51,7 @@ class SalasController < ApplicationController
 
     respond_to do |format|
       if @instituicao.save
+        @usuario.registra_acao "Criou a sala #{@sala.nome} no setor #{@setor.nome}"
         format.html { redirect_to(instituicao_setor_sala_path(@instituicao.id,@setor.id,@sala.id), :notice => 'Sala criada com sucesso.') }
         format.xml  { render :xml => @sala, :status => :created, :location => @sala }
       else
@@ -83,7 +84,7 @@ class SalasController < ApplicationController
     @setor = @instituicao.setores.find(params[:setor_id])
     @setor.salas.delete_if{|sala| sala.id.to_s == params[:id]}
     @instituicao.save
-
+    @usuario.registra_acao "Destruiu a sala #{@sala.nome} no setor #{@setor.nome}"
     respond_to do |format|
       format.html { redirect_to(instituicao_setor_salas_url) }
       format.xml  { head :ok }
@@ -104,6 +105,7 @@ class SalasController < ApplicationController
     @sala.itens << @item
     @item.sala_id = @sala.id
     @instituicao.save
+    @usuario.registra_acao "Moveu o item #{@item.patrimonio} para a sala #{@sala.nome} no setor #{@setor.nome}"
     redirect_to instituicao_setor_sala_path(@instituicao.id,@setor.id,@sala.id)
   end
   

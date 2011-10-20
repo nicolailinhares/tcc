@@ -61,6 +61,7 @@ class NotificacoesController < ApplicationController
     respond_to do |format|
       if @notificacao.save
         item.save
+        @usuario.registra_acao "Criou o pedido de serviço #{@notificao.numero} para o item #{item.patrimonio}"
         format.html { redirect_to(@notificacao, :notice => 'Notificacao was successfully created.') }
         format.xml  { render :xml => @notificacao, :status => :created, :location => @notificacao }
       else
@@ -93,7 +94,7 @@ class NotificacoesController < ApplicationController
     setor_id = @notificacao.setor_id
     item_id = @notificacao.item_id
     @notificacao.destroy
-
+    @usuario.registra_acao "Destruiu o pedido de serviço #{@notificao.numero} do item #{item.patrimonio}"
     respond_to do |format|
       format.html { redirect_to("/notificacoes?instituicao_id=#{@instituicao.id}&setor_id=#{setor_id}&item_id=#{item_id}") }
       format.xml  { head :ok }
