@@ -35,7 +35,7 @@ Tcc::Application.routes.draw do
   match 'usuarios/adicionar_ao_setor' => 'usuarios#adicionar_ao_setor', :via => :post
   match 'usuarios/remover_de_setor' => 'usuarios#remover_de_setor', :via => :post
   match 'usuarios/opcoes_instituicao' => 'usuarios#opcoes_instituicao'
-  match 'usuarios/escolhe_instituicao/:instituicao_id' => 'usuarios#escolhe_instituicao', :via => :post
+  match 'usuarios/escolhe_instituicao/:instituicao_id' => 'usuarios#escolhe_instituicao'
   match ':usuario_id' => 'usuarios#show'
   
   match 'salas/insercao_de_item' => 'salas#insercao_de_item'

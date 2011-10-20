@@ -1,3 +1,9 @@
+body { background-color: #F9FFF9; color: #333; }
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
 #topo
 {
 	background-color: #e1f1e1;
@@ -82,7 +88,7 @@
 #menuLateral li{
 	width: 188px;
 	padding: 10px;
-	border: 2px solid white;
+	border: 2px solid #F9FFF9;
 	margin-top: 5px;
 }
 
@@ -137,4 +143,51 @@
 #topo #logo{
 	display: block;
     float: left;
+}
+
+.containnerBasico{
+	padding: 16px;
+	margin: 8px;
+	border: 2px solid #515151;
+}
+.containnerBasico .opcaoDireita{
+	width: 100%;
+	text-align: right;
+}
+.containnerBasico h2{
+	font-size: 18px;
+	color: #515151;
+	margin: 0;
+}
+
+.notice{
+	border: 1px dotted green;
+	padding: 5px;
+}
+
+.containnerBasico table{
+	width: 100%;
+	margin: 10px 0;
+	/*border: 1px solid;*/
+}
+.containnerBasico table tr.corpoTabela:hover{
+	background-color: #f1f9f1;
+	cursor: pointer;
+}
+.containnerBasico table tr td a{
+	color: #333;
+}
+
+.containnerBasico table tr td{
+	padding: 8px;
+	border: 1px solid;
+	border-collapse: collapse;
+	margin: -2px;
+}
+
+.containnerBasico table tr th{
+	text-align: left;
+	border: 1px solid #E1E1E1;
+	color: #1C94C4;
+	background-color: white;
 }
