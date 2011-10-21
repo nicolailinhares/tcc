@@ -3,7 +3,7 @@
 class OrdemDeServico
   include MongoMapper::Document
   
-  key :numero, Integer
+  key :numero, Integer, :default => 1
   key :data_abertura, Date
   key :data_fechamento, Date
   key :custo_peca, Float
@@ -19,12 +19,17 @@ class OrdemDeServico
   key :item_id, ObjectId
   key :usuario_id, ObjectId
   
-  belongs_to :ordenado, :polymorphic => true
-  
   before_create :atribui_data
   
+  def interna?
+    if manutencao_interna
+      'Sim'
+    else
+      'Não'
+    end
+  end
   
-    def self.texto_tipo_de_defeito n
+  def self.texto_tipo_de_defeito n
     TIPOS_DE_DEFEITO[n]
   end
   
@@ -67,4 +72,6 @@ class OrdemDeServico
   def atribui_data
     self.data_abertura = Date.today
   end
+  
+  
 end

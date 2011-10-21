@@ -280,3 +280,25 @@ body, p, ol, ul, td {
 #colunaPrincipal .containnerBasico .contemBusca{
 	width: 336px;
 }
+.topoPagina{
+	margin: 8px;
+}
+
+.topoPagina img{
+	float:left;
+	width: 24px;
+	height: 24px;
+}
+
+.topoPagina h1{
+	float:left;
+	margin: 5px 0;
+}
+
+.topoPagina .opcoes{
+	float: right;
+}
+
+.topoPagina .opcoes form{
+	float:left;
+}

@@ -61,7 +61,7 @@ class NotificacoesController < ApplicationController
     respond_to do |format|
       if @notificacao.save
         item.save
-        @usuario.registra_acao "Criou o pedido de serviço #{@notificao.numero} para o item #{item.patrimonio}"
+        @usuario.registra_acao "Criou o pedido de serviço #{@notificao.numero.to_s} para o item #{item.patrimonio}"
         format.html { redirect_to(@notificacao, :notice => 'Notificacao was successfully created.') }
         format.xml  { render :xml => @notificacao, :status => :created, :location => @notificacao }
       else

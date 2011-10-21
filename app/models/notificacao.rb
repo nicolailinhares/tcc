@@ -3,7 +3,7 @@
 class Notificacao
   include MongoMapper::Document
 
-  key :numero, Integer
+  key :numero, Integer, :default => 1
   key :descricao_falha, String
   key :patrimonio, String
   key :despachada, Boolean, :default => false

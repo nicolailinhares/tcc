@@ -1,5 +1,35 @@
-<p id="notice"><%= notice %></p>
-
+<%=render 'instituicoes/menu'%>
+<div id='colunaPrincipal'>
+<div id="dialog-cancel" title="Cancelamento">
+	<p class="validateTips">
+		Digite o motivo do cancelamento.
+	</p>
+	<%= form_tag do %>
+	<%= label_tag 'motivo', 'Motivo' %><br />
+	<%= text_area_tag 'motivo','' ,:size => '45x4' %>
+	<%end%>
+</div>
+<div class='topoPagina'>
+	<%=image_tag 'pedido.png'%>
+	<h1>Pedido de serviço</h1>
+	<div class='opcoes'>
+	<%unless @notificacao.tipo_despacho == 2%>
+		<%unless @nivel != 2%>
+	    <%= button_to 'Abrir OS para o pedido', 'javascript:void(0)'%>
+	    <%end%>
+	    <%unless @nivel == 1 and @usuario.id != notificacao.usuario_id%>
+	    <%= button_to 'Cancelar', 'javascript:void(0)', :id => @notificacao.id, :class => 'cancelamento' %>
+	    <%end%>
+    <%end%>
+    <%if @usuario.id == @notificacao.usuario_id%>
+    <%= button_to 'Excluir', @notificacao, :confirm => "Confirma a exclusão do pedido?", :method => :delete%>
+    <%end%>
+	</div>
+	<br style="clear: both;">
+</div>
+<%unless notice.nil?%><p id="notice"><%= notice %></p><%end%>
+<div class="containnerBasico">
+	<h2><%=image_tag 'dados.png'%>Dados do pedido</h2>
 <p>
   <b>Descrição falha:</b>
   <%= @notificacao.descricao_falha %>
@@ -19,8 +49,43 @@
   <b>Motivo do cancelamento:</b>
   <%= @notificacao.motivo_cancelamento %>
 </p>
-<%end%>
-<%end%>
-
-<%= link_to 'Editar', edit_notificacao_path(@notificacao) %> |
+<%unless @notificacao.despachada or @usuario.id != @notificacao.usuario_id %><div class="opcaoDireita"><%= link_to 'Editar', edit_notificacao_path(@notificacao) %></div><%end%>
+</div>
 <%= link_to 'Voltar', "/notificacoes?instituicao_id=#{@instituicao.id}&setor_id=#{@notificacao.setor_id}&item_id=#{@notificacao.item_id}" %>
+</div>
+<%end%>
+<%end%>
+<script type="text/javascript">
+	$j(document).ready(function() {
+		var id;
+		$j("#dialog-cancel").dialog({
+			autoOpen : false,
+			height : 280,
+			width : 350,
+			modal : true,
+			buttons : {
+				"Realizar cancelamento" : function() {
+					$j.post('/ajax/cancela_pedido', {id:id, motivo:$j('#motivo').val()}, function(data) {
+						if(data['erro']) {
+
+						} else {
+							location.reload(true);
+						}
+					});
+					$j(this).dialog("close");
+				}
+			},
+			close : function() {
+				$j('#motivo').val("");
+				//updateTips(tips, 'Digite o nome e o email do responsável.');
+			}
+		});
+		$j('.cancelamento').click(function(){
+			id = $j(this).attr('id');
+			$j("#dialog-cancel").dialog('open');
+		});
+		$j('input[type=submit]').button();
+		selecionaMenu('setores');
+	});
+
+</script>

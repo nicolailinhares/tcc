@@ -16,15 +16,6 @@
     <th>Data de abertura</th>
     <th>Estado</th>
   </tr>
-<div id="dialog-cancel" title="Cancelamento">
-	<p class="validateTips">
-		Digite o motivo do cancelamento.
-	</p>
-	<%= form_tag do %>
-	<%= label_tag 'motivo', 'Motivo' %><br />
-	<%= text_area_tag 'motivo','' ,:size => '45x4' %>
-	<%end%>
-</div>
 <% @notificacoes.each do |notificacao| %>
   <tr class='corpoTabela' id='<%=notificacao_path(notificacao.id)%>'>
     <td><%=notificacao.numero%></td>
@@ -36,35 +27,3 @@
 
 <div class="opcaoDireita"><%= link_to 'Novo pedido de serviço',"/notificacoes/new?instituicao_id=#{@instituicao.id}&setor_id=#{@setor.id}&item_id=#{@item.id}"%></div>
 
-<script type="text/javascript">
-	$j(document).ready(function() {
-		var id;
-		$j("#dialog-cancel").dialog({
-			autoOpen : false,
-			height : 280,
-			width : 350,
-			modal : true,
-			buttons : {
-				"Realizar cancelamento" : function() {
-					$j.post('/ajax/cancela_pedido', {id:id, motivo:$j('#motivo').val()}, function(data) {
-						if(data['erro']) {
-
-						} else {
-							location.reload(true);
-						}
-					});
-					$j(this).dialog("close");
-				}
-			},
-			close : function() {
-				$j('#motivo').val("");
-				//updateTips(tips, 'Digite o nome e o email do responsável.');
-			}
-		});
-		$j('.cancelamento').click(function(){
-			id = $j(this).attr('id');
-			$j("#dialog-cancel").dialog('open');
-		});
-	});
-
-</script>

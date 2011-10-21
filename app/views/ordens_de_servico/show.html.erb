@@ -1,22 +1,77 @@
-<p id="notice"><%= notice %></p>
-
+<%=render 'instituicoes/menu'%>
+<div id='colunaPrincipal'>
+	<div id="dialog-conclusao" title="Conclusão de serviço">
+	<p class="validateTips">
+		Forneça os dados a seguir.
+	</p>
+	<%= form_tag do %>
+	<%= label_tag 'custo_peca', 'Custo com peças' %><br />
+	<%= text_field_tag 'custo_peca','', :class => 'custos'%><br />
+	<%= label_tag 'custo_frete', 'Custo com frete' %><br />
+	<%= text_field_tag 'custo_frete','', :class => 'custos'%><br />
+	<%= label_tag 'custo_mao', 'Custo com mão-de-obra' %><br />
+	<%= text_field_tag 'custo_mao','', :class => 'custos'%><br />
+	<%= label_tag 'descricao_solucao', 'Descrição da solução' %><br />
+	<%= text_area_tag 'descricao_solucao','' ,:size => '45x4' %><br />
+	<%= label_tag 'status', "Estado do equipamento" %><br />
+    <%= select_tag 'status', options_for_select(@opcoes_status,1) %>
+	<%end%>
+</div>
+<div class='topoPagina'>
+	<%=image_tag 'os.png'%>
+	<h1>Ordem de serviço</h1>
+	<div class='opcoes'>
+	<%unless @nivel != 2%>
+		<%if @ordem_de_servico.data_fechamento.nil?%>
+	    <%= button_to 'Concluir', 'javascript:void(0)', :id => @ordem_de_servico.id, :class => 'conclusao' %>
+	    <%end%>
+    <%end%>
+    <%unless @nivel != 2 and @usuario.id != @ordem_de_servico.usuario_id%>
+    <%= button_to 'Excluir', @ordem_de_servico, :confirm => 'Confirma a exclusão da ordem de serviço?', :method => :delete %>
+    <%end%>
+	</div>
+	<br style="clear: both;">
+</div>
+<%unless notice.nil?%><p id="notice"><%= notice %></p><%end%>
+<div class="containnerBasico" style='clear:both;'>
+	<h2><%=image_tag 'dados.png'%>Dados da ordem de serviço</h2>
 <p>
   <b>Data abertura:</b>
   <%= @ordem_de_servico.data_abertura %>
 </p>
 
 <p>
-  <b>Data fechamento:</b>
+  <b>Tipo de serviço:</b>
+  <%= @ordem_de_servico.nome_tipo_servico %>
+</p>
+
+<p>
+  <b>Manutenção interna:</b>
+  <%= @ordem_de_servico.interna? %>
+</p>
+<%unless @ordem_de_servico.tipo_de_servico != 4%>
+<p>
+  <b>Tipo de defeito:</b>
+  <%= @ordem_de_servico.nome_tipo_defeito %>
+</p>
+<%end%>
+<p>
+  <b>Descrição do acontecido:</b>
+  <%= @ordem_de_servico.descricao_falha %>
+</p>
+<%unless @ordem_de_servico.data_fechamento.nil?%>
+<p>
+  <b>Data de fechamento:</b>
   <%= @ordem_de_servico.data_fechamento %>
 </p>
 
 <p>
-  <b>Custo peca:</b>
+  <b>Custo peça:</b>
   <%= @ordem_de_servico.custo_peca %>
 </p>
 
 <p>
-  <b>Custo mao de obra:</b>
+  <b>Custo mão de obra:</b>
   <%= @ordem_de_servico.custo_mao_de_obra %>
 </p>
 
@@ -24,32 +79,51 @@
   <b>Custo frete:</b>
   <%= @ordem_de_servico.custo_frete %>
 </p>
-
 <p>
-  <b>Tipo servico:</b>
-  <%= @ordem_de_servico.tipo_de_servico %>
-</p>
-
-<p>
-  <b>Manutencao interna:</b>
-  <%= @ordem_de_servico.manutencao_interna %>
-</p>
-
-<p>
-  <b>Tipo defeito:</b>
-  <%= @ordem_de_servico.tipo_de_defeito %>
-</p>
-
-<p>
-  <b>Descricao falha:</b>
-  <%= @ordem_de_servico.descricao_falha %>
-</p>
-
-<p>
-  <b>Descricao solucao:</b>
+  <b>Descrição da solução:</b>
   <%= @ordem_de_servico.descricao_solucao %>
 </p>
-
-
-<%= link_to 'Edit', edit_ordem_de_servico_path(@ordem_de_servico) %> |
+<%end%>
+<%unless @nivel != 2 or !@ordem_de_servico.data_fechamento.nil?%><div class="opcaoDireita"><%= link_to 'Editar', edit_ordem_de_servico_path(@ordem_de_servico) %></div><%end%>
+</div>
 <%= link_to 'Back', ordens_de_servico_path %>
+
+<script type="text/javascript">
+	$j(document).ready(function() {
+		var id;
+		$j("#dialog-conclusao").dialog({
+			autoOpen : false,
+			height : 430,
+			width : 350,
+			modal : true,
+			buttons : {
+				"Fechar OS" : function() {
+					$j.post('/ajax/conclui_os', {id:id, custo_peca:$j('#custo_peca').val(),custo_frete:$j('#custo_frete').val(),custo_mao:$j('#custo_mao').val(),descricao_solucao:$j('#descricao_solucao').val()}, 
+					function(data) {
+						if(data['erro']) {
+
+						} else {
+							location.reload(true);
+						}
+					});
+					$j(this).dialog("close");
+				}
+			},
+			close : function() {
+				$j('#custo_peca').val("");
+				$j('#custo_frete').val("");
+				$j('#custo_mao').val("");
+				$j('#descricao_solucao').val("");
+				//updateTips(tips, 'Digite o nome e o email do responsável.');
+			}
+		});
+		$j('.conclusao').click(function(){
+			id = $j(this).attr('id');
+			$j("#dialog-conclusao").dialog('open');
+		});
+		$j(".custos").setMask('preco');
+		$j("input[type=submit]").button();
+		selecionaMenu('setores')
+	});
+
+</script>

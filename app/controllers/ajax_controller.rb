@@ -87,6 +87,7 @@ class AjaxController < ApplicationController
     item.status = params[:status]
     if os.save
       item.save
+      @usuario.registra_acao "Concluiu a ordem de serviço #{os.numero} do item #{item.patrimonio}"
       responde({:erro => false})
     else
       responde({:erro => true})

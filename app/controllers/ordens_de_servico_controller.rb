@@ -7,7 +7,7 @@ class OrdensDeServicoController < ApplicationController
     @setor_id = params[:setor_id]
     @item_id = params[:item_id]
     @ordens_de_servico = OrdemDeServico.where(:instituicao_id => @instituicao.id, :setor_id => @setor_id, :item_id => @item_id)
-    @opcoes_status = [ ['Em funcionamento',1], ['Aguardando instalação',2], ['Aguardando manutenção corretiva',5] ]
+    
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @ordens_de_servico }
@@ -18,7 +18,7 @@ class OrdensDeServicoController < ApplicationController
   # GET /ordens_de_servico/1.xml
   def show
     @ordem_de_servico = OrdemDeServico.find(params[:id])
-
+    @opcoes_status = [ ['Em funcionamento',1], ['Aguardando instalação',2], ['Aguardando manutenção corretiva',5] ]
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @ordem_de_servico }
@@ -59,7 +59,7 @@ class OrdensDeServicoController < ApplicationController
     respond_to do |format|
       if @ordem_de_servico.save
         item.save
-        @usuario.registra_acao "Criou a ordem de serviço #{@notificao.numero} para o item #{item.patrimonio}"
+        @usuario.registra_acao "Criou a ordem de serviço #{@ordem_de_servico.numero.to_s} para o item #{item.patrimonio}"
         format.html { redirect_to(@ordem_de_servico, :notice => 'Ordem de serviço criada com sucesso.') }
         format.xml  { render :xml => @ordem_de_servico, :status => :created, :location => @ordem_de_servico }
       else
