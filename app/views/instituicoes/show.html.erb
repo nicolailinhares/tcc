@@ -1,10 +1,18 @@
 <%=render 'menu'%>
 <div id='colunaPrincipal'>
-<p id="notice"><%= notice %></p>
-<%=form_tag '/itens/busca' do%>
-<%=text_field_tag 'patrimonio'%>
-<%=submit_tag 'Buscar item'%>
-<%end%>
+<div>
+	<%unless notice.nil?%><p id="notice"><%= notice %></p><%end%>
+	<div class='contemBusca'>
+	<%=form_tag '/itens/busca' do%>
+	<%=image_tag 'busca.png'%>
+	<%=text_field_tag 'patrimonio'%>
+	<%=submit_tag 'Buscar item'%>
+	<%end%>
+	</div>
+	<br style='clear:both;'>
+</div>
+<div class='containnerBasico meio' style='padding-bottom:0px;'>
+	<h2><%=image_tag 'dados.png'%>Dados da instituição</h2>
 <p>
   <b>Número leitos:</b>
   <%= @instituicao.numero_leitos %>
@@ -14,7 +22,7 @@
   <b>Nome:</b>
   <%= @instituicao.nome %>
 </p>
-
+<div class='oculto'>
 <p>
   <b>Endereço:</b>
   <%= @instituicao.endereco %>
@@ -27,7 +35,7 @@
   <b>Bairro:</b>
   <%= @instituicao.bairro %>
 </p>
-
+</div>
 <p>
   <b>Cidade:</b>
   <%= @instituicao.cidade %>
@@ -36,23 +44,42 @@
   <b>Estado:</b>
   <%= @instituicao.estado %>
 </p>
+<div class="opcaoDireita"><%= link_to 'Editar',  edit_instituicao_path%></div>
+<%=image_tag 'seta.png', :class => 'setaExpande'%>
+</div>
 <%if @nivel == 3%><%= link_to 'Editar', edit_instituicao_path(@instituicao) %><%end%>
-<div class='containnerEquipes'>
-<h2>Seus setores nessa instituição</h2>
-	<table id='equipes'>
+<div class='containnerBasico meio'>
+<h2>Setores que você participa</h2>
+	<table>
 		<tr>
 			<th>Nome</th>
-			<th>Opção</td>
+			<th class='colunaOpcao'>Opção</td>
 		</tr>
 		<%@setores_do_usuario.each do |setor|%>
-		<tr>
+		<tr class='corpoTabela' id="<%=instituicao_setor_path(@instituicao.id,setor.id)%>">
 			<td><%=setor.nome%></td>
-			<td><button class='desassociar' id='<%=setor.id%>'>Desassociar</button>
+			<%unless setor.responsavel_id == @usuario.id%>
+			<td><button class='desassociar' id='<%=setor.id%>'>Desassociar</button></td>
+			<%else%>
+			<td style='text-align:center;'>-</td>
+			<%end%>
 		</tr>
 		<%end%>
 	</table>
 </div>
-<%= link_to 'Voltar', "/#{@usuario.id}" %>
+<%unless @usuario.avisos.empty?%>
+<div class='containnerBasico' style='clear:both;'>
+	<h2>Notificações</h2>
+	<table>
+		<%@usuario.avisos.each do |aviso|%>
+		<tr>
+			<td style='width:30px'><div class='tipoAviso' style='background-color:<%=aviso.cor%>'>Tipo notificação</div></td>
+			<td><%=aviso.conteudo%></td>
+		</tr>
+		<%end%>
+	</table>
+</div>
+<%end%>
 </div>
 <script type="text/javascript">
 $j(document).ready(function(){
@@ -70,7 +97,11 @@ $j(document).ready(function(){
 			toggleHeader();
 		});
 	}
+	$j('.setaExpande').click(function(){
+		$j('.oculto').show();	
+	});	
 	configuraBotoes();
 	toggleHeader();	
+	$j('input[type=submit]').button();
 });
 </script>

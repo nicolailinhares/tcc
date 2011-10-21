@@ -1,0 +1,70 @@
+<h2><%=image_tag 'pedido.png'%>Pedidos de serviço</h2>
+<div>
+	<div class='contemBusca'>
+	<%=form_tag  do%>
+	<%=image_tag 'busca.png'%>
+	<%=text_field_tag 'patrimonio'%>
+	<%=hidden_field_tag 'setor_id', @setor.id%>
+	<%=submit_tag 'Buscar'%>
+	<%end%>
+	</div>
+	<br style='clear:both;'>
+</div>
+<table>
+  <tr>
+    <th>Número</th>
+    <th>Data de abertura</th>
+    <th>Estado</th>
+  </tr>
+<div id="dialog-cancel" title="Cancelamento">
+	<p class="validateTips">
+		Digite o motivo do cancelamento.
+	</p>
+	<%= form_tag do %>
+	<%= label_tag 'motivo', 'Motivo' %><br />
+	<%= text_area_tag 'motivo','' ,:size => '45x4' %>
+	<%end%>
+</div>
+<% @notificacoes.each do |notificacao| %>
+  <tr class='corpoTabela' id='<%=notificacao_path(notificacao.id)%>'>
+    <td><%=notificacao.numero%></td>
+    <td><%=notificacao.data_abertura%></td>
+    <td><%=notificacao.estado%></td>
+  </tr>
+<% end %>
+</table>
+
+<div class="opcaoDireita"><%= link_to 'Novo pedido de serviço',"/notificacoes/new?instituicao_id=#{@instituicao.id}&setor_id=#{@setor.id}&item_id=#{@item.id}"%></div>
+
+<script type="text/javascript">
+	$j(document).ready(function() {
+		var id;
+		$j("#dialog-cancel").dialog({
+			autoOpen : false,
+			height : 280,
+			width : 350,
+			modal : true,
+			buttons : {
+				"Realizar cancelamento" : function() {
+					$j.post('/ajax/cancela_pedido', {id:id, motivo:$j('#motivo').val()}, function(data) {
+						if(data['erro']) {
+
+						} else {
+							location.reload(true);
+						}
+					});
+					$j(this).dialog("close");
+				}
+			},
+			close : function() {
+				$j('#motivo').val("");
+				//updateTips(tips, 'Digite o nome e o email do responsável.');
+			}
+		});
+		$j('.cancelamento').click(function(){
+			id = $j(this).attr('id');
+			$j("#dialog-cancel").dialog('open');
+		});
+	});
+
+</script>

@@ -15,7 +15,7 @@ class UsuariosController < ApplicationController
   # GET /usuarios/1
   # GET /usuarios/1.xml
   def show
-    @usuario = Usuario.find(params[:usuario_id]) || @usuario
+    @usuario_pagina = Usuario.find(params[:usuario_id]) || @usuario
     permissoes = Permissao.where(:email => @usuario.email)
     @permissoes = permissoes.map do |permissao| 
       instituicao = Instituicao.find(permissao.instituicao_id) 

@@ -1,13 +1,10 @@
-<ul id='menuLateral'>
-	<li><%=link_to 'Pedidos de serviço', "/notificacoes?instituicao_id=#{@instituicao.id}&setor_id=#{@setor.id}&item_id=#{@item.id}"%></li>
-	<%if (2..3).include? @nivel%>
-	<li><%=link_to 'Ordens de serviço', "/ordens_de_servico?setor_id=#{@setor.id}&item_id=#{@item.id}"%></li>
-	<%end%>
-</ul>
+<%=render 'instituicoes/menu'%>
 <div id='colunaPrincipal'>
-<h1>Item</h1>
-<p id="notice"><%= notice %></p>
-
+<h1><%=image_tag 'itens.png'%>Item</h1>
+<%unless notice.nil?%><p id="notice"><%= notice %></p><%end%>
+<div class="containnerBasico tresQuartos">
+<h2><%=image_tag 'dados.png'%>Dados do item</h2>
+<div class='divide'>
 <p>
   <b>Número de série:</b>
   <%= @item.numero_serie %>
@@ -29,7 +26,8 @@
   <b>Data de aquisção:</b>
   <%= @item.data_aquisicao.strftime('%d/%m/%Y') %>
 </p>
-
+</div>
+<div class='divide'>
 <p>
   <b>Status:</b>
   <%= @item.nome_status %>
@@ -49,8 +47,26 @@
   <b>Vencimento da garantia:</b>
   <%= @item.vencimento_garantia.strftime('%d/%m/%Y') %>
 </p>
-
-
-<%= link_to 'Editar', edit_instituicao_setor_item_path(@instituicao.id,@setor.id,@item.id) %> |
-<%= link_to 'Voltar', instituicao_setor_path(@instituicao.id,@setor.id) %>
 </div>
+<br style="clear: both;">
+<div class="opcaoDireita"><%= link_to 'Editar', edit_instituicao_setor_item_path(@instituicao.id,@setor.id,@item.id) %></div>
+</div>
+<div class='containnerBasico umQuarto'>
+ <%=image_tag 'modelos.png'%><br />
+ <button id='manual'>Manual</button>	
+</div>
+<div class="containnerBasico" style="clear:both;">
+	<%=render 'pedidos_servico'%>
+</div>
+<div class="containnerBasico">
+	<%=render 'ordens_servico'%>
+</div>
+</div>
+
+<script type="text/javascript">
+	$j(document).ready(function(){
+		selecionaMenu('setores');
+		$j('input[type=submit]').button();
+		$j('#manual').button();
+	});
+</script>

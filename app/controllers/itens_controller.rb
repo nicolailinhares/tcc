@@ -17,7 +17,11 @@ class ItensController < ApplicationController
   def show
     @setor = @instituicao.setores.find(params[:setor_id])
     @item = @setor.itens.find(params[:id])
-
+    @notificacoes = Notificacao.where(:instituicao_id => @instituicao.id, :setor_id => @setor.id, :item_id => @item.id)
+    @ordens_de_servico = OrdemDeServico.where(:instituicao_id => @instituicao.id, :setor_id => @setor.id, :item_id => @item.id)
+    #temporario
+    @opcoes_status = []
+    ####
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @item }
@@ -117,7 +121,11 @@ class ItensController < ApplicationController
       end
     end
     if encontrado.nil?
-      redirect_to instituicao_path(@instituicao.id), :notice => "Item não encontrado"
+      unless params[:setor_id].nil?
+        redirect_to instituicao_setor_path(@instituicao.id,params[:setor_id]), :notice => "Item não encontrado"
+      else  
+        redirect_to instituicao_path(@instituicao.id), :notice => "Item não encontrado"
+      end
     else
       redirect_to instituicao_setor_item_path(@instituicao.id,setor_id,encontrado.id)
     end

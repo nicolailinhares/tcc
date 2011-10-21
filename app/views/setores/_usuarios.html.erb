@@ -1,15 +1,12 @@
-<div class='containnerEquipes'>
-<h2>Integrantes</h2>
-	<table id='equipes'>
+<h2><%=image_tag 'pedir.png'%>Integrantes</h2>
+	<table>
 		<tr>
 			<th>Nome</th>
-			<th>Email</td>
-			<th>Opção</td>
+			<th class='colunaOpcao'>Opção</td>
 		</tr>
 		<%@usuarios_do_setor.each do |usuario|%>
-		<tr>
+		<tr class='corpoTabela' id="/<%=usuario.id%>">
 			<td><%=usuario.nome%></td>
-			<td><%=usuario.email %></td>
 			<%unless usuario.id == @setor.responsavel_id%>
 			<td><button class='desassociar' id='<%=usuario.id%>'>Desassociar</button>
 			<%else%>
@@ -29,10 +26,17 @@
 	<%= hidden_field_tag 'setor_id', @setor.id%>
 	<%end%>
 </div>
-
-<button id='adicionar' <% if @usuarios.empty? %>disabled='disabled'<% end %>>
-	Adicionar usuário
-</button>
+<%if @nivel == 3%>
+<div class="opcaoDireita">
+<% if @usuarios.empty? %>
+	<span class='linkDesabilitado'>Adicionar</span>
+<%else%>
+<a id='adicionar' href='javascript:void(0)'>
+	Adicionar
+</a>
+<%end%>
+</div>
+<%end%>
 <script type="text/javascript">
 $j(document).ready(function(){
 	var setor = $j('#setor_id'),
@@ -45,10 +49,10 @@ $j(document).ready(function(){
 			}
 	}
 	function configuraBotoes(){
-		$j(".desassociar").button().click(function(){
+		$j(".desassociar").button().click(function(event){
+			event.stopPropagation();
 			$j.post('/usuarios/remover_de_setor',{usuario_id: $j(this).attr('id'), setor_id:'<%=@setor.id%>'});
-			$j(this).parent().parent().remove();
-			toggleHeader();
+			location.reload(true);
 		});
 	}
 	configuraBotoes();
@@ -68,9 +72,10 @@ $j(document).ready(function(){
 						if(data['erro']){
 							
 						}else{
-							toggleHeader();
-							$j('#equipes tbody').append("<tr><td>"+data['nome']+"</td><td>"+data['email']+"</td><td><button class='desassociar' id='"+data['id']+"'>Desassociar</button></td></tr>");
-							configuraBotoes();
+							//toggleHeader();
+							//$j('#equipes tbody').append("<tr><td>"+data['nome']+"</td><td>"+data['email']+"</td><td><button class='desassociar' id='"+data['id']+"'>Desassociar</button></td></tr>");
+							//configuraBotoes();
+							location.reload(true);
 						}
 					});
 				$j(this).dialog("close");
@@ -83,7 +88,7 @@ $j(document).ready(function(){
 			//updateTips(tips, 'Digite o nome e o email do responsável.');
 		}
 	});
-	$j("#adicionar").button().click(function() {
+	$j("#adicionar").click(function() {
 		$j("#dialog-usuario").dialog("open");
 	});
 	

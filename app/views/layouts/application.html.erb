@@ -37,7 +37,7 @@
 	</ul>
 	<br style="clear:both;">
 </div>
-<%unless @instiuicao.nil? or @instituicao.nome.nil? or @controlador == 'usuarios' %>
+<%unless @instituicao.nil? or @instituicao.nome.nil? or @controlador == 'usuarios' %>
 	<div id='instituicao'>
 		<a href='<%=instituicao_path(@instituicao.id)%>'><%=image_tag 'instituicao.png'%><h1 id='nomeInstituicao'>Instituição <%=@instituicao.nome%></h1></a>
 		<br style="clear:both;" />

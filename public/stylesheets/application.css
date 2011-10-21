@@ -10,8 +10,17 @@ body, p, ol, ul, td {
 	text-decoration: none;
 	padding:5px;
 }
+.containnerBasico .opcaoDireita .linkDesabilitado{
+	color: #e1e1e1;
+	font-weight: bold;
+	text-decoration: none;
+	padding:5px;
+}
 .containnerBasico .opcaoDireita a:hover{
 	background-color: white;
+}
+.containnerBasico .colunaOpcao{
+	width:80px;
 }
 #topo
 {
@@ -126,10 +135,15 @@ body, p, ol, ul, td {
     width: 128px;
     text-align: center;
 }
+#colunaPrincipal h1 img{
+	height: 20px;
+    margin: 0 5px;
+    width: 20px;
+}
 
 .containnerBasico h2 img{
 	height: 20px;
-    margin: 0 5px;
+    margin-right:5px;
     width: 20px;
 }
 
@@ -171,8 +185,28 @@ body, p, ol, ul, td {
 
 #notice{
 	border: 1px dashed green;
-	padding: 5px;
+	margin: 0 0 0 10px;
+    padding: 12px;
 	color: green;
+	float: left;
+}
+
+#colunaPrincipal .contemBusca{
+	float:right;
+	width: 370px;
+	padding: 5px;
+	border: 1px dashed green;	
+	margin-right: 10px;
+}
+
+.contemBusca #patrimonio{
+	width: 199px;
+	margin: 0 10px;
+}
+
+.contemBusca img{
+	width: 20px;
+	height: 20px;
 }
 
 .containnerBasico table{
@@ -199,4 +233,50 @@ body, p, ol, ul, td {
 	color: #1C94C4;
 	background-color: white;
 	padding: 8px;
+}
+
+.containnerBasico .oculto{
+	display:none;
+}
+
+.containnerBasico .setaExpande{
+	cursor: pointer;
+    display: block;
+    height: 20px;
+    margin: 0 auto;
+    width: 20px;
+}
+
+.containnerBasico .tipoAviso{
+	width: 30px;
+	height: 15px;
+	text-indent: -999px
+}
+
+.meio{
+	width: 348px;
+	float: left;
+	min-height: 175px
+}
+
+.umQuarto{
+	width: 136px;
+	float: left;
+	min-height: 110px;
+	text-align: center;
+}
+
+.tresQuartos{
+	width: 560px;
+	float: left;
+	min-height: 175px
+}
+
+.divide{
+	float:left;
+	margin-left: 5px;
+}
+
+#colunaPrincipal .containnerBasico .contemBusca{
+	width: 336px;
 }

@@ -16,6 +16,7 @@ class Usuario
   
   many :ordens_de_servico, :as => :ordenado
   many :notificacoes
+  many :avisos
   
   before_create :registra_acao_inicial
   
