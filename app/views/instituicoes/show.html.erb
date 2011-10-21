@@ -44,10 +44,9 @@
   <b>Estado:</b>
   <%= @instituicao.estado %>
 </p>
-<div class="opcaoDireita"><%= link_to 'Editar',  edit_instituicao_path%></div>
+<%if @nivel == 3%><div class="opcaoDireita"><%= link_to 'Editar',  edit_instituicao_path%></div><%end%>
 <%=image_tag 'seta.png', :class => 'setaExpande'%>
 </div>
-<%if @nivel == 3%><%= link_to 'Editar', edit_instituicao_path(@instituicao) %><%end%>
 <div class='containnerBasico meio'>
 <h2>Setores que você participa</h2>
 	<table>
