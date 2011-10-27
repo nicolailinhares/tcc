@@ -17,6 +17,7 @@ class InstituicoesController < ApplicationController
   def show
     @instituicao = Instituicao.find(params[:id])
     @setores_do_usuario = @usuario.setores_ids.map{|id| @instituicao.setores.find(id)}
+    @avisos = @usuario.avisos.select{|aviso| aviso.instituicao_id == @instituicao.id}
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @instituicao }

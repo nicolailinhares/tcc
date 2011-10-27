@@ -25,6 +25,15 @@ class Setor < Validacao
    valida_presenca_de :nome
    valida_unicidade_de :nome, pai.setores
   end
+  
+  def afixa_avisos tipo, conteudo, instituicao_id
+    aviso = Aviso.new(:instituicao_id => instituicao_id, :tipo => tipo, :conteudo => (conteudo+". O item está '"+Item.texto_status(tipo)+"'."))
+    ids_de_usuario.each do |id|
+      usuario = Usuario.find(id)
+      usuario.avisos << aviso
+      usuario.save
+    end
+  end
 
   private
   def adiciona_usuario

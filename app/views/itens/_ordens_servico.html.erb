@@ -1,4 +1,5 @@
 <h2><%=image_tag 'os.png'%>Ordens de serviço</h2>
+<%unless @ordens_de_servico.empty?%>
 <div>
 	<div class='contemBusca'>
 	<%=form_tag  do%>
@@ -31,6 +32,7 @@
   </tr>
 <% end %>
 </table>
+<%end%>
 <%if @nivel == 2%>
 <div class="opcaoDireita"><%= link_to 'Nova Ordem de serviço', new_ordem_de_servico_path+"?setor_id=#{@setor.id}&item_id=#{@item.id}" %></div>
 <%end%>

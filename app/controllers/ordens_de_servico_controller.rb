@@ -55,11 +55,12 @@ class OrdensDeServicoController < ApplicationController
     @ordem_de_servico = OrdemDeServico.new(params[:ordem_de_servico])
     setor = @instituicao.setores.find(@ordem_de_servico.setor_id)
     item = setor.itens.find(@ordem_de_servico.item_id)
-    item.status = params[:status]
+    item.status = @ordem_de_servico.tipo_de_servico
     respond_to do |format|
       if @ordem_de_servico.save
         item.save
         @usuario.registra_acao "Criou a ordem de serviço #{@ordem_de_servico.numero.to_s} para o item #{item.patrimonio}"
+        setor.afixa_avisos item.status, "A ordem de serviço <a href='"+ordem_de_servico_path(@ordem_de_servico.id)+"'>#{@ordem_de_servico.numero}</a> foi criada", @instituicao.id
         format.html { redirect_to(@ordem_de_servico, :notice => 'Ordem de serviço criada com sucesso.') }
         format.xml  { render :xml => @ordem_de_servico, :status => :created, :location => @ordem_de_servico }
       else

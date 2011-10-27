@@ -84,6 +84,7 @@ class Item < Validacao
     2 => 'Aguardando instalação',
     3 => 'Em manutenção preventiva',
     4 => 'Em manutenção corretiva',
-    5 => 'Aguardando manutenção corretiva'
+    5 => 'Aguardando manutenção corretiva',
+    6 => 'Em calibração'
   }
 end

@@ -79,6 +79,7 @@ class ItensController < ApplicationController
     respond_to do |format|
       if @instituicao.save
         @usuario.registra_acao "Criou o item #{@item.patrimonio} no setor #{@setor.nome}"
+        @setor.afixa_avisos @item.status, "O item <a href='"+instituicao_setor_item_path(@instituicao.id,@setor.id,@item.id)+"'>#{@item.patrimonio}</a> foi criado", @instituicao.id
         format.html { redirect_to(instituicao_setor_path(@instituicao.id,@setor.id), :notice => 'Item criado com sucesso.') }
         format.xml  { render :xml => @item, :status => :created, :location => @item }
       else

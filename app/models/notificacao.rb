@@ -3,7 +3,7 @@
 class Notificacao
   include MongoMapper::Document
 
-  key :numero, Integer, :default => 1
+  key :numero, String
   key :descricao_falha, String
   key :patrimonio, String
   key :despachada, Boolean, :default => false
@@ -16,6 +16,8 @@ class Notificacao
   key :item_id, ObjectId
   key :usuario_id, ObjectId
   key :status_anterior, Integer
+  
+  before_create :gera_numero
   
   def estado
     if tipo_despacho == 1
@@ -44,5 +46,9 @@ class Notificacao
   {
     1 => 'Abertura de ordem de serviço',
     2 => 'Cancelamento'
-  } 
+  }
+  
+  def gera_numero
+    self.numero = self.id.to_s
+  end 
 end

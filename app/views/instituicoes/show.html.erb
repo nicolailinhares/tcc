@@ -66,14 +66,14 @@
 		<%end%>
 	</table>
 </div>
-<%unless @usuario.avisos.empty?%>
+<%unless @avisos.empty?%>
 <div class='containnerBasico' style='clear:both;'>
 	<h2>Notificações</h2>
 	<table>
-		<%@usuario.avisos.each do |aviso|%>
+		<% @avisos.each do |aviso|%>
 		<tr>
 			<td style='width:30px'><div class='tipoAviso' style='background-color:<%=aviso.cor%>'>Tipo notificação</div></td>
-			<td><%=aviso.conteudo%></td>
+			<td><%=raw aviso.conteudo%></td>
 		</tr>
 		<%end%>
 	</table>

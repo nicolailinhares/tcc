@@ -14,7 +14,6 @@ class Usuario
   
   Usuario.ensure_index :email, :unique => true
   
-  many :ordens_de_servico, :as => :ordenado
   many :notificacoes
   many :avisos
   

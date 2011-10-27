@@ -9,13 +9,25 @@
 	<%= text_area_tag 'motivo','' ,:size => '45x4' %>
 	<%end%>
 </div>
+<div id="dialog-os" title="Cancelamento">
+	<p class="validateTips">
+		Informe os dados da ordem de serviço.
+	</p>
+	<%= form_tag do %>
+	<%= label_tag 'tipo_servico', 'Tipo de serviço' %><br />
+	<%= select_tag 'tipo_servico',options_for_select(@opcoes_servico) %><br />
+	<%= label_tag 'tipo_defeito', 'Tipo de defeito' %><br />
+	<%= select_tag 'tipo_defeito',options_for_select(@opcoes_defeito) %><br />
+	<%= check_box_tag 'interna' %><%= label_tag 'interna', 'Serviço interno' %>
+	<%end%>
+</div>
 <div class='topoPagina'>
 	<%=image_tag 'pedido.png'%>
 	<h1>Pedido de serviço</h1>
 	<div class='opcoes'>
 	<%unless @notificacao.tipo_despacho == 2%>
 		<%unless @nivel != 2%>
-	    <%= button_to 'Abrir OS para o pedido', 'javascript:void(0)'%>
+	    <%= button_to 'Abrir OS para o pedido', 'javascript:void(0)', :id => @notificacao.id, :class => 'abreOs'%>
 	    <%end%>
 	    <%unless @nivel == 1 and @usuario.id != notificacao.usuario_id%>
 	    <%= button_to 'Cancelar', 'javascript:void(0)', :id => @notificacao.id, :class => 'cancelamento' %>
@@ -80,11 +92,53 @@
 				//updateTips(tips, 'Digite o nome e o email do responsável.');
 			}
 		});
+		$j("#dialog-os").dialog({
+			autoOpen : false,
+			height : 260,
+			width : 350,
+			modal : true,
+			buttons : {
+				"Criar" : function() {
+					$j.post('/ajax/transforma_em_os', {id:id, tipo_servico:$j('#tipo_servico').val(),tipo_defeito:$j('#tipo_defeito').val(),interna:$j('#interna').val()}, function(data) {
+						if(data['erro']) {
+
+						} else {
+							window.location = '/ordens_de_servico/'+data['id_os'];
+						}
+					});
+					$j(this).dialog("close");
+				}
+			},
+			close : function() {
+				$j('#motivo').val("");
+				//updateTips(tips, 'Digite o nome e o email do responsável.');
+			}
+		});
 		$j('.cancelamento').click(function(){
 			id = $j(this).attr('id');
 			$j("#dialog-cancel").dialog('open');
 		});
+		$j('.abreOs').click(function(){
+			id = $j(this).attr('id');
+			$j("#dialog-os").dialog('open');
+		});
 		$j('input[type=submit]').button();
+		$j('#tipo_servico').change(function(){
+			if($j(this).val() == 5)
+			{
+				$j('#tipo_defeito').val(1);
+				$j('#tipo_defeito').show();
+				$j('label[for=tipo_defeito]').show();
+			}
+			else
+			{
+				$j('#tipo_defeito').val(null);
+				$j('#tipo_defeito').hide();
+				$j('label[for=tipo_defeito]').hide();
+			}
+		});
+		$j('#tipo_defeito').hide();
+		$j('label[for=tipo_defeito]').hide();
 		selecionaMenu('setores');
 	});
 

@@ -65,11 +65,13 @@ class AjaxController < ApplicationController
     pedido.tipo_despacho = 2
     pedido.despachada = true
     pedido.data_despacho = Date.today
-    item = @instituicao.setores.find(pedido.setor_id).itens.find(pedido.item_id)
+    setor = @instituicao.setores.find(pedido.setor_id) 
+    item = setor.itens.find(pedido.item_id)
     item.status = pedido.status_anterior
     if pedido.save
       item.save
       @usuario.registra_acao "Cancelou o pedido de serviço #{pedido.numero} do item #{item.patrimonio}"
+      setor.afixa_avisos item.status, "O pedido de serviço <a href='"+notificacao_path(pedido.id)+"'>#{pedido.numero}</a> foi cancelado", @instituicao.id
       responde({:erro => false})
     else
       responde({:erro => true})
@@ -83,17 +85,40 @@ class AjaxController < ApplicationController
     os.custo_mao_de_obra = params[:custo_mao]
     os.descricao_solucao = params[:descricao_solucao]
     os.data_fechamento = Date.today
-    item = @instituicao.setores.find(os.setor_id).itens.find(os.item_id)
+    setor = @instituicao.setores.find(os.setor_id)
+    item = setor.itens.find(os.item_id)
     item.status = params[:status]
     if os.save
       item.save
       @usuario.registra_acao "Concluiu a ordem de serviço #{os.numero} do item #{item.patrimonio}"
+      setor.afixa_avisos item.status, "A ordem de serviço <a href='"+ordem_de_servico_path(os.id)+"'>#{os.numero}</a> foi concluída", @instituicao.id
       responde({:erro => false})
     else
       responde({:erro => true})
     end
   end
   
+  def transforma_em_os
+    pedido = Notificacao.find(params[:id])
+    setor = @instituicao.setores.find(pedido.setor_id) 
+    item = setor.itens.find(pedido.item_id)
+    os = OrdemDeServico.new(:descricao_falha => pedido.descricao_falha, 
+        :tipo_de_servico => params[:tipo_servico], :tipo_de_defeito => params[:tipo_servico],
+        :manutencao_interna => params[:interna], :item_id => item.id, :setor_id => setor.id, :instituicao_id => @instituicao.id)
+    item.status = params[:tipo_servico]
+    pedido.tipo_despacho = 1
+    pedido.despachada = true
+    pedido.data_despacho = Date.today
+    if os.save
+      item.save
+      pedido.save
+      setor.afixa_avisos item.status, "Para o pedido de serviço <a href='"+notificacao_path(pedido.id)+"'>#{pedido.numero}</a>, foi aberta a ordem de serviço <a href='"+ordem_de_servico_path(os.id)+"'>#{os.numero}</a>", @instituicao.id
+      responde({:erro => false, :id_os => os.id})
+    else
+      responde({:erro => true})
+    end
+    
+  end
   
   private
   def responde resposta

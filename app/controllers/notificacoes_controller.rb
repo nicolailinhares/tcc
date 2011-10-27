@@ -19,7 +19,8 @@ class NotificacoesController < ApplicationController
   # GET /notificacoes/1.xml
   def show
     @notificacao = Notificacao.find(params[:id])
-
+    @opcoes_defeito = OrdemDeServico.tipos_de_defeito.map{|tipo| tipo.reverse}
+    @opcoes_servico = OrdemDeServico.tipos_de_servico.map{|tipo| tipo.reverse}
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @notificacao }
@@ -62,6 +63,7 @@ class NotificacoesController < ApplicationController
       if @notificacao.save
         item.save
         @usuario.registra_acao "Criou o pedido de serviço #{@notificacao.numero.to_s} para o item #{item.patrimonio}"
+        setor.afixa_avisos item.status, "O pedido de serviço <a href='"+notificacao_path(@notificacao.id)+"'>#{@notificacao.numero}</a> foi criado", @instituicao.id
         format.html { redirect_to(@notificacao, :notice => 'Notificacao was successfully created.') }
         format.xml  { render :xml => @notificacao, :status => :created, :location => @notificacao }
       else

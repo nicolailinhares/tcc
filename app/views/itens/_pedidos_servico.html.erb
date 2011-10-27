@@ -1,29 +1,31 @@
 <h2><%=image_tag 'pedido.png'%>Pedidos de serviço</h2>
-<div>
-	<div class='contemBusca'>
-	<%=form_tag  do%>
-	<%=image_tag 'busca.png'%>
-	<%=text_field_tag 'patrimonio'%>
-	<%=hidden_field_tag 'setor_id', @setor.id%>
-	<%=submit_tag 'Buscar'%>
-	<%end%>
+<%unless @notificacoes.empty?%>
+	<div>
+		<div class='contemBusca'>
+		<%=form_tag  do%>
+		<%=image_tag 'busca.png'%>
+		<%=text_field_tag 'patrimonio'%>
+		<%=hidden_field_tag 'setor_id', @setor.id%>
+		<%=submit_tag 'Buscar'%>
+		<%end%>
+		</div>
+		<br style='clear:both;'>
 	</div>
-	<br style='clear:both;'>
-</div>
-<table>
-  <tr>
-    <th>Número</th>
-    <th>Data de abertura</th>
-    <th>Estado</th>
-  </tr>
-<% @notificacoes.each do |notificacao| %>
-  <tr class='corpoTabela' id='<%=notificacao_path(notificacao.id)%>'>
-    <td><%=notificacao.numero%></td>
-    <td><%=notificacao.data_abertura%></td>
-    <td><%=notificacao.estado%></td>
-  </tr>
-<% end %>
-</table>
+	<table>
+	  <tr>
+	    <th>Número</th>
+	    <th>Data de abertura</th>
+	    <th>Estado</th>
+	  </tr>
+	<% @notificacoes.each do |notificacao| %>
+	  <tr class='corpoTabela' id='<%=notificacao_path(notificacao.id)%>'>
+	    <td><%=notificacao.numero%></td>
+	    <td><%=notificacao.data_abertura%></td>
+	    <td><%=notificacao.estado%></td>
+	  </tr>
+	<% end %>
+	</table>
+<%end%>
 
 <div class="opcaoDireita"><%= link_to 'Novo pedido de serviço',"/notificacoes/new?instituicao_id=#{@instituicao.id}&setor_id=#{@setor.id}&item_id=#{@item.id}"%></div>
 

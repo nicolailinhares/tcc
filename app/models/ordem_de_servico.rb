@@ -3,7 +3,7 @@
 class OrdemDeServico
   include MongoMapper::Document
   
-  key :numero, Integer, :default => 1
+  key :numero, String
   key :data_abertura, Date
   key :data_fechamento, Date
   key :custo_peca, Float
@@ -63,14 +63,15 @@ class OrdemDeServico
   } 
   TIPOS_DE_SERVICO =
   {
-    1 => 'Instalação',
-    2 => 'Calibração',
+    2 => 'Instalação',
     3 => 'Manutenção preventiva',
-    4 => 'Manutenção corretiva'
+    5 => 'Manutenção corretiva',
+    6 => 'Calibração'
   }
   
   def atribui_data
     self.data_abertura = Date.today
+    self.numero = self.id.to_s
   end
   
   

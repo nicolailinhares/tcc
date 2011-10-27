@@ -98,7 +98,7 @@
 			modal : true,
 			buttons : {
 				"Fechar OS" : function() {
-					$j.post('/ajax/conclui_os', {id:id, custo_peca:$j('#custo_peca').val(),custo_frete:$j('#custo_frete').val(),custo_mao:$j('#custo_mao').val(),descricao_solucao:$j('#descricao_solucao').val()}, 
+					$j.post('/ajax/conclui_os', {id:id, custo_peca:$j('#custo_peca').val(),custo_frete:$j('#custo_frete').val(),custo_mao:$j('#custo_mao').val(),descricao_solucao:$j('#descricao_solucao').val(), status:$j('#status').val()}, 
 					function(data) {
 						if(data['erro']) {
 
