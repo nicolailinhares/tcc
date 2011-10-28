@@ -6,7 +6,7 @@
 <%end%>
 <div id='colunaPrincipal'>
 	<%unless notice.nil?%><p id="notice"><%= notice %></p><%end%>
-	<div class="containnerBasico" style="clear:both;">
+	<div class="containnerBasico">
 		<h2><%=image_tag 'dados.png'%>
 			<%if @usuario_pagina.id == @usuario.id%>
 			Seus dados

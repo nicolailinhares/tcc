@@ -97,7 +97,6 @@ class UsuariosController < ApplicationController
     setor.ids_de_usuario << usuario.id
     usuario.setores_ids << setor.id
     if @instituicao.save
-      usuario.save
       if(params[:tipo].to_i == 1)
         dados = {:erro => false, :nome => setor.nome, :id => equipe.id}
       else

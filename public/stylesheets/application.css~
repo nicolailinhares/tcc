@@ -216,11 +216,9 @@ body, p, ol, ul, td {
 }
 
 .containnerBasico ul form{
-  float: right;
+  display: inline;
 }
-.containnerBasico ul li{
-  clear:both;
-}
+
 
 .containnerBasico table tr.corpoTabela:hover{
 	background-color: #f1f9f1;

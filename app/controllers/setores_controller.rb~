@@ -22,7 +22,6 @@ class SetoresController < ApplicationController
     usuarios_total = Permissao.find_all_by_instituicao_id(@instituicao.id).map{|permissao| Usuario.find_by_email(permissao.email)}
     usuarios_disponiveis = usuarios_total - @usuarios_do_setor
     @usuarios = usuarios_disponiveis.map{|usuario| [usuario.nome, usuario.id]}
-    @proximas_preventivas = Evento.retorna_eventos 1, @instituicao.id, @setor.id
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @setor }

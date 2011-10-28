@@ -77,8 +77,6 @@ class ItensController < ApplicationController
     if @item.patrimonio == 'Não edite para ser gerado' and !params[:item][:equipamento_id].nil?
       @item.patrimonio = Item.gera_patrimonio(@instituicao,@setor,@item)
     end
-    @instituicao.eventos.build(:tipo => 3, :data => @item.vencimento_garantia, :setor_id => @setor.id, :item_id => @item.id, :instituicao_id => @instituicao.id)
-    @instituicao.eventos.build(:tipo => 4, :data => @item.data_aquisicao, :setor_id => @setor.id, :item_id => @item.id, :instituicao_id => @instituicao.id)
     respond_to do |format|
       if @instituicao.save
         @usuario.registra_acao "Criou o item #{@item.patrimonio} no setor #{@setor.nome}"

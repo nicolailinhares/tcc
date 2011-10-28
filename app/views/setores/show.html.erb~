@@ -54,13 +54,10 @@
 	</div>
 <%unless @proximas_preventivas.empty?%>
 <div class="containnerBasico">
-  <h2><%= image_tag 'agenda.png'%>Próximas preventivas do setor</h2>
+  <h2><%= image_tag 'agenda.png'%>Próximas preventivas</h2>
   <ul>
   <%@proximas_preventivas.each do |preventiva|%>
-  <li><%= preventiva.data.strftime('%d/%m/%Y');%>
-  <%it = preventiva.get_item%>Item 
-  <%=link_to it.patrimonio, instituicao_setor_item_path(@instituicao.id, preventiva.setor_id, it.id)%>
-  <%unless @nivel != 2%> <button>Desmarcar</button><%end%></li>
+  <li><%= preventiva.data.strftime('%d/%m/%Y');%><%unless @nivel != 2%> <button>Desmarcar</button><%end%></li>
   <%end%>
   </ul>
 </div>

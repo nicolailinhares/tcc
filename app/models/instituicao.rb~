@@ -14,8 +14,8 @@ class Instituicao
   
   many :permissoes
   many :setores
+  many :equipes_internas
   many :marcas
-  many :eventos
   many :equipamentos
   validate :valida_filhos
   after_create :cria_permissao_gerente

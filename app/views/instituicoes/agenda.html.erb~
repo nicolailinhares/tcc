@@ -1,0 +1,90 @@
+<%=render 'instituicoes/menu'%>
+<div id='colunaPrincipal'>
+<div id="dialog-preventiva" title="Agendamento">
+	<p class="validateTips">
+		Forneça os dados a seguir.
+	</p>
+	<%= form_tag do %>
+	<%= label_tag 'evento_data', 'Data' %><br />
+	<%= text_field_tag 'evento[data]'%><br />
+	<%= label_tag 'evento_frequencia', 'Frequência(em dias, em caso de periódica)' %><br />
+	<%= text_field_tag 'evento[frequencia]','' %><br />
+	<%end%>
+</div>
+  <div class='topoPagina'>
+	  <%=image_tag 'agenda.png'%>
+	  <h1>Agenda</h1>
+  </div>
+  <br style="clear:both" />
+  <div id='calendario'></div>
+</div>
+
+<script type='text/javascript'>
+  $j(document).ready(function(){
+    selecionaMenu('agenda');
+    $j('#calendario').fullCalendar({
+      eventSources: [
+
+        // your event source
+        {
+            url: '/ajax/retorna_eventos',
+            type: 'POST',
+            error: function() {
+                alert('there was an error while fetching events!');
+            }
+        }
+      ],
+      header: {
+				  left: 'prev,next today',
+				  center: 'title',
+				  right: 'month,agendaWeek'
+			  },
+			  maxTime: 0,
+			  allDayText: 'Eventos',
+			  editable: false,
+			  dayClick: function(date){
+			    $j("#evento_data").val(""+date.getDay()+'/'+(date.getMonth()+1)+'/'+date.getFullYear());
+			    $j("#dialog-preventiva").dialog('open');
+			  },
+			  dateFormat: 'dd/mm/yy',
+				dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+				monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+				columnFormat:{
+          month: 'ddd',    // Mon
+          week: 'ddd d/M', // Mon 9/7
+          day: 'dddd d/M'  // Monday 9/7
+        },
+        titleFormat:{
+          month: 'MMMM yyyy',                             // September 2009
+          week: "MMMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}", // Sep 7 - 13 2009
+          day: 'dddd, MMMM d, yyyy'                  // Tuesday, Sep 8, 2009
+        },
+        buttonText:{
+          today:    'hoje',
+          month:    'mês',
+          week:     'semana',
+            day:      'dia'
+        }
+		});
+		$j("#dialog-preventiva").dialog({
+			autoOpen : false,
+			height : 300,
+			width : 350,
+			modal : true,
+			buttons : {
+				"Agendar" : function() {
+					$j.post('/ajax/agendar_evento', {evento:{item_id:$j('#evento_item_id').val(), setor_id:$j('#evento_setor_id').val(), instituicao_id:$j('#evento_instituicao_id').val(), data:$j('#evento_data').val(), frequencia:$j('#evento_frequencia').val(), tipo:1}}, 
+					function(data) {
+						if(data['erro']) {
+
+						} else {
+							location.reload(true);
+						}
+					});
+					$j(this).dialog("close");
+				}
+			}
+		});
+		configuraCampoData('#evento_data');
+  });
+</script>

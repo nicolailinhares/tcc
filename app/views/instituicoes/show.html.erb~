@@ -81,7 +81,7 @@
 <%end%>
 <%unless @proximas_preventivas.empty?%>
 <div class="containnerBasico" style='clear:both;'>
-  <h2><%= image_tag 'agenda.png'%>Próximas preventivas da instituicao</h2>
+  <h2><%= image_tag 'agenda.png'%>Próximas preventivas</h2>
   <ul>
   <%@proximas_preventivas.each do |preventiva|%>
   <li><%= preventiva.data.strftime('%d/%m/%Y. ')%>

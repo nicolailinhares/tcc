@@ -87,7 +87,7 @@
 </div>
 <%unless @proximas_preventivas.empty?%>
 <div class="containnerBasico">
-  <h2><%= image_tag 'agenda.png'%>Próximas preventivas do item</h2>
+  <h2><%= image_tag 'agenda.png'%>Próximas preventivas</h2>
   <ul>
   <%@proximas_preventivas.each do |preventiva|%>
   <li><%= preventiva.data.strftime('%d/%m/%Y');%><%unless @nivel != 2%> <button>Desmarcar</button><%end%></li>

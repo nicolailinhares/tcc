@@ -131,7 +131,7 @@ class AjaxController < ApplicationController
   end
   
   def retorna_eventos
-    eventos = Evento.calendario @instituicao.id
+    eventos = Evento.calendario
     responde eventos
   end
   
