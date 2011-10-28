@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class Evento
+class Evento < Validacao
   include MongoMapper::EmbeddedDocument
 
   key :data, Date
@@ -10,7 +10,14 @@ class Evento
   key :instituicao_id, ObjectId
   key :item_id, ObjectId
   key :encaminhado, Boolean, :default => false
-
+  
+  attr_accessor :pai
+  
+  def valida pai
+    self.superpai = pai
+    valida_presenca_de :data
+  end
+  
   def nome_tipo
     TIPOS[tipo]
   end

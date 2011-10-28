@@ -48,5 +48,8 @@ class Instituicao
       equipamento.valida self
       return if errors.any?
     end
+    eventos.each do |evento|
+      evento.valida self
+    end
   end
 end
