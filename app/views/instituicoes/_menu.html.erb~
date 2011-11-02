@@ -1,9 +1,0 @@
-<ul id='menuLateral'>
-	<%if @nivel == 3%>
-	<li id='usuarios'><%= link_to image_tag('usuarios.png')+raw('<span>Usuários</span>'), permissoes_path %></li>
-	<%end%>
-	<%if (2..3).include? @nivel%>
-	<li id='base'><%= link_to image_tag('base.png')+raw('<span>Base</span>'), '/instituicoes/base_dados'%>
-	<%end%>
-	<li id='setores'><%= link_to image_tag('setores.png')+raw('<span>Setores</span>'), instituicao_setores_path(@instituicao.id) %></li>
-</ul>
