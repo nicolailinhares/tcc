@@ -1,5 +1,7 @@
 Tcc::Application.routes.draw do
   
+  get "grafico/index"
+
   resources :eventos
 
   devise_for :usuarios, :controllers => {:sessions=>"sessions", :registrations => 'registrations' },
