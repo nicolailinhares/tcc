@@ -1,2 +1,46 @@
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+  // Load the Visualization API and the piechart package.
+  google.load('visualization', '1.0', {'packages':['corechart']});
+</script>
+<%=render '/instituicoes/menu'%>
+<div id='colunaPrincipal'>
 <h1>Grafico#index</h1>
-<p>Find me in app/views/grafico/index.html.erb</p>
+<div id='graficoSituacao'></div>
+<div id='graficoCustos'></div>
+<div id='graficoServicos'></div>
+<div id='graficoTempo'></div>
+</div>
+<script type="text/javascript">
+	$j(document).ready(function(){
+		selecionaMenu('graficos');
+		$j.post('/grafico/dados_situacao',{instituicao:'<%=@instituicao.id%>'},function(data){
+			c_situacao = configuracao;
+			c_situacao.tituloGrafico = 'Situação dos Itens';
+			c_situacao.id = 'graficoSituacao';
+			graficoPizza(data,c_situacao);
+		});
+		$j.post('/grafico/dados_custos',{instituicao:'<%=@instituicao.id%>'},function(data){
+			c_custos = configuracao;
+			c_custos.tituloGrafico = 'Custos de manutenção';
+			c_custos.id = 'graficoCustos';
+			c_custos.eixo = data['eixo'];
+			graficoBarras(data['dados'],c_custos);
+		});
+		$j.post('/grafico/dados_servicos',{instituicao:'<%=@instituicao.id%>'},function(data){
+			c_servicos = configuracao;
+			c_servicos.tituloGrafico = 'Quantidade de serviço';
+			c_servicos.id = 'graficoServicos';
+			c_servicos.eixo = data['eixo'];
+			graficoBarras(data['dados'],c_servicos);
+		});
+		$j.post('/grafico/dados_tempo',{instituicao:'<%=@instituicao.id%>'},function(data){
+			c_tempo = configuracao;
+			c_tempo.tituloGrafico = 'Tempo médio entre abertura e encaminhamento (dias)';
+			c_tempo.id = 'graficoTempo';
+			c_tempo.eixo = data['eixo'];
+			graficoBarras(data['dados'],c_tempo);
+		});
+	});
+	
+</script>

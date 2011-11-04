@@ -1,6 +1,4 @@
 Tcc::Application.routes.draw do
-  
-  get "grafico/index"
 
   resources :eventos
 
@@ -12,6 +10,11 @@ Tcc::Application.routes.draw do
                 :edit => "editar",
                 :password => "senha"
   }
+  match 'graficos' => 'grafico#index'
+  match 'grafico/dados_situacao' => 'grafico#dados_situacao', :via => :post
+  match 'grafico/dados_custos' => 'grafico#dados_custos', :via => :post
+  match 'grafico/dados_servicos' => 'grafico#dados_servicos', :via => :post
+  match 'grafico/dados_tempo' => 'grafico#dados_tempo', :via => :post
   match 'instituicoes/base_dados' => 'instituicoes#base_dados'
   match 'instituicoes/agenda' => 'instituicoes#agenda'
   resources :instituicoes do
@@ -58,7 +61,9 @@ Tcc::Application.routes.draw do
   match 'ajax/agendar_evento' => 'ajax#agendar_evento', :via => :post
   match 'ajax/retorna_eventos' => 'ajax#retorna_eventos', :via => :post
 
-  match 'itens/busca' => 'itens#busca', :via => :post 
+  match 'itens/busca' => 'itens#busca', :via => :post
+  
+   
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -23,7 +23,7 @@ function graficoBarras(raw_data, configuracao) {
   //formato do configuracao.eixo: [String,String,String], -> um elemento para cada número nos arrays do raw_data
   var data = new google.visualization.DataTable();
   eixo = configuracao.eixo
-  data.addColumn('string', configuracao.tituloEixo);
+  data.addColumn('string', 'titulo');
   for (var i = 0; i  < raw_data.length; ++i) {
     data.addColumn('number', raw_data[i][0]);    
   }
@@ -40,10 +40,10 @@ function graficoBarras(raw_data, configuracao) {
   }
   
   // Create and draw the visualization.
-  new google.visualization.ColumnChart(document.getElementById(configura.id)).
+  new google.visualization.ColumnChart(document.getElementById(configuracao.id)).
       draw(data,
            {title:configuracao.tituloGrafico, 
-            width:configuracao.width, height:configuracao.height,
+            height:configuracao.height,
             hAxis: {title: configuracao.tituloEixo}}
       );
 }
@@ -51,7 +51,7 @@ function graficoBarras(raw_data, configuracao) {
 function graficoPizza(raw_data,configuracao) {
   // formato raw_data [[String,Number],...]
   var data = new google.visualization.DataTable();
-  data.addColumn('string', configuracao.tituloEixo);
+  data.addColumn('string', 'titulo');
   data.addColumn('number', 'Quantidade');
   lim = raw_data.length
   data.addRows(lim);
@@ -62,6 +62,6 @@ function graficoPizza(raw_data,configuracao) {
   
   // Create and draw the visualization.
   new google.visualization.PieChart(document.getElementById(configuracao.id)).
-      draw(data, {title:configuracao.tituloGrafico});
+      draw(data, {title:configuracao.tituloGrafico, height:configuracao.height});
 }
 

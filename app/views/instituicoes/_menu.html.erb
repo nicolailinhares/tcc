@@ -1,5 +1,6 @@
 <ul id='menuLateral'>
   <li id='agenda'><%= link_to image_tag('agenda.png')+raw('<span>Agenda</span>'), '/instituicoes/agenda' %></li>
+  <li id='graficos'><%= link_to image_tag('graficos.png')+raw('<span>Gráficos</span>'), '/graficos' %></li>
 	<%if @nivel == 3%>
 	<li id='usuarios'><%= link_to image_tag('usuarios.png')+raw('<span>Usuários</span>'), permissoes_path %></li>
 	<%end%>

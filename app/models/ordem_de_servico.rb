@@ -21,6 +21,10 @@ class OrdemDeServico
   
   before_create :atribui_data
   
+  def custo_total
+    custo_frete + custo_mao_de_obra + custo_peca
+  end
+  
   def interna?
     if manutencao_interna
       'Sim'
