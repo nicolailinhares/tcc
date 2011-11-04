@@ -3,6 +3,9 @@ class GraficoController < ApplicationController
     if @instituicao.nil?
       redirect :back
     end
+    dados = CentralDeDados.dados_tempo({:instituicao => @instituicao.id})
+    @eixo_tempo = dados[:eixo]
+    @dados_tempo = dados[:dados]
   end
   
   def dados_situacao

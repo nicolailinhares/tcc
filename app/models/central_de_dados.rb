@@ -102,14 +102,14 @@ class CentralDeDados
       end          
     end
     if acumulado[0] > 0
-      dados[1][0] /= acumulado[0] 
-      dados[1][1] /= acumulado[0]
-      dados[1][2] /= acumulado[0]
+      dados[1][0] = (dados[1][0]/acumulado[0]).to_i 
+      dados[1][1] = (dados[1][1]/acumulado[0]).to_i
+      dados[1][2] = (dados[1][2]/acumulado[0]).to_i
     end
     if acumulado[1] > 0
-      dados[2][0] /= acumulado[1]
-      dados[2][1] /= acumulado[1]
-      dados[2][2] /= acumulado[1]
+      dados[2][0] = (dados[2][0]/acumulado[1]).to_i
+      dados[2][1] = (dados[2][1]/acumulado[1]).to_i
+      dados[2][2] = (dados[2][1]/acumulado[1]).to_i
     end 
     dados = dados.to_a
     dados.each do |dado|
