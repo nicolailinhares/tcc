@@ -43,9 +43,10 @@ class Setor < Validacao
   
   def se_adiciona_ao_usuario
     usuario = Usuario.find(self.responsavel_id)
-    usuario.setores_ids << self.id
-    usuario.setores_ids.uniq!
-    usuario.save
+    permissao = Permissao.where(:instituicao_id => @instituicao.id, :usuario_id => usuario.id)
+    permissao.setores_ids << self.id
+    permissao.setores_ids.uniq!
+    permissao.save
   end
   
 end

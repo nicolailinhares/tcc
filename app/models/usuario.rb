@@ -9,7 +9,6 @@ class Usuario
   key :telefone, String
   key :nivel, Integer
   key :email, String
-  key :setores_ids, Array
   key :acoes, Array
   
   Usuario.ensure_index :email, :unique => true

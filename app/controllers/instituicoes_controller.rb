@@ -16,7 +16,7 @@ class InstituicoesController < ApplicationController
   # GET /instituicoes/1.xml
   def show
     @instituicao = Instituicao.find(params[:id])
-    @setores_do_usuario = @usuario.setores_ids.map{|id| @instituicao.setores.find(id)}
+    @setores_do_usuario = @pCorrente.setores_ids.map{|id| @instituicao.setores.find(id)}
     @avisos = @usuario.avisos.select{|aviso| aviso.instituicao_id == @instituicao.id}
     @proximas_preventivas = Evento.retorna_eventos 1, @instituicao.id
     respond_to do |format|

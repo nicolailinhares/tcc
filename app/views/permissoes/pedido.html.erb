@@ -1,0 +1,25 @@
+<h1>Pedido de participação em instituição</h1>
+<%= form_for(@permissao) do |f| %>
+  <% if @permissao.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@permissao.errors.count, "error") %> prohibited this instituicao from being saved:</h2>
+
+      <ul>
+      <% @permissao.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%=f.hidden_field :usuario_id%>
+  <%=f.hidden_field :resolvida%>
+  <div class="field">
+    <%= f.label :instituicao_id, 'Instituição' %><br />
+    <%= f.collection_select :instituicao_id, @instituicoes, :id, :nome %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Enviar pedido' %>
+  </div>
+<% end %>
+
+<%=link_to 'Voltar', '/permissoes/pedidos' %>

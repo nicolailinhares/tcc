@@ -1,7 +1,8 @@
 <%=render '/instituicoes/menu'%>
 <div id='colunaPrincipal'>
 <h1><%=image_tag 'usuarios.png'%>Usuários</h1>
-
+<div class='containnerBasico'>
+	<h2><%=image_tag 'pedir.png'%>Permitidos</h2>
 <table>
   <tr>
     <th>Nome</th>
@@ -10,7 +11,7 @@
     <th>Opções</th>
   </tr>
 
-<% @permissoes.each do |permissao| %>
+<% @permitidos.each do |permissao| %>
   <tr>
     <td><%= permissao.nome_usuario %></td>
     <td><%= permissao.nome_nivel %></td>
@@ -19,10 +20,50 @@
   </tr>
 <% end %>
 </table>
+<div class="opcaoDireita"><%= link_to 'Novo usuário', new_permissao_path %></div>
+</div>
+<%unless @pendentes.empty?%>
+<div class='containnerBasico'>
+	<h2><%=image_tag 'pedir.png'%>Pedidos</h2>
+<table>
+  <tr>
+    <th>Nome</th>
+    <th>Nível</th>
+    <th>Email</th>
+    <th colspan='2'>Opções</th>
+  </tr>
 
-<br />
-
-<%= link_to 'Novo usuário', new_permissao_path %>
+<% @pendentes.each do |permissao| %>
+  <tr>
+    <td><%= permissao.nome_usuario %></td>
+    <td><%= select_tag "permissoes[#{permissao.id}]", options_for_select([['Técnico',2],['Profissional da sáude',1]])%></td>
+    <td><%= permissao.email %></td>
+    <td><%= link_to 'Aceitar', 'javascript:void(0)', :class => 'aceitar', :id => permissao.id%></td>
+    <td><%= link_to 'Recusar', permissao, :confirm => 'Confirma a retirada do usuário?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+<%end%>
 </div><script type="text/javascript">
+$j(document).ready(function(){
 	selecionaMenu('usuarios');
+	<%if @usuarios.empty?%>
+	$j('.pedido').click(function(e){
+		e.preventDefault();
+		alert('Não há usuários disponíveis no momento.');
+	});
+	$j('.aceitar').click(function(){
+		id = $j(this).attr('id');
+		n = $j('#permissoes_'+id).val();
+		$j.post('ajax/aceitar_usuario',{nivel:n, permissao_id:id}, function(data){
+			if(data['erro'])
+				alert('Comportamento inesperado');
+			else
+				location.relod(true);
+		});
+	});
+	<%end%>
+});
+	
 </script>

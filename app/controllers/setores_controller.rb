@@ -86,9 +86,10 @@ class SetoresController < ApplicationController
   def destroy
     @instituicao.setores.delete_if{|setor| setor.id.to_s == params[:id]}
     @instituicao.save
-    Usuario.all.each do |usuario|
-      usuario.setores_ids.delete_if{|id| id.to_s == params[:id]}
-      usuario.save
+    permissoes = Permissao.where(:instituicao_id => @instituicao.id)
+    permissoes.each do |permissao|
+      permissao.setores_ids.delete_if{|id| id.to_s == params[:id]}
+      permissao.save
     end
     @usuario.registra_acao "Destruiu o setor #{@setor.nome}"
     respond_to do |format|

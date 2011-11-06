@@ -17,6 +17,8 @@ Tcc::Application.routes.draw do
   match 'grafico/dados_tempo' => 'grafico#dados_tempo', :via => :post
   match 'instituicoes/base_dados' => 'instituicoes#base_dados'
   match 'instituicoes/agenda' => 'instituicoes#agenda'
+  match 'permissoes/pedidos' => 'permissoes#pedidos'
+  match 'permissoes/pedido' => 'permissoes#pedido'
   resources :instituicoes do
     resources :marcas
     resources :equipes_internas
@@ -60,6 +62,7 @@ Tcc::Application.routes.draw do
   match 'ajax/transforma_em_os' => 'ajax#transforma_em_os', :via => :post
   match 'ajax/agendar_evento' => 'ajax#agendar_evento', :via => :post
   match 'ajax/retorna_eventos' => 'ajax#retorna_eventos', :via => :post
+  match 'ajax/aceitar_usuario' => 'ajax#aceitar_usuario', :via => :post
 
   match 'itens/busca' => 'itens#busca', :via => :post
   

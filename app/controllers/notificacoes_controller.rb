@@ -64,7 +64,7 @@ class NotificacoesController < ApplicationController
         item.save
         @usuario.registra_acao "Criou o pedido de serviço #{@notificacao.numero.to_s} para o item #{item.patrimonio}"
         setor.afixa_avisos item.status, "O pedido de serviço <a href='"+notificacao_path(@notificacao.id)+"'>#{@notificacao.numero}</a> foi criado", @instituicao.id
-        format.html { redirect_to(@notificacao, :notice => 'Notificacao was successfully created.') }
+        format.html { redirect_to(@notificacao, :notice => 'Pedido criado com sucesso.') }
         format.xml  { render :xml => @notificacao, :status => :created, :location => @notificacao }
       else
         format.html { render :action => "new" }
@@ -80,7 +80,7 @@ class NotificacoesController < ApplicationController
 
     respond_to do |format|
       if @notificacao.update_attributes(params[:notificacao])
-        format.html { redirect_to(@notificacao, :notice => 'Notificacao was successfully updated.') }
+        format.html { redirect_to(@notificacao, :notice => 'Pedido atualizado com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

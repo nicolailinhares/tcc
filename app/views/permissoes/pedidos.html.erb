@@ -1,0 +1,30 @@
+<%=render '/usuarios/menu'%>
+<div id='colunaPrincipal'>
+<h1><%=image_tag 'pedir.png'%>Requisições</h1>
+<div class="containnerBasico">
+	<h2><%=image_tag 'usuarios.png'%>Pedidos pendentes</h2>
+<table>
+  <tr>
+    <th>Instituição</th>
+    <th>Opções</th>
+  </tr>
+
+<% @permissoes.each do |permissao| %>
+  <tr>
+    <td><%= permissao.nome_instituicao %></td>
+    <td><%= link_to 'Cancelar', permissao, :confirm => 'Confirma a retirada do usuário?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+<div class="opcaoDireita">
+	<%= link_to 'Novo pedido', '/permissoes/pedido', :class => 'pedido' %></div>
+</div>
+</div><script type="text/javascript">
+	selecionaMenu('pedir');
+	<%if @instituicoes.empty?%>
+	$j('.pedido').click(function(e){
+		e.preventDefault();
+		alert('Não há instituições disponíveis no momento.');
+	});
+	<%end%>
+</script>

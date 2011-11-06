@@ -3,13 +3,18 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   
-  before_filter :set_instituicao, :set_usuario, :authenticate_usuario!
+  before_filter :set_usuario, :set_instituicao, :authenticate_usuario!
   layout :escolhe_layout
   protected
   def set_instituicao
     @instituicao = Instituicao.find(session[:instituicao_id])
     @nivel = session[:nivel]
     @controlador = controller_name
+    if !@usuario.nil? and !@instituicao.nil?
+      @pCorrente = Permissao.where(:instituicao_id => @instituicao.id, :usuario_id => @usuario.id).first
+    else
+      @pCorrente = nil
+    end 
   end
   
   def set_usuario

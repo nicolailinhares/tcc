@@ -135,6 +135,17 @@ class AjaxController < ApplicationController
     responde eventos
   end
   
+  def aceitar_usuario
+    permissao = Permissao.find(params[:permissao_id])
+    permissao.nivel = params[:nivel]
+    permissao.resolvida = true
+    if permissao.save
+      responde({:erro => false})
+    else
+      responde({:erro => true})
+    end
+  end
+  
   private
   def responde resposta
     respond_to do |format|

@@ -8,6 +8,9 @@ class Permissao
   key :email, ObjectId
   key :nivel, Integer
   key :nome_usuario, String
+  key :nome_instituicao, String
+  key :resolvida, Boolean, :default => true
+  key :setores_ids, Array
   
   Permissao.ensure_index :email
   belongs_to :instituicao
@@ -37,5 +40,7 @@ class Permissao
     usuario = Usuario.find(self.usuario_id)
     self.email = usuario.email
     self.nome_usuario = usuario.nome
+    instituicao = Instituicao.find(self.instituicao_id)
+    self.nome_instituicao = instituicao.nome
   end 
 end

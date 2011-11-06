@@ -44,7 +44,7 @@ class EventosController < ApplicationController
 
     respond_to do |format|
       if @evento.save
-        format.html { redirect_to(@evento, :notice => 'Evento was successfully created.') }
+        format.html { redirect_to(@evento, :notice => 'Evento criado com sucesso.') }
         format.xml  { render :xml => @evento, :status => :created, :location => @evento }
       else
         format.html { render :action => "new" }
@@ -60,7 +60,7 @@ class EventosController < ApplicationController
 
     respond_to do |format|
       if @evento.update_attributes(params[:evento])
-        format.html { redirect_to(@evento, :notice => 'Evento was successfully updated.') }
+        format.html { redirect_to(@evento, :notice => 'Evento atualizado com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }

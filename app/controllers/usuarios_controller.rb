@@ -54,7 +54,7 @@ class UsuariosController < ApplicationController
 
     respond_to do |format|
       if @instituicao.save
-        format.html { redirect_to(instituicao_usuario_path(@instituicao.id,@usuario.id), :notice => 'Usuario criado com sucesso.') }
+        format.html { redirect_to(instituicao_usuario_path(@instituicao.id,@usuario.id), :notice => 'Usuário criado com sucesso.') }
         format.xml  { render :xml => @usuario, :status => :created, :location => @usuario }
       else
         format.html { render :action => "new" }
@@ -70,7 +70,7 @@ class UsuariosController < ApplicationController
 
     respond_to do |format|
       if @usuario.update_attributes(params[:usuario])
-        format.html { redirect_to(instituicao_usuario_path(@instituicao.id,@usuario.id), :notice => 'Usuario atualizado com sucesso.') }
+        format.html { redirect_to(instituicao_usuario_path(@instituicao.id,@usuario.id), :notice => 'Usuário atualizado com sucesso.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -95,9 +95,10 @@ class UsuariosController < ApplicationController
     setor = @instituicao.setores.find(params[:setor_id])
     usuario = Usuario.find(params[:usuario_id])
     setor.ids_de_usuario << usuario.id
-    usuario.setores_ids << setor.id
+    permissao = Permissao.where(:instituicao_id => @instituicao.id, :usuario_id => usuario.id)
+    permissao.setores_ids << setor.id
     if @instituicao.save
-      usuario.save
+      permissao.save
       if(params[:tipo].to_i == 1)
         dados = {:erro => false, :nome => setor.nome, :id => equipe.id}
       else
@@ -114,8 +115,9 @@ class UsuariosController < ApplicationController
   def remover_de_setor
     setor = @instituicao.setores.find(params[:setor_id])
     usuario = Usuario.find(params[:usuario_id])
+    permissao = Permissao.where(:instituicao_id => @instituicao.id, :usuario_id => usuario.id)
     setor.ids_de_usuario.delete_if{|id| id == usuario.id}
-    usuario.setores_ids.delete_if{|id| id == setor.id}
+    permissao.setores_ids.delete_if{|id| id == setor.id}
     if @instituicao.save
       dados = {:erro => false}
     else
