@@ -1,15 +1,44 @@
-<h1>Modelo</h1>
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Nome:</b>
-  <%= @modelo.nome %>
-</p>
-<p>
-  <b>Marca</b>
-  <%= @modelo.nome_marca %>
-</p>
-
-
-<%= link_to 'Editar', edit_instituicao_equipamento_modelo_path(@instituicao.id,@equipamento.id,@modelo.id) %> |
+<%= render 'instituicoes/menu'%>
+<div id='colunaPrincipal'>
+	<div id='migalhas'>
+		Seu caminho: <%= link_to "Instituição", instituicao_path(@instituicao.id) %> > <%= link_to "Base", '/instituicoes/base_dados' %> > <%= link_to @equipamento.nome, instituicao_equipamento_path(@instituicao.id,@equipamento.id) %> > <%=@modelo.nome%>
+	</div>
+	<%unless notice.nil?%>
+	<p id="notice">
+		<%= notice %>
+	</p>
+	<%end%>
+	<div class='topoPagina'>
+		<%= image_tag 'modelos.png'%> <h1>Modelo</h1>
+		<div class='opcoes'>
+			<%if @nivel != 1%>
+			<%= button_to 'Exlcuir', instituicao_equipamento_modelo_path(@instituicao.id,@modelo.equipamento_id,@modelo.id), :confirm => 'Confirma a exclusão do modelo?', :method => :delete %>
+			<%end%>
+		</div>
+		<br style="clear: both;">
+	</div>
+	<div class="containnerBasico tresQuartos">
+		<h2><%= image_tag 'dados.png'%>Dados do modelo</h2>
+		<p>
+		  <b>Nome:</b>
+		  <%= @modelo.nome %>
+		</p>
+		<p>
+		  <b>Marca</b>
+		  <%= @modelo.nome_marca %>
+		</p>
+		<div class="opcaoDireita">
+			<%= link_to 'Editar', edit_instituicao_equipamento_modelo_path(@instituicao.id,@equipamento.id,@modelo.id) %>
+		</div>
+	</div>
+<div class='containnerBasico umQuarto'>
+ <%=image_tag 'modelos.png'%><br />
+ <button id='manual'>Manual</button>	
+</div>
 <%= link_to 'Voltar', instituicao_equipamento_path(@instituicao.id,@equipamento.id) %>
+<script type="text/javascript">
+	$j(document).ready(function(){
+		selecionaMenu('base');
+		$j('input[type=submit]').button();
+	});
+</script> 

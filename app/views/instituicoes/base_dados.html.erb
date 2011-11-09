@@ -1,5 +1,8 @@
 <%=render 'menu'%>
 <div id='colunaPrincipal'>
+	<div id='migalhas'>
+		Seu caminho: <%= link_to "Instituição", instituicao_path(@instituicao.id) %> > Base
+	</div>
 <%= render 'equipamentos'%>
 <%= render 'marcas'%>
 </div>

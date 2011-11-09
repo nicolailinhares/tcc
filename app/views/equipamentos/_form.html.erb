@@ -15,7 +15,13 @@
     <%= f.label :nome %><br />
     <%= f.text_field :nome %>
   </div>
-  <div class="actions">
+  <div class="actions opcaoDireita">
     <%= f.submit 'Salvar' %>
   </div>
 <% end %>
+<script type="text/javascript">
+	$j(document).ready(function() {
+		selecionaMenu('base');
+		$j("input[type=submit]").button();
+	});
+</script>

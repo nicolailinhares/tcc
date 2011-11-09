@@ -1,5 +1,8 @@
 <%=render 'instituicoes/menu'%>
 <div id='colunaPrincipal'>
+	<div id='migalhas'>
+		Seu caminho: <%= link_to "Instituição", instituicao_path(@instituicao.id) %> > Agenda
+	</div>
 <div id="dialog-preventiva" title="Agendamento">
 	<p class="validateTips">
 		Forneça os dados a seguir.
@@ -14,8 +17,8 @@
   <div class='topoPagina'>
 	  <%=image_tag 'agenda.png'%>
 	  <h1>Agenda</h1>
+	  <br style="clear: both" />
   </div>
-  <br style="clear:both" />
   <br />
   <div id='calendario'></div>
 </div>

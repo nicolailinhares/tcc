@@ -3,17 +3,45 @@
   // Load the Visualization API and the piechart package.
   google.load('visualization', '1.0', {'packages':['corechart']});
 </script>
-<%=render '/instituicoes/menu'%>
+<%= render 'instituicoes/menu'%>
 <div id='colunaPrincipal'>
-<h1>Grafico#index</h1>
-<div id='graficoSituacao'></div>
-<div id='graficoCustos'></div>
-<div id='graficoServicos'></div>
-<div id='graficoTempo'></div>
+	<div id='migalhas'>
+		Seu caminho: <%= link_to "Instituição", instituicao_path(@instituicao.id) %> > Gráficos
+	</div>
+	<%unless notice.nil?%>
+	<p id="notice">
+		<%= notice %>
+	</p>
+	<%end%>
+	<div class='topoPagina'>
+		<%= image_tag 'graficos.png'%> <h1>Gráficos</h1>
+		<div class='opcoes'>
+			<%= select_tag 'filto', options_for_select([['Instituição',1],['Setor',2],['Marca',3],['Modelo',4]])%>
+			<%= button_to 'Filtar', '#'%>
+		</div>
+		<br style="clear: both;">
+	</div>
+	<div class="containnerBasico">
+		<h2><%= image_tag 'graficos.png'%>Situação dos itens</h2>
+		<div id='graficoSituacao'></div>
+	</div>
+	<div class="containnerBasico">
+		<h2><%= image_tag 'graficos.png'%>Custos de manutenção</h2>
+		<div id='graficoCustos'></div>
+	</div>
+	<div class="containnerBasico">
+		<h2><%= image_tag 'graficos.png'%>Quantidade de serviço</h2>
+		<div id='graficoServicos'></div>
+	</div>
+	<div class="containnerBasico">
+		<h2><%= image_tag 'graficos.png'%>Tempo médio(dias, entre abertura e encaminhamento)</h2>
+		<div id='graficoTempo'></div>
+	</div>
 </div>
 <script type="text/javascript">
 	$j(document).ready(function(){
 		selecionaMenu('graficos');
+		$j('input[type=submit]').button();
 		$j.post('/grafico/dados_situacao',{instituicao:'<%=@instituicao.id%>'},function(data){
 			c_situacao = configuracao;
 			c_situacao.tituloGrafico = 'Situação dos Itens';

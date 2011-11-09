@@ -11,9 +11,6 @@
 	  <tr class='corpoTabela' id="<%=instituicao_marca_path(@instituicao.id,marca.id)%>">
 	    <td><%= marca.nome %></td>
 	    <td><%= marca.nacionalidade %></td>
-	    <td><%= link_to 'Informações', instituicao_marca_path(@instituicao.id,marca.id) %></td>
-	    <td><%= link_to 'Editar', edit_instituicao_marca_path(@instituicao.id,marca.id) %></td>
-	    <td><%= link_to 'Excluir', instituicao_marca_path(@instituicao.id,marca.id), :confirm => 'Confirma exlcusão da marca?', :method => :delete %></td>
 	  </tr>
 	<% end %>
 	</table>

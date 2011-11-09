@@ -1,16 +1,44 @@
-<p id="notice"><%= notice %></p>
-<h1>Marca</h2>
-<p>
-  <b>Nome:</b>
-  <%= @marca.nome %>
-</p>
-
-<p>
-  <b>Nacionalidade:</b>
-  <%= @marca.nacionalidade %>
-</p>
-
-<%=render 'modelos'%>
-
-<%= link_to 'Editar', edit_instituicao_marca_path(@instituicao.id,@marca.id) %> |
+<%= render 'instituicoes/menu'%>
+<div id='colunaPrincipal'>
+	<div id='migalhas'>
+		Seu caminho: <%= link_to "Instituição", instituicao_path(@instituicao.id) %> > <%= link_to "Base", '/instituicoes/base_dados' %> > <%=@marca.nome%>
+	</div>
+	<%unless notice.nil?%>
+	<p id="notice">
+		<%= notice %>
+	</p>
+	<%end%>
+	<div class='topoPagina'>
+		<%= image_tag 'marcas.png'%> <h1>Marca</h1>
+		<div class='opcoes'>
+			<%if @nivel != 1%>
+			<%= button_to 'Excluir', instituicao_marca_path(@instituicao.id,@marca.id), :confirm => 'Confirma exlcusão da marca?', :method => :delete %>
+			<%end%>
+		</div>
+		<br style="clear: both;">
+	</div>
+	<div class="containnerBasico">
+		<h2><%= image_tag 'dados.png'%>Dados da marca</h2>
+	<p>
+	  <b>Nome:</b>
+	  <%= @marca.nome %>
+	</p>
+	
+	<p>
+	  <b>Nacionalidade:</b>
+	  <%= @marca.nacionalidade %>
+	</p>
+	<div class="opcaoDireita">
+			<%= link_to 'Editar', edit_instituicao_marca_path(@instituicao.id,@marca.id) %>
+		</div>
+	</div>
+	<div class="containnerBasico">
+		<%=render 'modelos'%>
+	</div>
 <%= link_to 'Voltar', instituicao_marcas_path(@instituicao.id) %>
+<script type="text/javascript">
+	$j(document).ready(function(){
+		selecionaMenu('base');
+		$j('input[type=submit]').button();
+	});
+</script> 

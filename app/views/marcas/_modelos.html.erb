@@ -1,24 +1,18 @@
-<div class='containnerEquipes'>
-	<h2>Modelos</h2>
+<h2><%=image_tag 'modelos.png'%>Modelos</h2>
 <%unless @modelos.empty?%>
 	<table>
 	  <tr>
 	    <th>Nome</th>
 	    <th>Equipamento</th>
 	    <th>Marca</th>
-	    <th colspan='3'>Opções</th>
 	  </tr>
 	
 	<% @modelos.each do |modelo| %>
-	  <tr>
+	  <tr class='corpoTabela' id="<%=instituicao_equipamento_modelo_path(@instituicao.id,modelo.equipamento_id,modelo.id)%>">
 	    <td><%= modelo.nome %></td>
 	    <td><%= modelo.nome_equipamento%></td>
 	    <td><%= modelo.nome_marca%></td>
-	    <td><%= link_to 'Informações', instituicao_equipamento_modelo_path(@instituicao.id,modelo.equipamento_id,modelo.id) %></td>
-	    <td><%= link_to 'Editar', edit_instituicao_equipamento_modelo_path(@instituicao.id,modelo.equipamento_id,modelo.id) %></td>
-	    <td><%= link_to 'Exlcuir', instituicao_equipamento_modelo_path(@instituicao.id,modelo.equipamento_id,modelo.id), :confirm => 'Confirma a exclusão do modelo?', :method => :delete %></td>
 	  </tr>
 	<% end %>
 	</table>
 <%end%>	
-</div>

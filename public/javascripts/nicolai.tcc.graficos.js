@@ -42,8 +42,8 @@ function graficoBarras(raw_data, configuracao) {
   // Create and draw the visualization.
   new google.visualization.ColumnChart(document.getElementById(configuracao.id)).
       draw(data,
-           {title:configuracao.tituloGrafico, 
-            height:configuracao.height,
+           {height:configuracao.height,
+            backgroundColor:'#E1F1E1',
             hAxis: {title: configuracao.tituloEixo}}
       );
 }
@@ -62,6 +62,6 @@ function graficoPizza(raw_data,configuracao) {
   
   // Create and draw the visualization.
   new google.visualization.PieChart(document.getElementById(configuracao.id)).
-      draw(data, {title:configuracao.tituloGrafico, height:configuracao.height});
+      draw(data, { height:configuracao.height,backgroundColor:'#E1F1E1'});
 }
 

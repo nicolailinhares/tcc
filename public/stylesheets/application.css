@@ -4,6 +4,11 @@ body, p, ol, ul, td {
   font-size: 13px;
   line-height: 18px;
 }
+#migalhas{
+	color: green;
+    margin: 10px 0;
+    clear:both;
+}
 .containnerBasico .opcaoDireita a{
 	color: #1C94C4;
 	font-weight: bold;
@@ -90,7 +95,7 @@ body, p, ol, ul, td {
 #colunaPrincipal{
 	border-left: 2px solid #515151;
     float: left;
-    min-height: 400px;
+    min-height: 410px;
     padding: 10px;
     width:800px;
     background-color: #E1F1E1;
@@ -277,7 +282,7 @@ body, p, ol, ul, td {
 .tresQuartos{
 	width: 560px;
 	float: left;
-	min-height: 175px
+	min-height: 120px
 }
 
 .divide{

@@ -1,5 +1,8 @@
 <%=render '/instituicoes/menu'%>
 <div id='colunaPrincipal'>
+	<div id='migalhas'>
+		Seu caminho: <%= link_to "Instituição", instituicao_path(@instituicao.id) %> > Usuários
+	</div>
 <h1><%=image_tag 'usuarios.png'%>Usuários</h1>
 <div class='containnerBasico'>
 	<h2><%=image_tag 'pedir.png'%>Permitidos</h2>
@@ -12,15 +15,15 @@
   </tr>
 
 <% @permitidos.each do |permissao| %>
-  <tr>
+  <tr class="corpoTabela" id="<%= "/#{permissao.usuario_id}" %>">
     <td><%= permissao.nome_usuario %></td>
     <td><%= permissao.nome_nivel %></td>
     <td><%= permissao.email %></td>
-    <td><%= link_to 'Retirar', permissao, :confirm => 'Confirma a retirada do usuário?', :method => :delete %></td>
+    <td class='naoClica'><%= link_to 'Retirar', permissao, :confirm => 'Confirma a retirada do usuário?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
-<div class="opcaoDireita"><%= link_to 'Novo usuário', new_permissao_path %></div>
+<div class="opcaoDireita"><%= link_to 'Novo usuário', new_permissao_path, :class => 'pedido' %></div>
 </div>
 <%unless @pendentes.empty?%>
 <div class='containnerBasico'>
@@ -53,6 +56,7 @@ $j(document).ready(function(){
 		e.preventDefault();
 		alert('Não há usuários disponíveis no momento.');
 	});
+	<%end%>
 	$j('.aceitar').click(function(){
 		id = $j(this).attr('id');
 		n = $j('#permissoes_'+id).val();
@@ -63,7 +67,7 @@ $j(document).ready(function(){
 				location.relod(true);
 		});
 	});
-	<%end%>
+	
 });
 	
 </script>
