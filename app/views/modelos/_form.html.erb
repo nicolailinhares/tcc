@@ -21,7 +21,13 @@
   </div>
   <%=hidden_field_tag 'modelo[equipamento_id]', @equipamento.id%>
   
-  <div class="actions">
+  <div class="actions opcaoDireita">
     <%= f.submit "Salvar" %>
   </div>
 <% end %>
+<script type="text/javascript">
+	$j(document).ready(function() {
+		selecionaMenu('base');
+		$j("input[type=submit]").button();
+	});
+</script>

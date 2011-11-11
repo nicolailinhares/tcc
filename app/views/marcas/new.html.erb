@@ -1,5 +1,23 @@
-<h1>Novo marca</h1>
+<%= render 'instituicoes/menu'%>
+<div id='colunaPrincipal'>
+	<div id='migalhas'>
+		Seu caminho: <%= link_to "Instituição", instituicao_path(@instituicao.id) %> > <%= link_to "Base", '/instituicoes/base_dados' %> > Nova marca
+	</div>
+	<%unless notice.nil?%>
+	<p id="notice">
+		<%= notice %>
+	</p>
+	<%end%>
+	<div class='topoPagina'>
+		<%= image_tag 'marcas.png'%> <h1>Nova marca</h1>
+		<div class='opcoes'>
+		</div>
+		<br style="clear: both;">
+	</div>
+	<div class="containnerBasico">
+		<h2><%=image_tag 'dados.png'%>Formulário</h2>
+		<br />
+		<%= render 'form' %>
+	</div>
+</div>
 
-<%= render 'form' %>
-
-<%= link_to 'Voltar', instituicao_marcas_path(@instituicao.id) %>

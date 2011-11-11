@@ -1,8 +1,7 @@
 <%if @usuario_pagina.id == @usuario.id%>
 <%=render 'menu'%>
 <%else%>
-<ul id='menuLateral'>
-</ul>
+<%=render '/instituicoes/menu'%>
 <%end%>
 <div id='colunaPrincipal'>
 	<%unless notice.nil?%><p id="notice"><%= notice %></p><%end%>
@@ -82,8 +81,13 @@
 	</div>
 	<%end%>
 </div>
-<%if @usuario_pagina.id == @usuario.id%>
 <script type="text/javascript">
-	seleciona('home');
+	<%if @usuario_pagina.id == @usuario.id%>
+		seleciona('home');
+	<%else%>
+		$j(document).ready(function(){
+			selecionaMenu('usuarios');
+		});
+	<%end%>
+	
 </script>
-<%end%>

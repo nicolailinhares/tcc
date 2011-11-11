@@ -1,4 +1,22 @@
-<h1>Adição de usuário para instituição</h1>
+<%= render 'instituicoes/menu'%>
+<div id='colunaPrincipal'>
+	<div id='migalhas'>
+		Seu caminho: <%= link_to "Instituição", instituicao_path(@instituicao.id) %> > <%= link_to "Usuários", permissoes_path %> > Adição de usuário
+	</div>
+	<%unless notice.nil?%>
+	<p id="notice">
+		<%= notice %>
+	</p>
+	<%end%>
+	<div class='topoPagina'>
+		<%= image_tag 'usuarios.png'%> <h1>Adição de usuários à instituição</h1>
+		<div class='opcoes'>
+		</div>
+		<br style="clear: both;">
+	</div>
+	<div class="containnerBasico">
+		<h2><%=image_tag 'dados.png'%>Formulário</h2>
+	<br />
 <%= form_for(@permissao) do |f| %>
   <% if @permissao.errors.any? %>
     <div id="error_explanation">
@@ -17,12 +35,19 @@
     <%= f.collection_select :usuario_id, @usuarios, :id, :email %>
   </div>
   <div class="field">
-    <%= f.label :nivel, 'Usuário' %><br />
+    <%= f.label :nivel, 'Nível de acesso' %><br />
     <%= f.collection_select :nivel, Permissao.niveis, :first, :last %>
   </div>
-  <div class="actions">
+  <br />
+  <div class="actions opcaoDireita">
     <%= f.submit 'Salvar' %>
   </div>
 <% end %>
-
+</div>
 <%=link_to 'Voltar', permissoes_path %>
+<script type="text/javascript">
+	$j(document).ready(function() {
+		selecionaMenu('usuarios');
+		$j("input[type=submit]").button();
+	});
+</script>

@@ -4,15 +4,11 @@
 	<table>
 	  <tr>
 	    <th>Nome</th>
-	    <th colspan='3'>Opções</th>
 	  </tr>
 	
 	<% @equipamentos.each do |equipamento| %>
 	  <tr class='corpoTabela' id="<%=instituicao_equipamento_path(@instituicao.id,equipamento.id)%>">
 	    <td><%= equipamento.nome %></td>
-	    <td><%= link_to 'Informações', instituicao_equipamento_path(@instituicao.id,equipamento.id) %></td>
-	    <td><%= link_to 'Editar', edit_instituicao_equipamento_path(@instituicao.id,equipamento.id) %></td>
-	    <td><%= link_to 'Excluir', instituicao_equipamento_path(@instituicao.id,equipamento.id), :confirm => 'Confirma a exclusão do equipamento?', :method => :delete %></td>
 	  </tr>
 	<% end %>
 	</table>

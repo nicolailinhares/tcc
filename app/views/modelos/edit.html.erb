@@ -1,6 +1,22 @@
-<h1>Modelo</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Info', instituicao_equipamento_modelo_path(@instituicao.id,@equipamento.id,@modelo.id) %> |
-<%= link_to 'Voltar', instituicao_equipamento_path(@instituicao.id,@equipamento.id) %>
+<%= render 'instituicoes/menu'%>
+<div id='colunaPrincipal'>
+	<div id='migalhas'>
+		Seu caminho: <%= link_to "Instituição", instituicao_path(@instituicao.id) %> > <%= link_to "Base", '/instituicoes/base_dados' %> > <%= link_to @equipamento.nome, instituicao_equipamento_path(@instituicao.id,@equipamento.id) %> > <%=link_to @modelo.nome, instituicao_equipamento_modelo_path(@instituicao.id,@equipamento.id,@modelo.id)%> > Editar
+	</div>
+	<%unless notice.nil?%>
+	<p id="notice">
+		<%= notice %>
+	</p>
+	<%end%>
+	<div class='topoPagina'>
+		<%= image_tag 'modelos.png'%> <h1>Edição de modelo</h1>
+		<div class='opcoes'>
+		</div>
+		<br style="clear: both;">
+	</div>
+	<div class="containnerBasico">
+		<h2><%= image_tag 'dados.png'%>Formulário</h2>
+		<br />
+		<%= render 'form' %>
+	</div>
+</div>

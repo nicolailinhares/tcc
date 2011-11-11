@@ -14,6 +14,9 @@
 	});
 	
 	$j(document).ready(function(){
+		$j('.containnerBasico table tr td.naoClica').click(function(e){
+			e.stopPropagation();
+		});
 		$j('.containnerBasico table tr.corpoTabela').click(function(){
 			window.location = $j(this).attr('id');
 		});
