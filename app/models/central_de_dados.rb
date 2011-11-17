@@ -121,7 +121,7 @@ class CentralDeDados
   
   def self.configura_datas
     base = Date.today
-    datas = {0 => base.prev_month(2).month, 1 => base.prev_month(1).month, 2 => base.month}
+    datas = {0 => (base.prev_month.month - 1), 1 => base.prev_month.month, 2 => base.month}
     eixo = [NOMES_MESES[datas[0]],NOMES_MESES[datas[1]],NOMES_MESES[datas[2]]]
     return [datas,eixo]
   end
