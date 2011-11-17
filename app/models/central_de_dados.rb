@@ -96,7 +96,7 @@ class CentralDeDados
       end
       despachados.each do |pedido|
         if pedido.data_despacho.month == value
-          dados[2][key] += ordem.data_despacho - ordem.data_abertura
+          dados[2][key] += pedido.data_despacho - pedido.data_abertura
           acumulado[1] += 1
         end
       end          
