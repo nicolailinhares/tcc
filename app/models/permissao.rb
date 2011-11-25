@@ -5,7 +5,7 @@ class Permissao
   
   key :instituicao_id, ObjectId
   key :usuario_id, ObjectId
-  key :email, ObjectId
+  key :email, String
   key :nivel, Integer
   key :nome_usuario, String
   key :nome_instituicao, String

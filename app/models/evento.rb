@@ -52,6 +52,16 @@ class Evento < Validacao
     end
   end
   
+  def self.retorna_eventos_por_tipo tipo, instituicao, setor = nil, item = nil 
+    if setor.nil?
+      eventos = Instituicao.find(instituicao).eventos.select{|evento| evento.encaminhado == false  and evento.data > (Date.today - 5) and evento.tipo == tipo}
+    elsif item.nil?
+      eventos = Instituicao.find(instituicao).eventos.select{|evento| evento.setor_id == setor and evento.encaminhado == false and evento.data > (Date.today - 5) and evento.tipo == tipo}
+    else
+      eventos = Instituicao.find(instituicao).eventos.select{|evento| evento.item_id == item and evento.setor_id == setor and evento.encaminhado == false  and evento.data > (Date.today - 5) and evento.tipo == tipo}
+    end
+  end
+  
   def self.calendario instituicao
     eventos_arr = []
     eventos = Instituicao.find(instituicao).eventos

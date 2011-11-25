@@ -126,7 +126,7 @@ class AjaxController < ApplicationController
     if @instituicao.save
       responde({:erro => false})
     else
-      responde({:erro => true})
+      responde({:erro => true, :mensagem => @instituicao.errors})
     end
   end
   

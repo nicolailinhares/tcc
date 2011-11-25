@@ -17,10 +17,13 @@ class UsuariosController < ApplicationController
   def show
     @usuario_pagina = Usuario.find(params[:usuario_id]) || @usuario
     permissoes = Permissao.where(:email => @usuario.email)
-    @permissoes = permissoes.map do |permissao| 
-      instituicao = Instituicao.find(permissao.instituicao_id) 
-      {:nome => instituicao.nome, :cidade => instituicao.cidade, :estado => instituicao.estado,
+    @permissoes = []
+    permissoes.each do |permissao|
+      instituicao = Instituicao.find(permissao.instituicao_id)
+      if !instituicao.nil?
+        @permissoes << {:nome => instituicao.nome, :cidade => instituicao.cidade, :estado => instituicao.estado,
         :instituicao => permissao.instituicao_id, :nivel => permissao.nome_nivel}
+      end
     end
     if session[:registrou].nil?
       @usuario.registra_acao 'Logou com sucesso'

@@ -19,7 +19,7 @@ class ItensController < ApplicationController
     @item = @setor.itens.find(params[:id])
     @notificacoes = Notificacao.where(:instituicao_id => @instituicao.id, :setor_id => @setor.id, :item_id => @item.id)
     @ordens_de_servico = OrdemDeServico.where(:instituicao_id => @instituicao.id, :setor_id => @setor.id, :item_id => @item.id)
-    @proximas_preventivas = Evento.retorna_eventos 1, @instituicao.id, @setor.id, @item.id
+    @proximas_preventivas = Evento.retorna_eventos_por_tipo 1, @instituicao.id, @setor.id, @item.id
     #temporario
     @opcoes_status = []
     ####

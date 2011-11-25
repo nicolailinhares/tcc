@@ -22,7 +22,7 @@ class SetoresController < ApplicationController
     usuarios_total = Permissao.find_all_by_instituicao_id(@instituicao.id).map{|permissao| Usuario.find_by_email(permissao.email)}
     usuarios_disponiveis = usuarios_total - @usuarios_do_setor
     @usuarios = usuarios_disponiveis.map{|usuario| [usuario.nome, usuario.id]}
-    @proximas_preventivas = Evento.retorna_eventos 1, @instituicao.id, @setor.id
+    @proximas_preventivas = Evento.retorna_eventos_por_tipo 1, @instituicao.id, @setor.id
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @setor }
@@ -54,6 +54,9 @@ class SetoresController < ApplicationController
     respond_to do |format|
       if @instituicao.save
         @usuario.registra_acao "Criou o setor #{@setor.nome}"
+        permissao = Permissao.where(:instituicao_id => @instituicao.id, :usuario_id => @setor.responsavel_id).first
+        permissao.setores_ids << @setor.id
+        permissao.save
         format.html { redirect_to(instituicao_setor_path(@instituicao.id,@setor.id), :notice => 'Setor criado com sucesso.') }
         format.xml  { render :xml => @setor, :status => :created, :location => @setor }
       else

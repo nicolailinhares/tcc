@@ -110,7 +110,7 @@
 			modal : true,
 			buttons : {
 				"Agendar" : function() {
-					$j.post('/ajax/agendar_evento', {evento:{item_id:$j('#evento_item_id').val(), setor_id:$j('#evento_setor_id').val(), instituicao_id:$j('#evento_instituicao_id').val(), data:$j('#evento_data').val(), frequencia:$j('#evento_frequencia').val(), tipo:1}}, 
+					$j.post('/ajax/agendar_evento', {evento:{item_id:$j('#evento_item_id').val(), setor_id:$j('#evento_setor_id').val(), instituicao_id:$j('#evento_instituicao_id').val(), data:$j('#evento_data').val().replace('/','-').replace('/','-'), frequencia:$j('#evento_frequencia').val(), tipo:1}}, 
 					function(data) {
 						if(data['erro']) {
 

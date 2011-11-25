@@ -18,7 +18,7 @@ class InstituicoesController < ApplicationController
     @instituicao = Instituicao.find(params[:id])
     @setores_do_usuario = @pCorrente.setores_ids.map{|id| @instituicao.setores.find(id)}
     @avisos = @usuario.avisos.select{|aviso| aviso.instituicao_id == @instituicao.id}
-    @proximas_preventivas = Evento.retorna_eventos 1, @instituicao.id
+    @proximas_preventivas = Evento.retorna_eventos_por_tipo 1, @instituicao.id
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @instituicao }

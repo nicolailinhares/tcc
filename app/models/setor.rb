@@ -18,7 +18,7 @@ class Setor < Validacao
   
   many :salas
   before_save :adiciona_usuario
-  after_save :se_adiciona_ao_usuario
+  #after_save :se_adiciona_ao_usuario
   
   def valida pai
    self.superpai= pai
@@ -42,11 +42,7 @@ class Setor < Validacao
   end
   
   def se_adiciona_ao_usuario
-    usuario = Usuario.find(self.responsavel_id)
-    permissao = Permissao.where(:instituicao_id => @instituicao.id, :usuario_id => usuario.id).first
-    permissao.setores_ids << self.id
-    permissao.setores_ids.uniq!
-    permissao.save
+    
   end
   
 end
