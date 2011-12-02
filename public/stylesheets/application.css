@@ -1,4 +1,4 @@
-body { background-color: #F9FFF9; color: #333; }
+body { background-color: #F9FFF9; color: #333; margin:0}
 body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
@@ -176,7 +176,7 @@ body, p, ol, ul, td {
 .containnerBasico{
 	padding: 16px;
 	margin: 8px;
-	border: 2px solid #515151;
+	border-top: 2px solid #F9FFF9;
 }
 .containnerBasico .opcaoDireita{
 	width: 100%;
