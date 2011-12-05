@@ -29,7 +29,7 @@
 		<%unless @nivel != 2%>
 	    <%= button_to 'Abrir OS para o pedido', 'javascript:void(0)', :id => @notificacao.id, :class => 'abreOs'%>
 	    <%end%>
-	    <%unless @nivel == 1 and @usuario.id != notificacao.usuario_id%>
+	    <%unless @nivel == 1 and @usuario.id != @notificacao.usuario_id%>
 	    <%= button_to 'Cancelar', 'javascript:void(0)', :id => @notificacao.id, :class => 'cancelamento' %>
 	    <%end%>
     <%end%>
